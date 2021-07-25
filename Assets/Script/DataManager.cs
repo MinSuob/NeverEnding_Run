@@ -10,21 +10,34 @@ public class DataManager : MonoBehaviour
     {
         get { return instance; }
     }
-
-    private DataManager()
-    {
-        // do nothing;
-    }
-
     #endregion
 
-    void Start()
+    private List<string> DeckData = new List<string>();
+
+    void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+        }
+
+        DeckData = DeckDataSet.DataLoad();
+
+
     }
 
     void Update()
     {
         
+    }
+
+    public List<string> GetDeckData()
+    {
+        return DeckData;
+    }
+
+    public void SetDeckData(int index, string unit)
+    {
+        DeckData[index] = unit;
     }
 }
