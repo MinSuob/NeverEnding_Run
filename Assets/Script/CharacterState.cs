@@ -15,7 +15,11 @@ public class CharacterState
         Unit1, // Bow
         Unit2, // Poison
         Unit3, // Ice
-        Unit4  // Thief
+        Unit4, // Thief
+        Unit5, // Tanker
+        Unit6, // Spear
+        Unit7, // Double Ax
+        Unit8, // Elf
     }
 
 

@@ -43,16 +43,6 @@ public class CurrentCharacter: MonoBehaviour
         DeckData = DataManager.Instance.GetDeckData();
 
         CurPlaySet(false);
-
-        InvokeRepeating("sef", 1, 5);
-    }
-
-    void sef()
-    {
-        foreach (string i in DeckData)
-        {
-            print(i);
-        }
     }
 
     void CurPlaySet(bool Remove)
@@ -62,7 +52,6 @@ public class CurrentCharacter: MonoBehaviour
             CurIcon[4].gameObject.SetActive(false);
             DeckData[4] = "empty";
             Destroy(GameObject.Find(DeckData[4] + "(Clone)"));
-            print("삭제완료");
         }
 
         xPos = 0;
@@ -145,7 +134,7 @@ public class CurrentCharacter: MonoBehaviour
     {
         if (DeckData.Contains(job.ToString()))
         {
-            print("sss");
+            // 이미 유닛이 존재
         }
         else
         {
