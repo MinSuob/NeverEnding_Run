@@ -16,6 +16,7 @@ public class SPUM_Editor : Editor
         SPUM_Manager SPB = (SPUM_Manager)target;
 
         SPB.CheckVesionFile();
+        SPB.AnimContCheck();
 
         bool dirChk = Directory.Exists("Assets/Resources/SPUM/SPUM_Sprites/Items");
         if(!dirChk)

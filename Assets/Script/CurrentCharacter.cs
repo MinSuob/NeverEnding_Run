@@ -212,4 +212,10 @@ public class CurrentCharacter: MonoBehaviour
                 break;
         }
     }
+
+    public void Unit_Info(Job job)
+    {
+        UnitData unit = DataManager.Instance.GetUnitData(job);
+        print(unit.Name);
+    }
 }

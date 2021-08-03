@@ -9,6 +9,7 @@ public class ShowCharImage : MonoBehaviour
 {
     [SerializeField] private Image CharImage;
     [SerializeField] private Image CharIcon;
+    [SerializeField] private Text GradeText;
 
     private Job job;
 
@@ -29,6 +30,8 @@ public class ShowCharImage : MonoBehaviour
     {
         this.job = job;
         CharImage.sprite = Resources.Load<Sprite>("CharImg/" + job);
+        GradeText.text = DataManager.Instance.GetUnitData(job).Grade.ToString();
+
     }
 
     public void ShowIcon(Job job)
@@ -37,8 +40,13 @@ public class ShowCharImage : MonoBehaviour
         CharIcon.sprite = Resources.Load<Sprite>("CharIcon/" + job);
     }
 
-    public void Char_Button()
+    public void Choice_Button() // Cur Unit Choice Button
     {
         CurrentCharacter.Instance.ChoiceChar(this.job);
+    }
+
+    public void Info_Button() // Unit Info Open Button
+    {
+        CurrentCharacter.Instance.Unit_Info(this.job);
     }
 }

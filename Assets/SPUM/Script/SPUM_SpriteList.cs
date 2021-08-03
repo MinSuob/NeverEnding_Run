@@ -14,6 +14,9 @@ public class SPUM_SpriteList : MonoBehaviour
     public List<SpriteRenderer> _pantList = new List<SpriteRenderer>();
     public List<SpriteRenderer> _weaponList = new List<SpriteRenderer>();
     public List<SpriteRenderer> _backList = new List<SpriteRenderer>();
+
+    public SPUM_HorseSpriteList _spHorseSPList;
+    public string _spHorseString;
     // Start is called before the first frame update
 
     public Texture2D _bodyTexture;
@@ -84,6 +87,16 @@ public class SPUM_SpriteList : MonoBehaviour
         SetSpriteList(_weaponList,data._weaponList);
         SetSpriteList(_backList,data._backList);
         SetSpriteList(_eyeList,data._eyeList);
+        
+        if(data._spHorseSPList!=null)
+        {
+            SetSpriteList(_spHorseSPList._spList,data._spHorseSPList._spList);
+            _spHorseSPList = data._spHorseSPList;
+        }
+        else
+        {
+            _spHorseSPList = null;
+        }
 
         //색 데이터 연동.
         if(_eyeList.Count> 2 &&  data._eyeList.Count > 2 )
@@ -110,7 +123,11 @@ public class SPUM_SpriteList : MonoBehaviour
     {
         for(var i = 0 ; i < tData.Count;i++)
         {
-            if(tData[i]!=null) tList[i].sprite = tData[i].sprite;
+            if(tData[i]!=null) 
+            {
+                tList[i].sprite = tData[i].sprite;
+                tList[i].color = tData[i].color;
+            }
             else tList[i] = null;
         }
     }

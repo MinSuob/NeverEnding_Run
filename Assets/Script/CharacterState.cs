@@ -11,15 +11,20 @@ public class CharacterState
 
     public enum Job
     {
-        Unit0, // Sword
-        Unit1, // Bow
-        Unit2, // Poison
-        Unit3, // Ice
-        Unit4, // Thief
-        Unit5, // Tanker
-        Unit6, // Spear
-        Unit7, // Double Ax
-        Unit8, // Elf
+        #region Grade 1
+        Unit0,  // Sword
+        Unit1,  // Bow
+        Unit2,  // Poison
+        Unit3,  // Ice
+        Unit4,  // Fire
+        Unit5,  // Lightning
+        Unit6,  // Adventurer
+        Unit7,  // Thief
+        Unit8,  // Tanker
+        Unit9,  // Spear
+        Unit10, // Double Ax
+        Unit11  // Elf
+        #endregion
     }
 
 

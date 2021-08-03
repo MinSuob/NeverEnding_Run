@@ -15,6 +15,8 @@ public class SPUM_PreviewItem : MonoBehaviour
     public List<Image> _pantList = new List<Image>();
     public List<Image> _fullSetList = new List<Image>();
     public List<Image> _eyeSetList = new List<Image>();
+    public List<Image> _horseList = new List<Image>();
+
 
 
     public void ShowObj(int num)
@@ -38,7 +40,7 @@ public class SPUM_PreviewItem : MonoBehaviour
     public int _index;
 
     public void SetSprite()
-    {
+    {   
         _managerST.SetSprite(_itemType,_sprite,_name,_index);
     }
 

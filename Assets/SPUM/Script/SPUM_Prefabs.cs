@@ -10,17 +10,14 @@ public class SPUM_Prefabs : MonoBehaviour
     public string _code;
     public Animator _anim;
 
-    public enum AttType
+    public bool _horse;
+    public string _horseString;
+
+    public void Update()
     {
-        Sword = 4,
-        Bow,
-        Magic
+        _anim.SetFloat("RunState", 0.5f);
     }
 
-    private void Start()
-    {
-        PlayAnimation(1);
-    }
 
     public void PlayAnimation (int num)
     {

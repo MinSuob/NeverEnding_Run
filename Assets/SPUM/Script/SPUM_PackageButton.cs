@@ -16,6 +16,7 @@ public class SPUM_PackageButton : MonoBehaviour
     void OnEnable()
     {
         if(_spumManager._drawItemIndex == -1) return;
+        if(_spumManager._drawItemIndex == 10) return;
         if(_spumManager._textureList[_spumManager._drawItemIndex]._packageList[_index])
         {
             _bgImage.color = _buttonColor[1];
@@ -29,6 +30,7 @@ public class SPUM_PackageButton : MonoBehaviour
     public void CheckPackages()
     {
         if(_spumManager._drawItemIndex == -1) return;
+        if(_spumManager._drawItemIndex == 10) return;
         // _spumManager.
         bool tV = _spumManager._textureList[_spumManager._drawItemIndex]._packageList[_index];
         _spumManager._textureList[_spumManager._drawItemIndex]._packageList[_index] = !tV;

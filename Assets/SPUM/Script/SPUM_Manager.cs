@@ -34,6 +34,11 @@ public class SPUM_Manager : MonoBehaviour
 
     public Text _panelTitle;
     public List<SPUM_PackageButton> _packageButtonList = new List<SPUM_PackageButton>();
+
+    public bool _horseCheck;
+    public List<Transform> _rootList = new List<Transform>();
+    public List<Animator> _rootAnimList = new List<Animator>();
+    public List<RuntimeAnimatorController> _animControllerList = new List<RuntimeAnimatorController>();
     
 
     // Start is called before the first frame update
@@ -224,6 +229,8 @@ public class SPUM_Manager : MonoBehaviour
 
     public void SetSpriteItem (int listNum,int num, bool rand = false)
     {
+        if(_textureList[listNum]._textureList.Count == 0 ) return;
+
         if( num != 0 )
         {
             _textureList[listNum].SetUse(true);
@@ -694,6 +701,11 @@ public class SPUM_Manager : MonoBehaviour
             //눈 색
             _panelTitle.text = "Eye Color";
             break;
+
+            case 10:
+            //말 선택
+            _panelTitle.text = "Horse Select";
+            break;
         }
 
         DrawItemProcess();
@@ -852,6 +864,138 @@ public class SPUM_Manager : MonoBehaviour
                             case "Foot_R":
                             ttObjST._skinList[5].sprite = (Sprite)sortedList[k];
                             ttObjST._skinList[5].SetNativeSize();
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        else if(_drawItemIndex == 10) // 말의 경우
+        {
+            string path = "Assets/SPUM/SPUM_Sprites/RideSource/";
+            DirectoryInfo dir = new DirectoryInfo(path);
+            FileInfo[] info = dir.GetFiles("*.*");
+            List<string> _dirList = new List<string>();
+            List<string> _horseList = new List<string>();
+
+
+            foreach (FileInfo f in info) 
+            {
+                string[] words = (f.Name).Split('.');
+                _dirList.Add(words[0]);
+            }
+            
+            for(var i = 0 ; i < _dirList.Count; i++)
+            {
+                string nPath = path+_dirList[i] + "/";
+                DirectoryInfo dir2 = new DirectoryInfo(nPath);
+                FileInfo[] info2 = dir2.GetFiles("*.png");
+
+                foreach (FileInfo f in info2) 
+                {
+                    _horseList.Add(nPath + f.Name);
+                }
+            }
+
+            for(var i = 0 ; i < _horseList.Count; i++)
+            {
+                GameObject ttObj = Instantiate(_childItem) as GameObject;
+                ttObj.transform.SetParent(_childPool);
+                ttObj.transform.localScale = new Vector3(1,1,1);
+
+                SPUM_PreviewItem ttObjST = ttObj.GetComponent<SPUM_PreviewItem>();
+                ttObjST.ShowObj(7);
+                ttObjST._managerST = this;
+                ttObjST._itemType = _drawItemIndex;
+                ttObjST._name = _horseList[i];
+
+                Object[] sprites = AssetDatabase.LoadAllAssetsAtPath(_horseList[i]);
+                var sortedList = sprites.OrderBy(go=>go.name).ToList();
+
+                ttObjST._horseList[14].gameObject.SetActive(false);
+                ttObjST._horseList[15].gameObject.SetActive(false);
+                ttObjST._horseList[16].gameObject.SetActive(false);
+
+                for(var k = 0 ; k < sortedList.Count;k++)
+                {
+                    if(sortedList[k].GetType() == typeof(Sprite))
+                    {
+                        switch(sortedList[k].name)
+                        {
+                            case "Head":
+                            ttObjST._horseList[0].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[0].SetNativeSize();
+                            break;
+
+                            case "Neck":
+                            ttObjST._horseList[1].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[0].SetNativeSize();
+                            break;
+
+                            case "BodyFront":
+                            ttObjST._horseList[2].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[2].SetNativeSize();
+                            break;
+
+                            case "BodyBack":
+                            ttObjST._horseList[3].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[3].SetNativeSize();
+                            break;
+
+                            case "FootFrontTop":
+                            ttObjST._horseList[4].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[4].SetNativeSize();
+                            ttObjST._horseList[5].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[5].SetNativeSize();
+                            break;
+
+                            case "FootFrontBottom":
+                            ttObjST._horseList[6].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[6].SetNativeSize();
+                            ttObjST._horseList[7].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[7].SetNativeSize();
+                            break;
+
+                            case "FootBackTop":
+                            ttObjST._horseList[8].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[8].SetNativeSize();
+                            ttObjST._horseList[9].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[9].SetNativeSize();
+                            break;
+
+                            case "FootBackBottom":
+                            ttObjST._horseList[10].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[10].SetNativeSize();
+                            ttObjST._horseList[11].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[11].SetNativeSize();
+                            break;
+
+                            case "Tail":
+                            ttObjST._horseList[12].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[12].SetNativeSize();
+                            break;
+
+                            case "Acc":
+                            ttObjST._horseList[13].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[13].SetNativeSize();
+                            break;
+
+                            case "Acc2":
+                            ttObjST._horseList[14].gameObject.SetActive(true);
+                            ttObjST._horseList[14].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[14].SetNativeSize();
+                            break;
+
+                            case "Acc3":
+                            ttObjST._horseList[15].gameObject.SetActive(true);
+                            ttObjST._horseList[15].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[15].SetNativeSize();
+                            break;
+
+                            case "Acc4":
+                            ttObjST._horseList[16].gameObject.SetActive(true);
+                            ttObjST._horseList[16].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[16].SetNativeSize();
                             break;
                         }
                     }
@@ -1138,7 +1282,7 @@ public class SPUM_Manager : MonoBehaviour
 
     public void SetSprite(int num, Sprite sprite, string name,int index)
     {
-        if(num != -1 && num != 11 )
+        if(num != -1 && num != 11 && num != 10)
         {
             _textureList[num].SetUse(true);
 
@@ -1386,6 +1530,19 @@ public class SPUM_Manager : MonoBehaviour
             }
             break;
 
+            case 10:
+            //말
+            if(name.Length ==0)
+            {
+                SetHorse(false,name);
+            }
+            else
+            {
+                SetHorse(true,name);
+                SetHorseBody(name);
+            }
+            break;
+
             
 
             case 11:
@@ -1395,9 +1552,76 @@ public class SPUM_Manager : MonoBehaviour
             LoadButtonSet(true);
             CloseLoadData();
             break;
+
+            case 12:
+
+            break;
+
         }
 
         DrawItemOff();
+    }
+
+    
+
+    public void SetHorseBody(string name)
+    {
+        SPUM_HorseSpriteList hST = _rootAnimList[1].GetComponent<SPUM_HorseSpriteList>();
+
+        Object[] sprites = AssetDatabase.LoadAllAssetsAtPath(name);
+        for(var j = 0 ; j < sprites.Length ;j++)
+        {
+            if(sprites[j].GetType() == typeof(Sprite))
+            {
+                Sprite tSP =  (Sprite)sprites[j];
+                switch(sprites[j].name)
+                {
+                    case "Head":
+                    hST._spList[0].sprite = tSP;
+                    break;
+
+                    case "Neck":
+                    hST._spList[1].sprite = tSP;
+                    break;
+
+                    case "BodyFront":
+                    hST._spList[2].sprite = tSP;
+                    break;
+
+                    case "BodyBack":
+                    hST._spList[3].sprite = tSP;
+                    break;
+
+                    case "FootFrontTop":
+                    hST._spList[4].sprite = tSP;
+                    hST._spList[5].sprite = tSP;
+                    break;
+
+                    case "FootFrontBottom":
+                    hST._spList[6].sprite = tSP;
+                    hST._spList[7].sprite = tSP;
+                    break;
+
+                    case "FootBackTop":
+                    hST._spList[8].sprite = tSP;
+                    hST._spList[9].sprite = tSP;
+                    break;
+
+                    case "FootBackBottom":
+                    hST._spList[10].sprite = tSP;
+                    hST._spList[11].sprite = tSP;
+                    break;
+
+                    case "Tail":
+                    hST._spList[12].sprite = tSP;
+                    break;
+
+                    case "Acc":
+                    hST._spList[13].sprite = tSP;
+                    break;
+                }
+            }
+        }
     }
 
     public GameObject _colorPicker;
@@ -1664,7 +1888,26 @@ public class SPUM_Manager : MonoBehaviour
                     _spriteObj._bodyString = AssetDatabase.GetAssetPath(_mainBody);
                 }
 
-                GameObject tObj = PrefabUtility.SaveAsPrefabAsset(_unitObjSet.gameObject,unitPath+prefab.name+".prefab");
+                GameObject tSObj = Instantiate(_unitObjSet.gameObject);
+                List<GameObject> tLObj = new List<GameObject>();
+                for(var i = 0 ; i < tSObj.transform.childCount;i++)
+                {
+                    if(!tSObj.transform.GetChild(i).gameObject.activeInHierarchy)
+                    {
+                        tLObj.Add(tSObj.transform.GetChild(i).gameObject);
+                    }
+                }
+
+                if(tLObj.Count>0)
+                {
+                    foreach(var obj in tLObj) 
+                    {
+                        DestroyImmediate(obj);
+                    }
+                }
+
+                GameObject tObj = PrefabUtility.SaveAsPrefabAsset(tSObj,unitPath+prefab.name+".prefab");
+                DestroyImmediate(tSObj);
             }
         }
 
@@ -1697,6 +1940,14 @@ public class SPUM_Manager : MonoBehaviour
                     Debug.Log("Old Version data found.. Now sync version data..");
                     //이 경우는 데이터를 싱크해줘야한다.
                     SPUM_SpriteList tObjST = tST._spriteOBj;
+                    if(tObjST._spHorseSPList !=null)
+                    {
+                        SetHorse(true,tObjST._spHorseString);
+                    }
+                    else
+                    {
+                        SetHorse(false,null);
+                    }
                     _spriteObj.LoadSprite(tObjST);
 
                     //UI연동.
@@ -1716,18 +1967,6 @@ public class SPUM_Manager : MonoBehaviour
                             _bodyDataCheck = true;
                         }
                     }
-
-                    // if(_bodyDataCheck || tST._spriteOBj._bodyString.Length < 1)
-                    // {
-                    //     _unitObjSet._spriteOBj._bodyList[0].sprite = _mainBodyList[5];
-                    //     _unitObjSet._spriteOBj._bodyList[1].sprite = _mainBodyList[2];
-                    //     _unitObjSet._spriteOBj._bodyList[2].sprite = _mainBodyList[0];
-                    //     _unitObjSet._spriteOBj._bodyList[3].sprite = _mainBodyList[1];
-                    //     _unitObjSet._spriteOBj._bodyList[4].sprite = _mainBodyList[3];
-                    //     _unitObjSet._spriteOBj._bodyList[5].sprite = _mainBodyList[4];
-                    //     _spriteObj._bodyTexture = _mainBody;
-                    //     _spriteObj._bodyString = AssetDatabase.GetAssetPath(_mainBody);
-                    // }
 
                     GameObject tObj = PrefabUtility.SaveAsPrefabAsset(_unitObjSet.gameObject,unitPath+prefab.name+".prefab");
                     _prefabUnitList.Add(tObj);
@@ -1765,7 +2004,26 @@ public class SPUM_Manager : MonoBehaviour
             SyncPath(tSpST._weaponList,tSpST._weaponListString);
             SyncPath(tSpST._backList,tSpST._backListString);
 
-            GameObject tObj = PrefabUtility.SaveAsPrefabAsset(_unitObjSet.gameObject,unitPath+prefabName+".prefab");
+            GameObject tSObj = Instantiate(_unitObjSet.gameObject);
+            List<GameObject> tLObj = new List<GameObject>();
+            for(var i = 0 ; i < tSObj.transform.childCount;i++)
+            {
+                if(!tSObj.transform.GetChild(i).gameObject.activeInHierarchy)
+                {
+                    tLObj.Add(tSObj.transform.GetChild(i).gameObject);
+                }
+            }
+
+            if(tLObj.Count>0)
+            {
+                foreach(var obj in tLObj) 
+                {
+                    DestroyImmediate(obj);
+                }
+            }
+
+            GameObject tObj = PrefabUtility.SaveAsPrefabAsset(tSObj,unitPath+prefabName+".prefab");
+            DestroyImmediate(tSObj);
 
             _prefabUnitList.Add(tObj);
 
@@ -1830,7 +2088,26 @@ public class SPUM_Manager : MonoBehaviour
             SyncPath(tSpST._weaponList,tSpST._weaponListString);
             SyncPath(tSpST._backList,tSpST._backListString);
 
-            GameObject tObj = PrefabUtility.SaveAsPrefabAsset(_unitObjSet.gameObject,unitPath+prefabName+".prefab");
+            GameObject tSObj = Instantiate(_unitObjSet.gameObject);
+            List<GameObject> tLObj = new List<GameObject>();
+            for(var i = 0 ; i < tSObj.transform.childCount;i++)
+            {
+                if(!tSObj.transform.GetChild(i).gameObject.activeInHierarchy)
+                {
+                    tLObj.Add(tSObj.transform.GetChild(i).gameObject);
+                }
+            }
+
+            if(tLObj.Count>0)
+            {
+                foreach(var obj in tLObj) 
+                {
+                    DestroyImmediate(obj);
+                }
+            }
+
+            GameObject tObj = PrefabUtility.SaveAsPrefabAsset(tSObj,unitPath+prefabName+".prefab");
+            DestroyImmediate(tSObj);
 
             _prefabUnitList[editObjNum] = tObj;
 
@@ -1854,14 +2131,14 @@ public class SPUM_Manager : MonoBehaviour
 
         for(var i = 0; i < 10000; i++)
         {
-            if(_prefabNameList.Contains(tName+i) == false)
+            if(_prefabNameList.Contains(tName+i.ToString("D3")) == false)
             {
                 tNameNum = i;
                 break;
             }
         }
         
-        tName = tName+tNameNum;
+        tName = tName + tNameNum.ToString("D3");
         return tName;
     }
 
@@ -1892,7 +2169,8 @@ public class SPUM_Manager : MonoBehaviour
                 Destroy(_loadPool.GetChild(i).gameObject);
             }
         }
-        
+
+        _prefabUnitList = _prefabUnitList.OrderBy(go=>go.name).ToList();
 
         for ( var j = 0 ; j < _prefabUnitList.Count ; j++)
         {
@@ -1907,37 +2185,61 @@ public class SPUM_Manager : MonoBehaviour
             ttObjST.ShowObj(5);
             //아이템 연동 부분
             ttObjST._fullSetList[0].sprite = tObjST._bodyList[0].sprite;
+            if(tObjST._bodyList[0].sprite!=null) ttObjST._fullSetList[0].color = tObjST._bodyList[0].color;
             ttObjST._fullSetList[1].sprite = tObjST._bodyList[1].sprite;
+            if(tObjST._bodyList[1].sprite!=null) ttObjST._fullSetList[1].color = tObjST._bodyList[1].color;
             ttObjST._fullSetList[2].sprite = tObjST._bodyList[2].sprite;
+            if(tObjST._bodyList[2].sprite!=null) ttObjST._fullSetList[2].color = tObjST._bodyList[2].color;
             ttObjST._fullSetList[3].sprite = tObjST._bodyList[3].sprite;
+            if(tObjST._bodyList[3].sprite!=null) ttObjST._fullSetList[3].color = tObjST._bodyList[3].color;
             ttObjST._fullSetList[4].sprite = tObjST._bodyList[4].sprite;
+            if(tObjST._bodyList[4].sprite!=null) ttObjST._fullSetList[4].color = tObjST._bodyList[4].color;
             ttObjST._fullSetList[5].sprite = tObjST._bodyList[5].sprite;
+            if(tObjST._bodyList[5].sprite!=null) ttObjST._fullSetList[5].color = tObjST._bodyList[5].color;
 
             ttObjST._fullSetList[6].sprite = tObjST._eyeList[0].sprite;
+            if(tObjST._eyeList[0].sprite!=null) ttObjST._fullSetList[6].color = tObjST._eyeList[0].color;
             ttObjST._fullSetList[7].sprite = tObjST._eyeList[0].sprite;
+            if(tObjST._eyeList[0].sprite!=null) ttObjST._fullSetList[7].color = tObjST._eyeList[0].color;
 
             ttObjST._fullSetList[8].sprite = tObjST._hairList[3].sprite;
+            if(tObjST._hairList[3].sprite!=null) ttObjST._fullSetList[8].color = tObjST._hairList[3].color;
             ttObjST._fullSetList[9].sprite = tObjST._hairList[0].sprite;
+            if(tObjST._hairList[0].sprite!=null) ttObjST._fullSetList[9].color = tObjST._hairList[0].color;
             ttObjST._fullSetList[10].sprite = tObjST._hairList[1].sprite;
+            if(tObjST._hairList[1].sprite!=null) ttObjST._fullSetList[10].color = tObjST._hairList[1].color;
 
             ttObjST._fullSetList[11].sprite = tObjST._clothList[0].sprite;
+            if(tObjST._clothList[0].sprite!=null) ttObjST._fullSetList[11].color = tObjST._clothList[0].color;
             ttObjST._fullSetList[12].sprite = tObjST._clothList[1].sprite;
+            if(tObjST._clothList[1].sprite!=null) ttObjST._fullSetList[12].color = tObjST._clothList[1].color;
             ttObjST._fullSetList[13].sprite = tObjST._clothList[2].sprite;
+            if(tObjST._clothList[2].sprite!=null) ttObjST._fullSetList[13].color = tObjST._clothList[2].color;
 
             ttObjST._fullSetList[14].sprite = tObjST._armorList[0].sprite;
+            if(tObjST._armorList[0].sprite!=null) ttObjST._fullSetList[14].color = tObjST._armorList[0].color;
             ttObjST._fullSetList[15].sprite = tObjST._armorList[1].sprite;
+            if(tObjST._armorList[1].sprite!=null) ttObjST._fullSetList[15].color = tObjST._armorList[1].color;
             ttObjST._fullSetList[16].sprite = tObjST._armorList[2].sprite;
+            if(tObjST._armorList[2].sprite!=null) ttObjST._fullSetList[16].color = tObjST._armorList[2].color;
 
             ttObjST._fullSetList[17].sprite = tObjST._pantList[0].sprite;
+            if(tObjST._pantList[0].sprite!=null) ttObjST._fullSetList[17].color = tObjST._pantList[0].color;
             ttObjST._fullSetList[18].sprite = tObjST._pantList[1].sprite;
+            if(tObjST._pantList[1].sprite!=null) ttObjST._fullSetList[18].color = tObjST._pantList[1].color;
 
             ttObjST._fullSetList[19].sprite = tObjST._weaponList[0].sprite;
+            if(tObjST._weaponList[0].sprite!=null) ttObjST._fullSetList[19].color = tObjST._weaponList[0].color;
             ttObjST._fullSetList[20].sprite = tObjST._weaponList[1].sprite;
+            if(tObjST._weaponList[1].sprite!=null) ttObjST._fullSetList[20].color = tObjST._weaponList[1].color;
 
             ttObjST._fullSetList[21].sprite = tObjST._weaponList[2].sprite;
+            if(tObjST._weaponList[2].sprite!=null) ttObjST._fullSetList[21].color = tObjST._weaponList[2].color;
             ttObjST._fullSetList[22].sprite = tObjST._weaponList[3].sprite;
+            if(tObjST._weaponList[3].sprite!=null) ttObjST._fullSetList[22].color = tObjST._weaponList[3].color;
 
             ttObjST._fullSetList[23].sprite = tObjST._backList[0].sprite;
+            if(tObjST._backList[0].sprite!=null) ttObjST._fullSetList[23].color = tObjST._backList[0].color;
 
             //string 연동
 
@@ -1984,6 +2286,104 @@ public class SPUM_Manager : MonoBehaviour
                 }
                 else ttObjST._fullSetList[i].gameObject.SetActive(false);
             }
+
+            // 말 데이터가 있는지.
+            if(tObj.GetComponent<SPUM_Prefabs>()._horse)
+            {
+                ttObjST._objList[7].SetActive(true);
+
+                string tPath = tObj.GetComponent<SPUM_Prefabs>()._horseString;
+                Object[] sprites = AssetDatabase.LoadAllAssetsAtPath(tPath);
+                var sortedList = sprites.OrderBy(go=>go.name).ToList();
+
+                ttObjST._horseList[14].gameObject.SetActive(false);
+                ttObjST._horseList[15].gameObject.SetActive(false);
+                ttObjST._horseList[16].gameObject.SetActive(false);
+                for(var k = 0 ; k < sortedList.Count;k++)
+                {
+                    if(sortedList[k].GetType() == typeof(Sprite))
+                    {
+                        switch(sortedList[k].name)
+                        {
+                            case "Head":
+                            ttObjST._horseList[0].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[0].SetNativeSize();
+                            break;
+
+                            case "Neck":
+                            ttObjST._horseList[1].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[0].SetNativeSize();
+                            break;
+
+                            case "BodyFront":
+                            ttObjST._horseList[2].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[2].SetNativeSize();
+                            break;
+
+                            case "BodyBack":
+                            ttObjST._horseList[3].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[3].SetNativeSize();
+                            break;
+
+                            case "FootFrontTop":
+                            ttObjST._horseList[4].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[4].SetNativeSize();
+                            ttObjST._horseList[5].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[5].SetNativeSize();
+                            break;
+
+                            case "FootFrontBottom":
+                            ttObjST._horseList[6].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[6].SetNativeSize();
+                            ttObjST._horseList[7].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[7].SetNativeSize();
+                            break;
+
+                            case "FootBackTop":
+                            ttObjST._horseList[8].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[8].SetNativeSize();
+                            ttObjST._horseList[9].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[9].SetNativeSize();
+                            break;
+
+                            case "FootBackBottom":
+                            ttObjST._horseList[10].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[10].SetNativeSize();
+                            ttObjST._horseList[11].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[11].SetNativeSize();
+                            break;
+
+                            case "Tail":
+                            ttObjST._horseList[12].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[12].SetNativeSize();
+                            break;
+
+                            case "Acc":
+                            ttObjST._horseList[13].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[13].SetNativeSize();
+                            break;
+
+                            case "Acc2":
+                            ttObjST._horseList[14].gameObject.SetActive(true);
+                            ttObjST._horseList[14].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[14].SetNativeSize();
+                            break;
+
+                            case "Acc3":
+                            ttObjST._horseList[15].gameObject.SetActive(true);
+                            ttObjST._horseList[15].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[15].SetNativeSize();
+                            break;
+
+                            case "Acc4":
+                            ttObjST._horseList[16].gameObject.SetActive(true);
+                            ttObjST._horseList[16].sprite = (Sprite)sortedList[k];
+                            ttObjST._horseList[16].SetNativeSize();
+                            break;
+                        }
+                    }
+                }
+            }
             
             ttObjST._name = _prefabUnitList[j].name;
             ttObjST._managerST = this;
@@ -2009,13 +2409,15 @@ public class SPUM_Manager : MonoBehaviour
     {
         SPUM_Prefabs tPrefabST = _prefabUnitList[index].GetComponent<SPUM_Prefabs>();
         SPUM_SpriteList tObjST = tPrefabST._spriteOBj;
+        if(tObjST._spHorseSPList !=null)
+        {
+            SetHorse(true,tObjST._spHorseString);
+        }
+        else
+        {
+            SetHorse(false,null);
+        }
         _spriteObj.LoadSprite(tObjST);
-
-        //UI연동.
-        // _colorButton[0].color = tObjST._eyeList[0].color;
-        // _colorButton[1].color = tObjST._hairList[3].color;
-        // _colorButton[2].color = tObjST._hairList[0].color;
-        
         _unitCode.text = (_prefabUnitList[index].name).Split('.')[0];
 
         //데이터 유효성 체크
@@ -2074,6 +2476,32 @@ public class SPUM_Manager : MonoBehaviour
             toastTimer += Time.deltaTime;
             if(toastTimer > 2.0f) _toastObj.alpha = 1.0f - (toastTimer-2f);
             if(toastTimer > 3.0f) CloseToast();
+        }
+    }
+
+
+    //애니메이션 컨트롤러를 연동해줍니다.
+    public void AnimContCheck()
+    {
+        RuntimeAnimatorController tC;
+        if(File.Exists("Assets/SPUM/Res/Animation/NormalAnimator.controller"))
+        {
+            tC = (RuntimeAnimatorController)AssetDatabase.LoadAssetAtPath("Assets/SPUM/Res/Animation/NormalAnimator.controller",typeof(RuntimeAnimatorController));
+            _animControllerList[0]=tC;
+        }
+        else
+        {
+            _animControllerList[0]=null;
+        }
+
+        if(File.Exists("Assets/SPUM/SPUM_Sprites/Packages/Undead/Animation/UndeadAnimator.controller"))
+        {
+            tC = (RuntimeAnimatorController)AssetDatabase.LoadAssetAtPath("Assets/SPUM/SPUM_Sprites/Packages/Undead/Animation/UndeadAnimator.controller",typeof(RuntimeAnimatorController));
+            _animControllerList[1]=tC;
+        }
+        else
+        {
+            _animControllerList[1]=null;
         }
     }
 
@@ -2213,6 +2641,8 @@ public class SPUM_Manager : MonoBehaviour
         string tName = _mainBody.name + ".png";
         path = path.Replace(tName,"")+ "Eye/";
 
+      
+
         DirectoryInfo dir = new DirectoryInfo(path);
         FileInfo[] info = dir.GetFiles("*.png");
 
@@ -2234,6 +2664,22 @@ public class SPUM_Manager : MonoBehaviour
                 }
             }
         }
+
+        if(tName.Contains("Zombie"))
+        {
+            if(_animControllerList[1]!=null)
+            {
+                _rootAnimList[0].runtimeAnimatorController = _animControllerList[1];
+            }
+        }
+        else
+        {
+            if(_animControllerList[0]!=null)
+            {
+                _rootAnimList[0].runtimeAnimatorController = _animControllerList[0];
+            }
+        }
+
 
         SetInit();
     }
@@ -2263,6 +2709,39 @@ public class SPUM_Manager : MonoBehaviour
             FileUtil.DeleteFileOrDirectory("Assets/SPUM/Script/SPUM_TexutreList.cs");
         }
     }
+
+    public void SetHorse(bool value, string name)
+    {
+        _unitObjSet.gameObject.SetActive(false);
+        if(value)
+        {
+            _unitObjSet._horseString = name;
+            _unitObjSet._horse = true;
+            _unitObjSet.transform.parent.localScale = new Vector3(0.7f,0.7f,0.7f);
+            _unitObjSet.transform.GetChild(0).gameObject.SetActive(false);
+            _unitObjSet.transform.GetChild(1).gameObject.SetActive(true);
+            _unitObjSet._spriteOBj.transform.SetParent(_rootList[1]);
+            _unitObjSet._spriteOBj.transform.localPosition = Vector3.zero;
+            _unitObjSet._anim = _rootAnimList[1];
+            _unitObjSet._spriteOBj._spHorseSPList = _rootAnimList[1].GetComponent<SPUM_HorseSpriteList>();
+            _unitObjSet._spriteOBj._spHorseString = name;
+        }
+        else
+        {
+            _unitObjSet._horseString = "";
+            _unitObjSet._horse = false;
+            _unitObjSet.transform.parent.localScale = new Vector3(0.9f,0.9f,0.9f);
+            _unitObjSet.transform.GetChild(0).gameObject.SetActive(true);
+            _unitObjSet.transform.GetChild(1).gameObject.SetActive(false);
+            _unitObjSet._spriteOBj.transform.SetParent(_rootList[0]);
+            _unitObjSet._spriteOBj.transform.localPosition = Vector3.zero;
+            _unitObjSet._anim = _rootAnimList[0];
+            _unitObjSet._spriteOBj._spHorseSPList = null;
+            _unitObjSet._spriteOBj._spHorseString = "";
+        }
+        _unitObjSet.gameObject.SetActive(true);
+    }
+
 
     //Package 
 

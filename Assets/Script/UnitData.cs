@@ -12,6 +12,8 @@ public class UnitData
 
     public Job Job { get; set; } // 유닛 번호
 
+    public int Grade { get; set; } // 유닛 등급
+
     public int Level { get; set; } // 레벨
 
     public float MaxHp { get; set; } // 최대 체력

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static CharacterState;
+
 
 public class DataManager : MonoBehaviour
 {
@@ -11,6 +13,16 @@ public class DataManager : MonoBehaviour
         get { return instance; }
     }
     #endregion
+
+    #region Json Child Name
+    string DECK_DATA = "DeckData";
+    string USER_DATA = "UserData";
+    string UNIT_DATA = "UnitData";
+    #endregion
+
+    SortedDictionary<int, UnitData> UnitData;
+
+
 
     private List<string> DeckData = new List<string>();
 
@@ -23,13 +35,24 @@ public class DataManager : MonoBehaviour
 
         DeckData = DeckDataSet.DataLoad();
 
+        DataLoad();
+    }
 
+    public void DataLoad()
+    {
+        UnitData = UnitDataSet.DataLoad();
     }
 
     void Update()
     {
         
     }
+
+    public UnitData GetUnitData(Job job)
+    {
+        return UnitData[(int)job];
+    }
+
 
     public List<string> GetDeckData()
     {
