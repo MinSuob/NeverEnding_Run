@@ -38,6 +38,16 @@ public class CurrentCharacter: MonoBehaviour
     private int IconDel = 0;
     [SerializeField] private GameObject IconSlot;
 
+    [SerializeField] private GameObject ErrorPanel;
+    [SerializeField] private Text ErrorText;
+    [SerializeField] private bool ErrorPanelOn;
+
+    [SerializeField] private GameObject UnitInfoPanel;
+    [SerializeField] private Text[] UnitInfoText;
+    [SerializeField] private Image[] UnitInfoImg;
+    [SerializeField] private Slider UnitPiece;
+
+
     void Start()
     {
         DeckData = DataManager.Instance.GetDeckData();
@@ -107,6 +117,10 @@ public class CurrentCharacter: MonoBehaviour
             case 2:
                 if (DeckData[1] == "empty")
                 {
+                    if (ErrorPanelOn == false)
+                    {
+                        StartCoroutine(ShowErrorText("2번 슬롯이 비어있습니다."));
+                    }
                     ChoicePanel.SetActive(false);
                     break;
                 }
@@ -115,6 +129,10 @@ public class CurrentCharacter: MonoBehaviour
             case 3:
                 if (DeckData[2] == "empty")
                 {
+                    if (ErrorPanelOn == false)
+                    {
+                        StartCoroutine(ShowErrorText("3번 슬롯이 비어있습니다."));
+                    }
                     ChoicePanel.SetActive(false);
                     break;
                 }
@@ -123,6 +141,10 @@ public class CurrentCharacter: MonoBehaviour
             case 4:
                 if (DeckData[3] == "empty")
                 {
+                    if (ErrorPanelOn == false)
+                    {
+                        StartCoroutine(ShowErrorText("4번 슬롯이 비어있습니다."));
+                    }
                     ChoicePanel.SetActive(false);
                     break;
                 }
@@ -134,7 +156,10 @@ public class CurrentCharacter: MonoBehaviour
     {
         if (DeckData.Contains(job.ToString()))
         {
-            // 이미 유닛이 존재
+            if (ErrorPanelOn == false)
+            {
+                StartCoroutine(ShowErrorText("이미 영웅이 존재합니다."));
+            }
         }
         else
         {
@@ -143,6 +168,20 @@ public class CurrentCharacter: MonoBehaviour
             CurPlaySet(false);
         }
         ChoicePanel.SetActive(false);
+    }
+
+    IEnumerator ShowErrorText(string text)
+    {
+        ErrorPanelOn = true;
+        ErrorPanel.SetActive(true);
+        ErrorText.text = text.ToString();
+
+        ErrorPanel.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 50, ForceMode2D.Impulse);
+
+        yield return new WaitForSeconds(1f);
+        ErrorPanel.SetActive(false);
+        ErrorPanel.transform.position = new Vector2(540, 860);
+        ErrorPanelOn = false;
     }
 
     public void RemoveChar()
@@ -216,6 +255,18 @@ public class CurrentCharacter: MonoBehaviour
     public void Unit_Info(Job job)
     {
         UnitData unit = DataManager.Instance.GetUnitData(job);
-        print(unit.Name);
+        UnitInfoPanel.SetActive(true);
+        UnitInfoImg[0].sprite = Resources.Load<Sprite>("CharImg/" + job);
+        UnitInfoImg[1].sprite = Resources.Load<Sprite>("SkillImg/" + job);
+        UnitInfoText[0].text = unit.Name + "\n\n공격력\n\n체력\n\n공격속도";
+        UnitInfoText[1].text = "Lv. " + unit.Level + "\n\n" + unit.Atk + "\n\n" + unit.MaxHp + "\n\n" + unit.AtkDelay + " Sec";
+        UnitInfoText[2].text = unit.Skill_Name + " ( " + unit.Cool + "s )" + "\n\n" + unit.Skill_Tip;
+        UnitInfoText[3].text = unit.Piece + " / " + unit.MaxPiece;
+        UnitPiece.value = unit.Piece / unit.MaxPiece;
+    }
+
+    public void InfoClose()
+    {
+        UnitInfoPanel.SetActive(false);
     }
 }

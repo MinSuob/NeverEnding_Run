@@ -21,6 +21,8 @@ public class UnitDataSet
         unit.Char_Tip = "칼병";
         unit.Job = Job.Unit0;
         unit.Grade = 1;
+        unit.Piece = 0;
+        unit.MaxPiece = 20;
         unit.Level = 1;
         unit.MaxHp = 100;
         unit.CurHp = unit.MaxHp;
@@ -40,6 +42,8 @@ public class UnitDataSet
         unit.Char_Tip = "궁수";
         unit.Job = Job.Unit1;
         unit.Grade = 1;
+        unit.Piece = 0;
+        unit.MaxPiece = 20;
         unit.Level = 1;
         unit.MaxHp = 60;
         unit.CurHp = unit.MaxHp;
@@ -59,6 +63,8 @@ public class UnitDataSet
         unit.Char_Tip = "독 마법사";
         unit.Job = Job.Unit2;
         unit.Grade = 1;
+        unit.Piece = 0;
+        unit.MaxPiece = 20;
         unit.Level = 1;
         unit.MaxHp = 60;
         unit.CurHp = unit.MaxHp;
@@ -78,6 +84,8 @@ public class UnitDataSet
         unit.Char_Tip = "빙결 마법사";
         unit.Job = Job.Unit3;
         unit.Grade = 1;
+        unit.Piece = 0;
+        unit.MaxPiece = 20;
         unit.Level = 1;
         unit.MaxHp = 60;
         unit.CurHp = unit.MaxHp;
@@ -97,6 +105,8 @@ public class UnitDataSet
         unit.Char_Tip = "불 마법사";
         unit.Job = Job.Unit4;
         unit.Grade = 1;
+        unit.Piece = 0;
+        unit.MaxPiece = 20;
         unit.Level = 1;
         unit.MaxHp = 60;
         unit.CurHp = unit.MaxHp;
@@ -116,6 +126,8 @@ public class UnitDataSet
         unit.Char_Tip = "라이트닝 마법사";
         unit.Job = Job.Unit5;
         unit.Grade = 1;
+        unit.Piece = 0;
+        unit.MaxPiece = 20;
         unit.Level = 1;
         unit.MaxHp = 60;
         unit.CurHp = unit.MaxHp;
@@ -135,6 +147,8 @@ public class UnitDataSet
         unit.Char_Tip = "모험가";
         unit.Job = Job.Unit6;
         unit.Grade = 1;
+        unit.Piece = 0;
+        unit.MaxPiece = 20;
         unit.Level = 1;
         unit.MaxHp = 70;
         unit.CurHp = unit.MaxHp;
@@ -154,6 +168,8 @@ public class UnitDataSet
         unit.Char_Tip = "도적";
         unit.Job = Job.Unit7;
         unit.Grade = 1;
+        unit.Piece = 0;
+        unit.MaxPiece = 20;
         unit.Level = 1;
         unit.MaxHp = 70;
         unit.CurHp = unit.MaxHp;
@@ -173,6 +189,8 @@ public class UnitDataSet
         unit.Char_Tip = "탱커";
         unit.Job = Job.Unit8;
         unit.Grade = 1;
+        unit.Piece = 0;
+        unit.MaxPiece = 20;
         unit.Level = 1;
         unit.MaxHp = 150;
         unit.CurHp = unit.MaxHp;
@@ -192,6 +210,8 @@ public class UnitDataSet
         unit.Char_Tip = "창병";
         unit.Job = Job.Unit9;
         unit.Grade = 1;
+        unit.Piece = 0;
+        unit.MaxPiece = 20;
         unit.Level = 1;
         unit.MaxHp = 120;
         unit.CurHp = unit.MaxHp;
@@ -211,6 +231,8 @@ public class UnitDataSet
         unit.Char_Tip = "더블액스";
         unit.Job = Job.Unit10;
         unit.Grade = 1;
+        unit.Piece = 0;
+        unit.MaxPiece = 20;
         unit.Level = 1;
         unit.MaxHp = 150;
         unit.CurHp = unit.MaxHp;
@@ -230,6 +252,8 @@ public class UnitDataSet
         unit.Char_Tip = "엘프";
         unit.Job = Job.Unit11;
         unit.Grade = 1;
+        unit.Piece = 0;
+        unit.MaxPiece = 20;
         unit.Level = 1;
         unit.MaxHp = 90;
         unit.CurHp = unit.MaxHp;
@@ -242,9 +266,6 @@ public class UnitDataSet
         unit.Cool = 2.5f;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
-
-
-
 
         return Unitdata;
     }
