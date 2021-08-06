@@ -82,6 +82,8 @@ public class CurrentCharacter: MonoBehaviour
                 GameObject CurChar = null;
                 CurChar = Instantiate(CurCharList, CurChars);
                 CurChar.transform.localPosition = new Vector2(xPos, 0.45f);
+                CurChar.transform.localScale = new Vector2(1, 1);
+                CurChar.transform.localRotation = Quaternion.Euler(0, 180, 0);
                 xPos -= 0.6f;
 
                 CurIcon[IconNum].gameObject.SetActive(true);
