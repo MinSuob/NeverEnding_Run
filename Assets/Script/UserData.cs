@@ -10,7 +10,8 @@ public class UserData
     private long gold;
     private int diamond;
 
-    private int stage;
+    private int maxstage;
+    private int curstage;
 
     private float sfx_volume;   // 효과음
     private float music_volume; // 배경음
@@ -59,16 +60,29 @@ public class UserData
         }
     }
 
-    public int Stage
+    public int MaxStage
     {
         get
         {
-            return stage;
+            return maxstage;
         }
         set
         {
-            stage = value;
-            saveData("Stage", value);
+            maxstage = value;
+            saveData("MaxStage", value);
+        }
+    }
+
+    public int CurStage
+    {
+        get
+        {
+            return curstage;
+        }
+        set
+        {
+            curstage = value;
+            saveData("CurStage", value);
         }
     }
 

@@ -27,5 +27,35 @@ public class CharacterState
         #endregion
     }
 
+    public enum EnemyJob
+    {
+        // 고블린
+        //0
+        GoblinBasic,
+        //1
+        GoblinSword,
+        GoblinSwordShield,
+        GoblinAx,
+        GoblinBow,
+        GoblinMagicon,
+        //2
+        GoblinAxShield,
+        GoblinDoubleAx,
+        //Boss
+        GoblinKing,
+
+        // 스켈레톤
+        //0
+        SkeletonBasic,
+        //1
+        SkeletonSpear0,
+        SkeletonBow,
+        SkeletonMagicon,
+        //2
+        SkeletonSpear1,
+        //Boss
+        SkeletonHorse, // 둘 중에
+        SkeletonKing,  // 하나 보스로 아니면 새로
+    }
 
 }

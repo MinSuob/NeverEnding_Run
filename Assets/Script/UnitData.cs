@@ -28,6 +28,8 @@ public class UnitData
 
     public float AtkDist { get; set; } // 공격 사거리
 
+    public string AtkType { get; set; } // 공격 타입
+
     public float AtkDelay { get; set; } // 공격속도
 
     public float Cool { get; set; } // 스킬 쿨타임

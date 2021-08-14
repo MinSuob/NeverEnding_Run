@@ -21,6 +21,10 @@ public class DataManager : MonoBehaviour
     #endregion
 
     SortedDictionary<int, UnitData> UnitData;
+    SortedDictionary<int, EnemyData> EnemyData; 
+
+    private UserData UserData = new UserData();
+
 
 
 
@@ -33,14 +37,17 @@ public class DataManager : MonoBehaviour
             instance = this;
         }
 
-        DeckData = DeckDataSet.DataLoad();
 
         DataLoad();
     }
 
     public void DataLoad()
     {
+        DeckData = DeckDataSet.DataLoad();
         UnitData = UnitDataSet.DataLoad();
+        EnemyData = EnemyDataSet.DataLoad();
+        UserData = UserDataSet.DataLoad();
+
     }
 
     void Update()
@@ -48,9 +55,34 @@ public class DataManager : MonoBehaviour
         
     }
 
+    public int GetMaxStage()
+    {
+        return UserData.MaxStage;
+    }
+
+    public void SetMaxStage(int Stage)
+    {
+        UserData.MaxStage = Stage;
+    }
+
+    public int GetCurStage()
+    {
+        return UserData.CurStage;
+    }
+
+    public void SetCurStage(int Stage)
+    {
+        UserData.CurStage = Stage;
+    }
+
     public UnitData GetUnitData(Job job)
     {
         return UnitData[(int)job];
+    }
+
+    public EnemyData GetEnemyData(EnemyJob job)
+    {
+        return EnemyData[(int)job];
     }
 
 

@@ -10,7 +10,8 @@ public class UserDataSet : MonoBehaviour
         Userdata.UserName = Social.localUser.userName;
         Userdata.Gold = 0;
         Userdata.Diamond = 0;
-        Userdata.Stage = 1;
+        Userdata.MaxStage = 1;
+        Userdata.CurStage = 1;
         Userdata.SFX_Volume = 0.5f;
         Userdata.Music_Volume = 0.5f;
 

@@ -4,6 +4,22 @@ using UnityEngine;
 
 public class SPUM_Prefabs : MonoBehaviour
 {
+    //#region SINGLETON
+    //private static SPUM_Prefabs instance;
+    //public static SPUM_Prefabs Instance
+    //{
+    //    get { return instance; }
+    //}
+
+    //private void Awake()
+    //{
+    //    if (instance == null)
+    //    {
+    //        instance = this;
+    //    }
+    //}
+    //#endregion
+
     public float _version;
     public SPUM_SpriteList _spriteOBj;
     public bool EditChk;
@@ -13,9 +29,9 @@ public class SPUM_Prefabs : MonoBehaviour
     public bool _horse;
     public string _horseString;
 
-    public void Update()
+    private void Start()
     {
-        _anim.SetFloat("RunState", 0.5f);
+        PlayAnimation(1);
     }
 
 
