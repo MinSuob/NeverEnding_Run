@@ -17,10 +17,13 @@ public class EnemyFsm : MonoBehaviour
     [SerializeField] private Slider HpBar;
 
     float MaxHp;
-    float CurHp;
+    [HideInInspector] public float CurHp;
+
+    StageManager sm;
 
     void Start()
     {
+        sm = GameObject.Find("StageManager").GetComponent<StageManager>();
         _prefabs = gameObject.GetComponent<SPUM_Prefabs>();
         _prefabs.PlayAnimation(1);
 
@@ -46,35 +49,57 @@ public class EnemyFsm : MonoBehaviour
         transform.Translate(Vector2.left * Speed);
     }
 
-    public IEnumerator Attack()
+    public IEnumerator Attack(Collider2D Player)
     {
+        UnitFsm unitfsm = Player.GetComponent<UnitFsm>();
+
         while (true)
         {
             switch (enemy.AtkType)
             {
                 case "Melee":
-                    _prefabs.PlayAnimation(4);
+                    if (Player != null)
+                    {
+                        _prefabs.PlayAnimation(4);
+                        unitfsm.Damage(enemy.Atk, 0.2f);
+                    }
                     break;
                 case "Bow":
-                    _prefabs.PlayAnimation(5);
+                    if (Player != null)
+                    {
+                        _prefabs.PlayAnimation(5);
+                        unitfsm.Damage(enemy.Atk, 0.5f);
+                    }
                     break;
                 case "Magic":
-                    _prefabs.PlayAnimation(6);
+                    if (Player != null)
+                    {
+                        _prefabs.PlayAnimation(6);
+                        unitfsm.Damage(enemy.Atk, 0.2f);
+                    }
                     break;
             }
             yield return new WaitForSeconds(enemy.AtkDelay);
         }
     }
 
-    public void Damage(float damage)
+    public void Damage(float damage, float Delay)
     {
         CurHp -= damage;
+        StartCoroutine(DamageDelay(Delay));
+    }
+
+    IEnumerator DamageDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         HpBar.value = CurHp / MaxHp;
-
-        print(damage);
-
         if (CurHp <= 0)
         {
+            sm.EnemyCurCount--;
+            if (sm.StageProgress == false && sm.EnemyCurCount == 0)
+            {
+                sm.StagePanel("Clear");
+            }
             Destroy(gameObject);
         }
     }

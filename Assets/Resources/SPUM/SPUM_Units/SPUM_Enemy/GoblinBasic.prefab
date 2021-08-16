@@ -968,7 +968,7 @@ GameObject:
   - component: {fileID: 8302286535135443271}
   m_Layer: 5
   m_Name: Melee (1)
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1808,7 +1808,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.3}
@@ -1829,6 +1829,7 @@ MonoBehaviour:
   job: 0
   Fight: 0
   HpBar: {fileID: 1865638757477726066}
+  CurHp: 0
 --- !u!1 &3616581408021000076
 GameObject:
   m_ObjectHideFlags: 0

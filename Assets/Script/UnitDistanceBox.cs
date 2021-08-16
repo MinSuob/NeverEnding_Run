@@ -6,9 +6,11 @@ public class UnitDistanceBox : MonoBehaviour
 {
     UnitFsm unitfsm;
 
-    BoxCollider2D DistanceSize;
+    [HideInInspector] public BoxCollider2D DistanceSize;
 
     private List<string> DeckData = new List<string>();
+
+    bool TriggerOn;
 
     private void Start()
     {
@@ -17,40 +19,45 @@ public class UnitDistanceBox : MonoBehaviour
         unitfsm = gameObject.transform.parent.gameObject.GetComponent<UnitFsm>();
         DistanceSize = gameObject.GetComponent<BoxCollider2D>();
 
+        ReSize();
+    }
 
+    private void OnTriggerEnter2D(Collider2D Enemy)
+    {
+        if (Enemy.tag == "Enemy")
+        {
+            if (unitfsm.Fight_On == false)
+            {
+                unitfsm.Fight_On = true;
+                unitfsm.StartCoroutine(unitfsm.Attack(Enemy));
+                DistanceSize.offset = new Vector2(5f, 0.1f);
+            }
+        }   
+        
+    }
+
+    public void ReSize()
+    {
         int MySlotNum = DeckData.FindIndex(num => num.Contains(unitfsm.job.ToString()));
         BoxSize(MySlotNum);
     }
 
-    //private void OnTriggerEnter2D(Collider2D Enemy)
+    //private void OnTriggerStay2D(Collider2D Enemy)
     //{
-    //    if (unitfsm.Fight_On == false)
+    //    if (Enemy.tag == "Enemy")
     //    {
-    //        if (Enemy.tag == "Enemy")
+    //        if (unitfsm.Fight_On == false)
     //        {
-    //            unitfsm.Fight_On = true;
     //            unitfsm.StartCoroutine(unitfsm.Attack(Enemy));
     //        }
     //    }
     //}
 
-    private void OnTriggerStay2D(Collider2D Enemy)
-    {
-        if (unitfsm.Fight_On == false)
-        {
-            if (Enemy.tag == "Enemy")
-            {
-                unitfsm.Fight_On = true;
-                unitfsm.StartCoroutine(unitfsm.Attack(Enemy));
-            }
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D Enemy)
-    {
-        if (Enemy.tag == "Enemy")
-            unitfsm.Fight_On = false;
-    }
+    //private void OnTriggerExit2D(Collider2D Enemy)
+    //{
+    //    if (Enemy.tag == "Enemy")
+    //        unitfsm.Fight_On = false;
+    //}
 
     void BoxSize(int SlotNum)
     {

@@ -13,7 +13,7 @@ public class EnemyDistanceBox : MonoBehaviour
             if (Player.tag == "Player")
             {
                 enemyfsm.Fight = true;
-                enemyfsm.StartCoroutine("Attack");
+                enemyfsm.StartCoroutine(enemyfsm.Attack(Player));
             }
         }
     }

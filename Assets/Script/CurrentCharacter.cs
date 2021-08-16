@@ -55,7 +55,7 @@ public class CurrentCharacter: MonoBehaviour
         CurPlaySet(false);
     }
 
-    void CurPlaySet(bool Remove)
+    public void CurPlaySet(bool Remove)
     {
         if (Remove)
         {
@@ -155,20 +155,30 @@ public class CurrentCharacter: MonoBehaviour
     }
     public void ChoiceChar(Job job)
     {
-        if (DeckData.Contains(job.ToString()))
+        if (ErrorPanelOn == false)
         {
-            if (ErrorPanelOn == false)
+            if (DeckData.Contains(job.ToString()))
             {
                 StartCoroutine(ShowErrorText("이미 영웅이 존재합니다."));
             }
+            else
+            {
+                if (CurSlot != 0)
+                {
+                    if (DataManager.Instance.GetUnitData(job).AtkType == "Melee")
+                    {
+                        StartCoroutine(ShowErrorText("근접 유닛은 1번 슬롯에만 장착할 수 있습니다."));
+                        ChoicePanel.SetActive(false);
+                        return;
+                    }
+                }
+
+                Destroy(GameObject.Find(DeckData[CurSlot] + "(Clone)"));
+                DeckData[CurSlot] = job.ToString();
+                CurPlaySet(false);
+            }
+            ChoicePanel.SetActive(false);
         }
-        else
-        {
-            Destroy(GameObject.Find(DeckData[CurSlot] + "(Clone)"));
-            DeckData[CurSlot] = job.ToString();
-            CurPlaySet(false);
-        }
-        ChoicePanel.SetActive(false);
     }
 
     IEnumerator ShowErrorText(string text)
