@@ -61,21 +61,30 @@ public class EnemyFsm : MonoBehaviour
                     if (Player != null)
                     {
                         _prefabs.PlayAnimation(4);
-                        unitfsm.Damage(enemy.Atk, 0.2f);
+                        if (sm.CurHpSum > 0)
+                        {
+                            unitfsm.Damage(enemy.Atk, 0.2f);
+                        }
                     }
                     break;
                 case "Bow":
                     if (Player != null)
                     {
                         _prefabs.PlayAnimation(5);
-                        unitfsm.Damage(enemy.Atk, 0.5f);
+                        if (sm.CurHpSum > 0)
+                        {
+                            unitfsm.Damage(enemy.Atk, 0.2f);
+                        }
                     }
                     break;
                 case "Magic":
                     if (Player != null)
                     {
                         _prefabs.PlayAnimation(6);
-                        unitfsm.Damage(enemy.Atk, 0.2f);
+                        if (sm.CurHpSum > 0)
+                        {
+                            unitfsm.Damage(enemy.Atk, 0.2f);
+                        }
                     }
                     break;
             }

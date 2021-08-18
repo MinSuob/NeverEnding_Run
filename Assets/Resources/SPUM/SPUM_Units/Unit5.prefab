@@ -5323,7 +5323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _version: 151
   _spriteOBj: {fileID: 1149205714503183810}
-  EditChk: 1
+  EditChk: 0
   _code: Unit10
   _anim: {fileID: 8086202439210286133}
   _horse: 0
@@ -5362,7 +5362,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   job: 5
+  _prefabs: {fileID: 0}
   Fight_On: 0
+  Box: {fileID: 0}
+  MaxHp: 0
+  CurHp: 0
 --- !u!70 &-4136328636470721054
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -5970,6 +5974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed9af2e720e1eb4682fc2cd8773eb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DistanceSize: {fileID: 0}
 --- !u!1 &9092683277515177086
 GameObject:
   m_ObjectHideFlags: 0

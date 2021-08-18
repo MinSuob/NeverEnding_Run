@@ -41,19 +41,22 @@ public class StageManager : MonoBehaviour
     [SerializeField] private Slider UnitsHpBar;
     [SerializeField] private Text HpText;
 
-    float CurHpSum;
+    [HideInInspector] public float CurHpSum;
     float MaxHpSum;
     public float[] CurHp;
     public float[] MaxHp;
+    float beforeHp;
 
     // Stage Panel
     [SerializeField] private GameObject stagePanel;
     [SerializeField] private Text[] StageText;
     [SerializeField] private Slider LoadingBar;
 
-    int a = 0;
+    int StageCheck = 0;
+    int CoroutineCheck = 0;
+    [HideInInspector] public bool Die;
 
-
+    [HideInInspector] public bool StageClear;
 
     private void Start()
     {
@@ -61,37 +64,43 @@ public class StageManager : MonoBehaviour
         Cc = CurrentCharacter.Instance;
         CurStage = DataManager.Instance.GetCurStage();
 
-        //StageStart();
+        StageStart();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            StartCoroutine(EnemyRepawn());
+            StartCoroutine("EnemyRepawn");
         }
     }
 
     void StageStart()
     {
         MaxCountUp();
-        StartCoroutine(EnemyRepawn());
+        
     }
 
     void MaxCountUp()
     {
         if (CurStage >= 100)
         {
-            if (CurStage % 100 == 0 && a == CurStage - 100)
+            if (CurStage % 100 == 0 && StageCheck == CurStage - 100)
             {
                 EnemyMaxCount++;
-                a += CurStage;
+                StageCheck += CurStage;
             }
         }
     }
 
     IEnumerator EnemyRepawn()
     {
+        CoroutineCheck++;
+        if (CoroutineCheck > 1)
+        {
+            yield break;
+        }
+
         StageProgress = true;
 
         DataManager dm = DataManager.Instance;
@@ -129,11 +138,16 @@ public class StageManager : MonoBehaviour
 
     public void HpBarSet(int SlotNum, float curHp, float maxHp, int emptyIndex)
     {
-        CurHpSum = 0;
-        MaxHpSum = 0;
 
+        //CurHpSum = 0;
+        MaxHpSum = 0;
         if (emptyIndex != -1)
         {
+            if (CurHp[0] != MaxHp[0])
+            {
+                CurHp[0] -= CurHp[emptyIndex];
+
+            }
             CurHp[emptyIndex] = 0;
             MaxHp[emptyIndex] = 0;
         }
@@ -145,36 +159,56 @@ public class StageManager : MonoBehaviour
         else
         {
             CurHp[SlotNum] = curHp;
-
             MaxHp[SlotNum] = maxHp;
         }
 
-        GameObject.Find(DeckData[SlotNum] + "(Clone)").GetComponent<UnitFsm>().CurHp = CurHp[SlotNum];
-
-        for (int i = 0; i < 5; i++)
+        var unit = GameObject.Find(DeckData[0] + "(Clone)").GetComponent<UnitFsm>();
+        if (beforeHp > 0)
         {
-            CurHpSum += CurHp[i];
-            MaxHpSum += MaxHp[i];
+            unit.CurHp = beforeHp;
+            if (CurHp[0] > beforeHp)
+            {
+                CurHp[0] = beforeHp;
+            }
+            if (unit.CurHp > MaxHp[0])
+            {
+                unit.CurHp = MaxHp[0];
+            }
         }
 
+        if (SlotNum == 0)
+        {
+            beforeHp = CurHp[0];
+        }
+
+        for (int i = 1; i < 5; i++)
+        {
+            CurHp[0] += CurHp[i];
+            MaxHpSum += MaxHp[i];
+        }
+        
+        CurHpSum = CurHp[0];
+        MaxHpSum += MaxHp[0];
+        
         UnitsHpBar.value = CurHpSum / MaxHpSum;
         HpText.text = CurHpSum + " / " + MaxHpSum;
 
+        
+        CurHp[0] = MaxHp[0];
+
+
         if (CurHpSum <= 0)
         {
-            var UnitList = DeckData.FindAll(unit => unit != "empty");
-
-            foreach (string units in UnitList)
-            {
-                UnitFsm unit = GameObject.Find(units + "(Clone)").GetComponent<UnitFsm>();
-                unit._prefabs.PlayAnimation(2);
-            }
+            Die = true;
+            StopCoroutine("EnemyRepawn");
+            CurHpSum = MaxHpSum;
             StagePanel("Fail");
         }
     }
 
     public void StagePanel(string Type)
     {
+        StageReset();
         stagePanel.SetActive(true);
 
         switch (Type)
@@ -218,28 +252,47 @@ public class StageManager : MonoBehaviour
             }
         }
 
-        var UnitList = DeckData.FindAll(unit => unit != "empty");
+        EnemyCurCount = 0;
 
+        var UnitList = DeckData.FindAll(unit => unit != "empty");
+        
         foreach (string units in UnitList)
         {
             UnitFsm unit = GameObject.Find(units + "(Clone)").GetComponent<UnitFsm>();
             unit.CurHp = unit.MaxHp;
+            if (Die == true)
+            {
+                unit._prefabs.PlayAnimation(2);
+            }
+            unit.Fight_On = false;
+            unit.Box.ReSize();
         }
 
-        EnemyCurCount = 0;
+        CurHp[0] = MaxHp[0];
+        UnitsHpBar.value = MaxHpSum / MaxHpSum;
+        HpText.text = MaxHpSum + " / " + MaxHpSum;
     }
 
     public void StageBtn(string Type)
     {
+        Die = false;
+        CoroutineCheck = 0;
+
+        var UnitList = DeckData.FindAll(unit => unit != "empty");
+        foreach (string units in UnitList)
+        {
+            UnitFsm unit = GameObject.Find(units + "(Clone)").GetComponent<UnitFsm>();
+            unit._prefabs._anim.SetBool("EditChk", true);
+            unit._prefabs.PlayAnimation(1);
+        }
         switch (Type)
         {
             case "Back":
 
                 break;
             case "Current":
-                StageReset();
                 stagePanel.SetActive(false);
-                EnemyRepawn();
+                StartCoroutine("EnemyRepawn");
                 break;
             case "Next":
 

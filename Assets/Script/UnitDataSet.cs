@@ -24,7 +24,7 @@ public class UnitDataSet
         unit.Level = 1;
         unit.MaxHp = 100;
         unit.CurHp = unit.MaxHp;
-        unit.Atk = 10f;
+        unit.Atk = 30;
         unit.AtkDist = MeleeDistance;
         unit.AtkDelay = 1f;
         unit.AtkType = "Melee";

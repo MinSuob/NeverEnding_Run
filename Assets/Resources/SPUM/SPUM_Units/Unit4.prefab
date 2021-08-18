@@ -3511,6 +3511,7 @@ MonoBehaviour:
   job: 4
   _prefabs: {fileID: 0}
   Fight_On: 0
+  Box: {fileID: 0}
   MaxHp: 0
   CurHp: 0
 --- !u!1 &7641525738523129613

@@ -12,7 +12,7 @@ public class UnitFsm : MonoBehaviour
     [HideInInspector] public UnitData unit;
 
     public bool Fight_On = false;
-    UnitDistanceBox Box;
+    [HideInInspector] public UnitDistanceBox Box;
 
     private List<string> DeckData = new List<string>();
     StageManager sm;
@@ -44,6 +44,10 @@ public class UnitFsm : MonoBehaviour
 
     public IEnumerator Attack(Collider2D Enemy)
     {
+        if (sm.Die == true)
+        {
+            yield break;
+        }
         EnemyFsm enemyFsm = Enemy.GetComponent<EnemyFsm>();
 
         while (Fight_On)
@@ -62,6 +66,11 @@ public class UnitFsm : MonoBehaviour
                             Box.ReSize();
                         }
                     }
+                    else
+                    {
+                        Fight_On = false;
+                        Box.ReSize();
+                    }
                     break;
                 case "Bow":
                     if (Enemy != null)
@@ -74,6 +83,11 @@ public class UnitFsm : MonoBehaviour
                             Fight_On = false;
                             Box.ReSize();
                         }
+                    }
+                    else
+                    {
+                        Fight_On = false;
+                        Box.ReSize();
                     }
                     break;
                 case "Magic":
@@ -88,6 +102,11 @@ public class UnitFsm : MonoBehaviour
                             Box.ReSize();
                         }
                     }
+                    else
+                    {
+                        Fight_On = false;
+                        Box.ReSize();
+                    }
                     break;
             }
             yield return new WaitForSeconds(unit.AtkDelay);
@@ -96,12 +115,16 @@ public class UnitFsm : MonoBehaviour
 
     public void HpSet(float curHp)
     {
+        if (sm.Die == true)
+        {
+            return;
+        }
         MySlotNum = DeckData.FindIndex(num => num.Contains(job.ToString()));
 
-        if (MySlotNum == 0 && sm.CurHp[0] != sm.MaxHp[0])
-        {
-            CurHp = sm.CurHp[0];
-        }
+        //if (MySlotNum == 0 && sm.CurHp[0] != sm.MaxHp[0])
+        //{
+        //    CurHp = sm.CurHp[0];
+        //}
 
         sm.HpBarSet(MySlotNum, curHp, unit.MaxHp, DeckData.FindIndex(num => num.Contains("empty")));
     }
