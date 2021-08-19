@@ -42,23 +42,6 @@ public class UnitDistanceBox : MonoBehaviour
         BoxSize(MySlotNum);
     }
 
-    //private void OnTriggerStay2D(Collider2D Enemy)
-    //{
-    //    if (Enemy.tag == "Enemy")
-    //    {
-    //        if (unitfsm.Fight_On == false)
-    //        {
-    //            unitfsm.StartCoroutine(unitfsm.Attack(Enemy));
-    //        }
-    //    }
-    //}
-
-    //private void OnTriggerExit2D(Collider2D Enemy)
-    //{
-    //    if (Enemy.tag == "Enemy")
-    //        unitfsm.Fight_On = false;
-    //}
-
     void BoxSize(int SlotNum)
     {
         UnitData unit = DataManager.Instance.GetUnitData(unitfsm.job);

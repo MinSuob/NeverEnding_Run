@@ -45,7 +45,7 @@ public class StageManager : MonoBehaviour
     float MaxHpSum;
     public float[] CurHp;
     public float[] MaxHp;
-    float beforeHp;
+    string beforeUnit;
 
     // Stage Panel
     [SerializeField] private GameObject stagePanel;
@@ -57,6 +57,8 @@ public class StageManager : MonoBehaviour
     [HideInInspector] public bool Die;
 
     [HideInInspector] public bool StageClear;
+
+    float sdf;
 
     private void Start()
     {
@@ -72,6 +74,11 @@ public class StageManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             StartCoroutine("EnemyRepawn");
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            print(CurHpSum);
+            print(MaxHpSum);
         }
     }
 
@@ -138,63 +145,77 @@ public class StageManager : MonoBehaviour
 
     public void HpBarSet(int SlotNum, float curHp, float maxHp, int emptyIndex)
     {
-
-        //CurHpSum = 0;
-        MaxHpSum = 0;
         if (emptyIndex != -1)
         {
-            if (CurHp[0] != MaxHp[0])
-            {
-                CurHp[0] -= CurHp[emptyIndex];
+            //if (CurHp[0] != MaxHp[0])
+            //{
+            //    CurHp[0] -= CurHp[emptyIndex];
 
-            }
+            //}
             CurHp[emptyIndex] = 0;
             MaxHp[emptyIndex] = 0;
         }
 
-        if (CurHp[SlotNum] != MaxHp[SlotNum] && curHp == maxHp)
-        {
-            MaxHp[SlotNum] = maxHp;
-        }
-        else
-        {
-            CurHp[SlotNum] = curHp;
-            MaxHp[SlotNum] = maxHp;
-        }
+        CurHpSum = 0;
+        MaxHpSum = 0;
 
         var unit = GameObject.Find(DeckData[0] + "(Clone)").GetComponent<UnitFsm>();
-        if (beforeHp > 0)
+        
+
+        if (SlotNum == 0)                   // 0번 슬롯
         {
-            unit.CurHp = beforeHp;
-            if (CurHp[0] > beforeHp)
+            if (CurHp[0] == MaxHp[0])       // 피가 닳지 않았을 때
             {
-                CurHp[0] = beforeHp;
+                CurHp[0] = curHp;
+                MaxHp[0] = maxHp;
             }
-            if (unit.CurHp > MaxHp[0])
+            else                            // 피가 닳아 있을 때
             {
-                unit.CurHp = MaxHp[0];
+                
+                if (curHp > CurHp[0])       // 들어오는 유닛의 체력이 현재 체력보다 높을 시
+                {
+                    MaxHp[0] = maxHp;       // 현재 체력 유지, 최대체력 갖고오기
+                    unit.CurHp = CurHp[0];  // 들어온 유닛에게 현재체력 보내주기
+                    
+                }
+                else                        // 들어오는 유닛의 체력이 현재 체력보다 낮을 시
+                {
+                    CurHp[0] = curHp;       // 현재체력을 들어온 유닛의 체력으로 넣어주기
+                    MaxHp[0] = maxHp;       // 최대체력 갖고 오기
+                }
+            }
+
+
+        }
+        else                                // 1 ~ 4번 슬롯
+        {
+            if (CurHp[0] == MaxHp[0])       // 피가 닳지 않았을 때
+            {
+                CurHp[SlotNum] = maxHp;
+                MaxHp[SlotNum] = maxHp;
+            }
+            else                            // 피가 닳아 있을 때
+            {
+                MaxHp[SlotNum] = maxHp;
             }
         }
 
-        if (SlotNum == 0)
-        {
-            beforeHp = CurHp[0];
-        }
+        sdf = curHp;
 
-        for (int i = 1; i < 5; i++)
+
+        for (int i = 0; i < 5; i++)
         {
-            CurHp[0] += CurHp[i];
+            CurHpSum += CurHp[i];
             MaxHpSum += MaxHp[i];
         }
-        
-        CurHpSum = CurHp[0];
-        MaxHpSum += MaxHp[0];
-        
+
+        //CurHpSum = CurHp[0];
+        //MaxHpSum += MaxHp[0];
         UnitsHpBar.value = CurHpSum / MaxHpSum;
         HpText.text = CurHpSum + " / " + MaxHpSum;
 
         
-        CurHp[0] = MaxHp[0];
+        //CurHp[0] = MaxHp[0];
 
 
         if (CurHpSum <= 0)

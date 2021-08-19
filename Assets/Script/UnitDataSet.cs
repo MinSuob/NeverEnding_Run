@@ -28,7 +28,7 @@ public class UnitDataSet
         unit.AtkDist = MeleeDistance;
         unit.AtkDelay = 1f;
         unit.AtkType = "Melee";
-        unit.Skill_Name = "전방베기";
+        unit.Skill_Name = "CFX_Poof";
         unit.Skill_Tip = "전방에 있는 적 모두를 벤다.";
         unit.SkillDist = unit.AtkDist;
         unit.Cool = 5f;
@@ -50,7 +50,7 @@ public class UnitDataSet
         unit.AtkDist = RangeDistance;
         unit.AtkDelay = 2f;
         unit.AtkType = "Bow";
-        unit.Skill_Name = "더블 샷";
+        unit.Skill_Name = "CFX_Hit_CWhite";
         unit.Skill_Tip = "두개의 화살을 발사한다.";
         unit.SkillDist = unit.AtkDist;
         unit.Cool = 3f;
@@ -72,7 +72,7 @@ public class UnitDataSet
         unit.AtkDist = RangeDistance;
         unit.AtkDelay = 2f;
         unit.AtkType = "Magic";
-        unit.Skill_Name = "포이즌 포그";
+        unit.Skill_Name = "CFX_Virus";
         unit.Skill_Tip = "중간 범위의 독 안개를 펼친다.";
         unit.SkillDist = unit.AtkDist;
         unit.Cool = 5f;
@@ -94,7 +94,7 @@ public class UnitDataSet
         unit.AtkDist = RangeDistance;
         unit.AtkDelay = 2f;
         unit.AtkType = "Magic";
-        unit.Skill_Name = "아이스 볼트";
+        unit.Skill_Name = "CFX4HitPaintC(Cyan)";
         unit.Skill_Tip = "공격에 맞은 적을 얼린다.";
         unit.SkillDist = unit.AtkDist;
         unit.Cool = 2f;
@@ -116,7 +116,7 @@ public class UnitDataSet
         unit.AtkDist = RangeDistance;
         unit.AtkDelay = 2f;
         unit.AtkType = "Magic";
-        unit.Skill_Name = "파이어 볼트";
+        unit.Skill_Name = "CFX4HitB(Orange)";
         unit.Skill_Tip = "공격에 맞은 적에게 화상을 입힌다.";
         unit.SkillDist = unit.AtkDist;
         unit.Cool = 2f;
@@ -138,7 +138,7 @@ public class UnitDataSet
         unit.AtkDist = RangeDistance;
         unit.AtkDelay = 2f;
         unit.AtkType = "Magic";
-        unit.Skill_Name = "썬더 볼트";
+        unit.Skill_Name = "CFX_ElectricityBall";
         unit.Skill_Tip = "공격에 맞은 적에게서 전기가 옮겨다녀 주변의 적들을 공격한다.";
         unit.SkillDist = unit.AtkDist;
         unit.Cool = 2f;
@@ -160,7 +160,7 @@ public class UnitDataSet
         unit.AtkDist = RangeDistance;
         unit.AtkDelay = 2f;
         unit.AtkType = "Melee";
-        unit.Skill_Name = "썬더 볼트"; // 수정
+        unit.Skill_Name = "CFX_Poof"; // 수정
         unit.Skill_Tip = "공격에 맞은 적에게서 전기가 옮겨다녀 주변의 적들을 공격한다."; // 수정
         unit.SkillDist = unit.AtkDist;
         unit.Cool = 2f;
@@ -182,7 +182,7 @@ public class UnitDataSet
         unit.AtkDist = MeleeDistance;
         unit.AtkDelay = 0.5f;
         unit.AtkType = "Melee";
-        unit.Skill_Name = "급소 찌르기";
+        unit.Skill_Name = "CFX4HitPow";
         unit.Skill_Tip = "급소를 공격해 치명타를 입힌다.";
         unit.SkillDist = unit.AtkDist;
         unit.Cool = 5f;
@@ -204,7 +204,7 @@ public class UnitDataSet
         unit.AtkDist = MeleeDistance;
         unit.AtkDelay = 2f;
         unit.AtkType = "Melee";
-        unit.Skill_Name = "회복";
+        unit.Skill_Name = "CFX_Poof";
         unit.Skill_Tip = "체력을 회복한다.";
         unit.SkillDist = unit.AtkDist;
         unit.Cool = 5f;
@@ -226,7 +226,7 @@ public class UnitDataSet
         unit.AtkDist = MeleeDistance;
         unit.AtkDelay = 1.5f;
         unit.AtkType = "Melee";
-        unit.Skill_Name = "창 던지기";
+        unit.Skill_Name = "CFX_Poof";
         unit.Skill_Tip = "관통하는 창을 던진다.";
         unit.SkillDist = unit.AtkDist;
         unit.Cool = 5f;
@@ -248,7 +248,7 @@ public class UnitDataSet
         unit.AtkDist = RangeDistance;
         unit.AtkDelay = 2.5f;
         unit.AtkType = "Melee";
-        unit.Skill_Name = "대지 가르기";
+        unit.Skill_Name = "CFX_Poof";
         unit.Skill_Tip = "땅을 내려쳐 적들을 기절 시킨다.";
         unit.SkillDist = unit.AtkDist;
         unit.Cool = 5f;
@@ -270,7 +270,7 @@ public class UnitDataSet
         unit.AtkDist = RangeDistance;
         unit.AtkDelay = 2.5f;
         unit.AtkType = "Bow";
-        unit.Skill_Name = "애로우 롤";
+        unit.Skill_Name = "CFX_Hit_CWhite";
         unit.Skill_Tip = "관퉁하는 화살로 공격한다.";
         unit.SkillDist = unit.AtkDist;
         unit.Cool = 2.5f;

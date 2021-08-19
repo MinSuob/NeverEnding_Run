@@ -59,6 +59,7 @@ public class UnitFsm : MonoBehaviour
                     {
                         _prefabs.PlayAnimation(4);
                         enemyFsm.Damage(unit.Atk, 0.2f);
+                        HitEffect(enemyFsm.transform);
                         if (enemyFsm.CurHp <= 0)
                         {
                             yield return new WaitForSeconds(unit.AtkDelay);
@@ -77,6 +78,7 @@ public class UnitFsm : MonoBehaviour
                     {
                         _prefabs.PlayAnimation(5);
                         enemyFsm.Damage(unit.Atk, 0.5f);
+                        StartCoroutine(EffectDelay(enemyFsm.transform));
                         if (enemyFsm.CurHp <= 0)
                         {
                             yield return new WaitForSeconds(unit.AtkDelay);
@@ -95,6 +97,7 @@ public class UnitFsm : MonoBehaviour
                     {
                         _prefabs.PlayAnimation(6);
                         enemyFsm.Damage(unit.Atk, 0.2f);
+                        HitEffect(enemyFsm.transform);
                         if (enemyFsm.CurHp <= 0)
                         {
                             yield return new WaitForSeconds(unit.AtkDelay);
@@ -111,6 +114,35 @@ public class UnitFsm : MonoBehaviour
             }
             yield return new WaitForSeconds(unit.AtkDelay);
         }
+    }
+
+    void HitEffect(Transform pos)
+    {
+        var parent = GameObject.Find("Hit");
+        
+        GameObject Effect = Resources.Load<GameObject>("Effect/Hit/" + unit.Skill_Name);
+        GameObject Pos = Instantiate(Effect, parent.transform);
+        if (pos != null)
+        {
+            Pos.transform.position = new Vector2(pos.transform.position.x, pos.transform.position.y + 0.2f);
+        }
+        else
+            return;
+    }
+
+    IEnumerator EffectDelay(Transform pos)
+    {
+        var parent = GameObject.Find("Hit");
+        
+        yield return new WaitForSeconds(0.5f);
+        GameObject Effect = Resources.Load<GameObject>("Effect/Hit/" + unit.Skill_Name);
+        GameObject Pos = Instantiate(Effect, parent.transform);
+        if (pos != null)
+        {
+            Pos.transform.position = new Vector2(pos.transform.position.x, pos.transform.position.y + 0.2f);
+        }
+        else
+            yield break;
     }
 
     public void HpSet(float curHp)
