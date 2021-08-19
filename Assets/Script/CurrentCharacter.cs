@@ -23,6 +23,8 @@ public class CurrentCharacter: MonoBehaviour
     }
     #endregion
 
+    DataManager Dm;
+
     public GameObject ChoicePanel;
 
     private List<string> DeckData = new List<string>();
@@ -47,10 +49,16 @@ public class CurrentCharacter: MonoBehaviour
     [SerializeField] private Image[] UnitInfoImg;
     [SerializeField] private Slider UnitPiece;
 
+    [SerializeField] private Text NeedGoldText;
+    float NeedGold;
+    Color FlashColor = new Color(214 / 255f, 214 / 255f, 214 / 255f, 255);
+
+    public Job CurrentJob;
 
     void Start()
     {
-        DeckData = DataManager.Instance.GetDeckData();
+        Dm = DataManager.Instance;
+        DeckData = Dm.GetDeckData();
 
         CurPlaySet(false);
     }
@@ -165,7 +173,7 @@ public class CurrentCharacter: MonoBehaviour
             {
                 if (CurSlot != 0)
                 {
-                    if (DataManager.Instance.GetUnitData(job).AtkType == "Melee")
+                    if (Dm.GetUnitData(job).AtkType == "Melee")
                     {
                         StartCoroutine(ShowErrorText("근접 유닛은 1번 슬롯에만 장착할 수 있습니다."));
                         ChoicePanel.SetActive(false);
@@ -265,15 +273,90 @@ public class CurrentCharacter: MonoBehaviour
 
     public void Unit_Info(Job job)
     {
-        UnitData unit = DataManager.Instance.GetUnitData(job);
+        CurrentJob = job;
+        UnitData unit = Dm.GetUnitData(job);
         UnitInfoPanel.SetActive(true);
         UnitInfoImg[0].sprite = Resources.Load<Sprite>("CharImg/" + job);
         UnitInfoImg[1].sprite = Resources.Load<Sprite>("SkillImg/" + job);
         UnitInfoText[0].text = unit.Name + "\n\n공격력\n\n체력\n\n공격속도";
         UnitInfoText[1].text = "Lv. " + unit.Level + "\n\n" + unit.Atk + "\n\n" + unit.MaxHp + "\n\n" + unit.AtkDelay + " Sec";
-        UnitInfoText[2].text = unit.Skill_Name + " ( " + unit.Cool + "s )" + "\n\n" + unit.Skill_Tip;
+        UnitInfoText[2].text = unit.Skill_Tip;
         UnitInfoText[3].text = unit.Piece + " / " + unit.MaxPiece;
+        UnitInfoText[4].text = unit.Grade + " -> " + (unit.Grade + 1) + "\nUpgrade";
         UnitPiece.value = unit.Piece / unit.MaxPiece;
+    }
+
+    public void UnitLevelUp()
+    {
+        UnitData unit = Dm.GetUnitData(CurrentJob);
+
+        if (Dm.GetGold() > NeedGold)
+        {
+            unit.Level++;
+            switch (unit.Grade)
+            {
+                case 1:
+                    unit.Atk += 2;
+                    unit.MaxHp += 5;
+                    break;
+                case 2:
+                    unit.Atk += 3;
+                    unit.MaxHp += 7;
+                    break;
+                case 3:
+                    unit.Atk += 5;
+                    unit.MaxHp += 10;
+                    break;
+            }
+            Unit_Info(CurrentJob);
+        }
+        else
+            StartCoroutine(GoldTextFlash());
+    }
+
+    public void GradeUp()
+    {
+        UnitData unit = Dm.GetUnitData(CurrentJob);
+
+        if (unit.Piece == unit.MaxPiece && unit.Grade <= 3)
+        {
+            unit.Grade++;
+            Unit_Info(CurrentJob);
+        }
+        else
+            StartCoroutine(CardTextFlash());
+    }
+
+    IEnumerator GoldTextFlash()
+    {
+        float time = 0;
+        float duration = 1.5f;
+
+        NeedGoldText.color = Color.red;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            NeedGoldText.color =
+                Color.Lerp(Color.red, FlashColor, time / duration);
+
+            yield return null;
+        }
+    }
+
+    IEnumerator CardTextFlash()
+    {
+        float time = 0;
+        float duration = 1.5f;
+
+        NeedGoldText.color = Color.red;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            NeedGoldText.color =
+                Color.Lerp(Color.red, FlashColor, time / duration);
+
+            yield return null;
+        }
     }
 
     public void InfoClose()

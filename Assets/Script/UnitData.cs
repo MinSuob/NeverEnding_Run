@@ -32,7 +32,7 @@ public class UnitData
 
     public float AtkDelay { get; set; } // 공격속도
 
-    public float Cool { get; set; } // 스킬 쿨타임
+    public float SkillOdds { get; set; } // 스킬 확률
 
     public float SkillDist { get; set; } // 스킬 사거리
 

@@ -31,7 +31,7 @@ public class UnitDataSet
         unit.Skill_Name = "CFX_Poof";
         unit.Skill_Tip = "전방에 있는 적 모두를 벤다.";
         unit.SkillDist = unit.AtkDist;
-        unit.Cool = 5f;
+        unit.SkillOdds = 20;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -53,7 +53,7 @@ public class UnitDataSet
         unit.Skill_Name = "CFX_Hit_CWhite";
         unit.Skill_Tip = "두개의 화살을 발사한다.";
         unit.SkillDist = unit.AtkDist;
-        unit.Cool = 3f;
+        unit.SkillOdds = 20;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -75,7 +75,7 @@ public class UnitDataSet
         unit.Skill_Name = "CFX_Virus";
         unit.Skill_Tip = "중간 범위의 독 안개를 펼친다.";
         unit.SkillDist = unit.AtkDist;
-        unit.Cool = 5f;
+        unit.SkillOdds = 20;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -97,7 +97,7 @@ public class UnitDataSet
         unit.Skill_Name = "CFX4HitPaintC(Cyan)";
         unit.Skill_Tip = "공격에 맞은 적을 얼린다.";
         unit.SkillDist = unit.AtkDist;
-        unit.Cool = 2f;
+        unit.SkillOdds = 20;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -119,7 +119,7 @@ public class UnitDataSet
         unit.Skill_Name = "CFX4HitB(Orange)";
         unit.Skill_Tip = "공격에 맞은 적에게 화상을 입힌다.";
         unit.SkillDist = unit.AtkDist;
-        unit.Cool = 2f;
+        unit.SkillOdds = 20;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -141,7 +141,7 @@ public class UnitDataSet
         unit.Skill_Name = "CFX_ElectricityBall";
         unit.Skill_Tip = "공격에 맞은 적에게서 전기가 옮겨다녀 주변의 적들을 공격한다.";
         unit.SkillDist = unit.AtkDist;
-        unit.Cool = 2f;
+        unit.SkillOdds = 20;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -163,7 +163,7 @@ public class UnitDataSet
         unit.Skill_Name = "CFX_Poof"; // 수정
         unit.Skill_Tip = "공격에 맞은 적에게서 전기가 옮겨다녀 주변의 적들을 공격한다."; // 수정
         unit.SkillDist = unit.AtkDist;
-        unit.Cool = 2f;
+        unit.SkillOdds = 20;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -185,7 +185,7 @@ public class UnitDataSet
         unit.Skill_Name = "CFX4HitPow";
         unit.Skill_Tip = "급소를 공격해 치명타를 입힌다.";
         unit.SkillDist = unit.AtkDist;
-        unit.Cool = 5f;
+        unit.SkillOdds = 20;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -207,7 +207,7 @@ public class UnitDataSet
         unit.Skill_Name = "CFX_Poof";
         unit.Skill_Tip = "체력을 회복한다.";
         unit.SkillDist = unit.AtkDist;
-        unit.Cool = 5f;
+        unit.SkillOdds = 20;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -229,7 +229,7 @@ public class UnitDataSet
         unit.Skill_Name = "CFX_Poof";
         unit.Skill_Tip = "관통하는 창을 던진다.";
         unit.SkillDist = unit.AtkDist;
-        unit.Cool = 5f;
+        unit.SkillOdds = 20;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -251,7 +251,7 @@ public class UnitDataSet
         unit.Skill_Name = "CFX_Poof";
         unit.Skill_Tip = "땅을 내려쳐 적들을 기절 시킨다.";
         unit.SkillDist = unit.AtkDist;
-        unit.Cool = 5f;
+        unit.SkillOdds = 20;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -273,7 +273,7 @@ public class UnitDataSet
         unit.Skill_Name = "CFX_Hit_CWhite";
         unit.Skill_Tip = "관퉁하는 화살로 공격한다.";
         unit.SkillDist = unit.AtkDist;
-        unit.Cool = 2.5f;
+        unit.SkillOdds = 20;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 

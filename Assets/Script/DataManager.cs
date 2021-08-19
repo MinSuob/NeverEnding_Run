@@ -55,6 +55,24 @@ public class DataManager : MonoBehaviour
         
     }
 
+    public long GetGold()
+    {
+        return UserData.Gold;
+    }
+    public void SetGold(long money)
+    {
+        UserData.Gold = money;
+    }
+
+    public int GetDiamond()
+    {
+        return UserData.Diamond;
+    }
+    public void SetDiamond(int Diamond)
+    {
+        UserData.Diamond = Diamond;
+    }
+
     public int GetMaxStage()
     {
         return UserData.MaxStage;
@@ -73,6 +91,26 @@ public class DataManager : MonoBehaviour
     public void SetCurStage(int Stage)
     {
         UserData.CurStage = Stage;
+    }
+
+    public float GetSFX_Volume()
+    {
+        return UserData.SFX_Volume;
+    }
+
+    public void SetCurStage(float SFX_Volume)
+    {
+        UserData.SFX_Volume = SFX_Volume;
+    }
+
+    public float GetMusic_Volume()
+    {
+        return UserData.Music_Volume;
+    }
+
+    public void SetMusic_Volume(float Music_Volume)
+    {
+        UserData.Music_Volume = Music_Volume;
     }
 
     public UnitData GetUnitData(Job job)

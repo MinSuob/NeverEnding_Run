@@ -58,8 +58,6 @@ public class StageManager : MonoBehaviour
 
     [HideInInspector] public bool StageClear;
 
-    float sdf;
-
     private void Start()
     {
         DeckData = DataManager.Instance.GetDeckData();
@@ -77,8 +75,7 @@ public class StageManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
-            print(CurHpSum);
-            print(MaxHpSum);
+            //Cc.Unit_Info();
         }
     }
 
@@ -199,9 +196,6 @@ public class StageManager : MonoBehaviour
                 MaxHp[SlotNum] = maxHp;
             }
         }
-
-        sdf = curHp;
-
 
         for (int i = 0; i < 5; i++)
         {
