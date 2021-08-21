@@ -867,8 +867,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6971686859067475843}
-  - {fileID: 6906495527654296435}
   - {fileID: 2980254708187893663}
+  - {fileID: 6906495527654296435}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -925,8 +925,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   job: 3
+  _prefabs: {fileID: 0}
   Fight: 0
   HpBar: {fileID: 521357248041275328}
+  CurHp: 0
+  enemystate: 00
 --- !u!1 &1778590460084679983
 GameObject:
   m_ObjectHideFlags: 0
@@ -1633,7 +1636,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9070146541992722207}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4039,7 +4042,7 @@ RectTransform:
   m_Children:
   - {fileID: 6951895576861839609}
   m_Father: {fileID: 9070146541992722207}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

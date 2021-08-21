@@ -896,8 +896,8 @@ RectTransform:
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 2090891624468156834}
-  - {fileID: 6152311772547595719}
   - {fileID: 669489881329106435}
+  - {fileID: 6152311772547595719}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 1, z: 0}
@@ -938,8 +938,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   job: 5
+  _prefabs: {fileID: 0}
   Fight: 0
   HpBar: {fileID: 8165058261315058919}
+  CurHp: 0
+  enemystate: 00
 --- !u!70 &4188165282943328874
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2343,7 +2346,7 @@ RectTransform:
   m_LocalScale: {x: 1.2499049, y: 1.25, z: 1.0000609}
   m_Children: []
   m_Father: {fileID: 651828746251091724}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2759,7 +2762,7 @@ RectTransform:
   m_Children:
   - {fileID: 6699679295672743229}
   m_Father: {fileID: 651828746251091724}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

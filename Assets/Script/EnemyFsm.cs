@@ -7,8 +7,8 @@ using static CharacterState;
 
 public class EnemyFsm : MonoBehaviour
 {
-    [SerializeField] private EnemyJob job;
-    SPUM_Prefabs _prefabs;
+    public EnemyJob job;
+    [HideInInspector] public SPUM_Prefabs _prefabs;
 
     EnemyData enemy;
 
@@ -20,13 +20,17 @@ public class EnemyFsm : MonoBehaviour
     [HideInInspector] public float CurHp;
 
     StageManager sm;
+    [HideInInspector] public EnemyDistanceBox Box;
+
+    [HideInInspector] public bool[] enemystate = { false };
+
 
     void Start()
     {
         sm = GameObject.Find("StageManager").GetComponent<StageManager>();
         _prefabs = gameObject.GetComponent<SPUM_Prefabs>();
         _prefabs.PlayAnimation(1);
-
+        Box = gameObject.transform.GetChild(2).gameObject.GetComponent<EnemyDistanceBox>();
         enemy = DataManager.Instance.GetEnemyData(job);
 
         MaxHp = enemy.MaxHp;
@@ -38,9 +42,14 @@ public class EnemyFsm : MonoBehaviour
 
     void Update()
     {
-        if (!Fight)
+        if (enemystate[0] == true)
+            _prefabs.PlayAnimation(3);
+        else
         {
-            Move(enemy.MoveSpeed);
+            if (!Fight)
+            {
+                Move(enemy.MoveSpeed);
+            }
         }
     }
 
@@ -53,7 +62,7 @@ public class EnemyFsm : MonoBehaviour
     {
         UnitFsm unitfsm = Player.GetComponent<UnitFsm>();
 
-        while (true)
+        while (enemystate[0] == false)
         {
             switch (enemy.AtkType)
             {
@@ -110,6 +119,22 @@ public class EnemyFsm : MonoBehaviour
                 sm.StagePanel("Clear");
             }
             Destroy(gameObject);
+        }
+    }
+
+    public IEnumerator State(string state, float time)
+    {
+        switch (state)
+        {
+            case "Stun":
+                enemystate[0] = true;
+                print(Box);
+                Box.DistanceSize.offset = new Vector2(1, 0);
+                yield return new WaitForSeconds(time);
+                enemystate[0] = false;
+                _prefabs.PlayAnimation(1);
+                Box.BoxSize();
+                break;
         }
     }
 }

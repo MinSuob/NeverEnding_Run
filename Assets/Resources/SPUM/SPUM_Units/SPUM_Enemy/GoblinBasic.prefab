@@ -1827,9 +1827,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   job: 0
+  _prefabs: {fileID: 0}
   Fight: 0
   HpBar: {fileID: 1865638757477726066}
   CurHp: 0
+  enemystate: 00
 --- !u!1 &3616581408021000076
 GameObject:
   m_ObjectHideFlags: 0

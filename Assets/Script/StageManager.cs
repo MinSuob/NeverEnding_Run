@@ -28,7 +28,7 @@ public class StageManager : MonoBehaviour
     int CurStage;
 
     // Stage Max Enemy Count
-    int EnemyMaxCount = 1;
+    int EnemyMaxCount = 15;
     // Stage Cur Enemy Count
     [HideInInspector] public int EnemyCurCount;
     [HideInInspector] public bool StageProgress;
@@ -171,9 +171,16 @@ public class StageManager : MonoBehaviour
                 
                 if (curHp > CurHp[0])       // 들어오는 유닛의 체력이 현재 체력보다 높을 시
                 {
-                    MaxHp[0] = maxHp;       // 현재 체력 유지, 최대체력 갖고오기
-                    unit.CurHp = CurHp[0];  // 들어온 유닛에게 현재체력 보내주기
-                    
+                    if (unit.name == beforeUnit) // 교체 x 회복 o
+                    {
+                        CurHp[0] = MaxHp[0];
+
+                    }
+                    else
+                    {
+                        MaxHp[0] = maxHp;       // 현재 체력 유지, 최대체력 갖고오기
+                        unit.CurHp = CurHp[0];  // 들어온 유닛에게 현재체력 보내주기
+                    }
                 }
                 else                        // 들어오는 유닛의 체력이 현재 체력보다 낮을 시
                 {
@@ -197,20 +204,16 @@ public class StageManager : MonoBehaviour
             }
         }
 
+        beforeUnit = unit.name;
+
         for (int i = 0; i < 5; i++)
         {
             CurHpSum += CurHp[i];
             MaxHpSum += MaxHp[i];
         }
 
-        //CurHpSum = CurHp[0];
-        //MaxHpSum += MaxHp[0];
         UnitsHpBar.value = CurHpSum / MaxHpSum;
         HpText.text = CurHpSum + " / " + MaxHpSum;
-
-        
-        //CurHp[0] = MaxHp[0];
-
 
         if (CurHpSum <= 0)
         {

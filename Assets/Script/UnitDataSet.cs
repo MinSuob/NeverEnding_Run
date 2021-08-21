@@ -30,7 +30,7 @@ public class UnitDataSet
         unit.AtkType = "Melee";
         unit.AtkName = "CFX_Poof";
         unit.Skill_Name = "CFX4AuraBubbleC";
-        unit.Skill_Tip = "공격 시 10%의 확률로 10초동안 공격력과 체력이 100% 상승합니다.";
+        unit.Skill_Tip = "공격 시 10%의 확률로 10초동안 공격력이 상승하고 체력이 50% 회복됩니다.";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -53,7 +53,7 @@ public class UnitDataSet
         unit.AtkType = "Bow";
         unit.AtkName = "CFX_Hit_CWhite";
         unit.Skill_Name = "CFX4MagicHit";
-        unit.Skill_Tip = "공격 시 10%의 확률로 범위안에 모든적들에게 화살을 날린다.";
+        unit.Skill_Tip = "공격 시 10%의 확률로 범위안에 모든적들에게 공격력의 80%데미지 화살을 날린다.";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -123,7 +123,7 @@ public class UnitDataSet
         unit.AtkName = "CFX4HitB(Orange)";
         unit.Skill_Name = "CFX3_Fire_Shield";
         unit.Skill_Name2 = "CFX3_Fire_Explosion";
-        unit.Skill_Tip = "공격 시 10% 확률로 불의기둥을 소환한다.\n( 3초간 500%의 데미지를 주고 폭발합니다. ( 폭발 데미지 150% ))";
+        unit.Skill_Tip = "공격 시 10% 확률로 불의기둥을 소환한다.\n( 1초마다 공격력의 100%데미지로 공격합니다. ( 폭발 데미지 150% ))";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);

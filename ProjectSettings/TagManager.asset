@@ -43,6 +43,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Hit
+  - name: Skill
     uniqueID: 3149843483
+    locked: 0
+  - name: Hit
+    uniqueID: 3709320501
     locked: 0
