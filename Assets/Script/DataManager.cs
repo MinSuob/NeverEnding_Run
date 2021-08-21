@@ -47,12 +47,11 @@ public class DataManager : MonoBehaviour
         UnitData = UnitDataSet.DataLoad();
         EnemyData = EnemyDataSet.DataLoad();
         UserData = UserDataSet.DataLoad();
-
     }
 
     void Update()
     {
-        
+
     }
 
     public long GetGold()

@@ -277,7 +277,7 @@ public class CurrentCharacter: MonoBehaviour
         UnitData unit = Dm.GetUnitData(job);
         UnitInfoPanel.SetActive(true);
         UnitInfoImg[0].sprite = Resources.Load<Sprite>("CharImg/" + job);
-        UnitInfoImg[1].sprite = Resources.Load<Sprite>("SkillImg/" + job);
+        UnitInfoImg[1].sprite = Resources.Load<Sprite>("Skill_Img/" + job);
         UnitInfoText[0].text = unit.Name + "\n\n공격력\n\n체력\n\n공격속도";
         UnitInfoText[1].text = "Lv. " + unit.Level + "\n\n" + unit.Atk + "\n\n" + unit.MaxHp + "\n\n" + unit.AtkDelay + " Sec";
         UnitInfoText[2].text = unit.Skill_Tip;

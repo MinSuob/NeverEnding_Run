@@ -23,7 +23,8 @@ public class CharacterState
         Unit8,  // Tanker
         Unit9,  // Spear
         Unit10, // Double Ax
-        Unit11  // Elf
+        Unit11, // Elf
+        Unit12  // 성기사
         #endregion
     }
 

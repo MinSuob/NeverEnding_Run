@@ -30,6 +30,8 @@ public class UnitData
 
     public string AtkType { get; set; } // 공격 타입
 
+    public string AtkName { get; set; } // 공격 이펙트 이름
+
     public float AtkDelay { get; set; } // 공격속도
 
     public float SkillOdds { get; set; } // 스킬 확률
@@ -37,6 +39,7 @@ public class UnitData
     public float SkillDist { get; set; } // 스킬 사거리
 
     public string Skill_Name { get; set; } // 스킬 이름
+    public string Skill_Name2 { get; set; } // 스킬 이름2
 
     public string Skill_Tip { get; set; } // 스킬 설명
 
