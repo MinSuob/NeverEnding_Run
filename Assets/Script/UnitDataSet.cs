@@ -142,7 +142,7 @@ public class UnitDataSet
         unit.CurHp = unit.MaxHp;
         unit.Atk = 6f;
         unit.AtkDist = RangeDistance;
-        unit.AtkDelay = 2f;
+        unit.AtkDelay = 2.1f;
         unit.AtkType = "Magic";
         unit.AtkName = "CFX_ElectricityBall";
         unit.Skill_Name = "Spark";
@@ -211,7 +211,7 @@ public class UnitDataSet
         unit.CurHp = unit.MaxHp;
         unit.Atk = 10f;
         unit.AtkDist = MeleeDistance;
-        unit.AtkDelay = 2f;
+        unit.AtkDelay = 5f;
         unit.AtkType = "Melee";
         unit.AtkName = "CFX_Poof";
         unit.Skill_Name = "VenomSpell";

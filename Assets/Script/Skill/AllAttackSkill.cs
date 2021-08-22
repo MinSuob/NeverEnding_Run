@@ -5,8 +5,14 @@ using UnityEngine;
 public class AllAttackSkill : MonoBehaviour
 {
     bool SkillOn = false;
+    bool SkillOn1 = false;
     string SkillName;
+    private List<string> DeckData = new List<string>();
 
+    private void Start()
+    {
+        DeckData = DataManager.Instance.GetDeckData();
+    }
     private void OnTriggerEnter2D(Collider2D Enemy)
     {
         if (Enemy.tag == "Enemy")
@@ -26,8 +32,9 @@ public class AllAttackSkill : MonoBehaviour
                     }
                     break;
                 case "CFX2_Wandering_Spirits":
-                    if (enemy != null)
+                    if (enemy != null && SkillOn == false)
                     {
+                        SkillOn = true;
                         GameObject Effect1 = Resources.Load<GameObject>("Effect/" + SkillName);
                         GameObject Pos1 = Instantiate(Effect1, transform.parent.GetChild(1).transform);
                         Pos1.transform.position = new Vector2(0, 0);
@@ -45,6 +52,17 @@ public class AllAttackSkill : MonoBehaviour
                         transform.position = new Vector2(-5f, -1.12f);
                     }
                     break;
+                case "CFX_Magical_Source": // 성기사
+                    if (enemy != null && SkillOn1 == false)
+                    {
+                        SkillOn = true;
+                        GameObject Effect3 = Resources.Load<GameObject>("Effect/" + SkillName);
+                        GameObject Pos3 = Instantiate(Effect3, transform.parent.GetChild(1).transform);
+                        Pos3.transform.position = new Vector2(0, 2);
+                        StartCoroutine(Damage(enemy, Pos3, "성기사", 0));
+                        transform.position = new Vector2(-5f, -1.12f);
+                    }
+                    break;
             }
         }
     }
@@ -59,14 +77,54 @@ public class AllAttackSkill : MonoBehaviour
                 Destroy(prefab);
                 break;
             case "모험가":
+                float atk = GameObject.Find("Unit6(Clone)").GetComponent<UnitFsm>().unit.Atk;
                 int TimeCount = 0;
                 while (TimeCount < 5)
                 {
-                    enemy.Damage(GameObject.Find("Unit6(Clone)").GetComponent<UnitFsm>().unit.Atk, 0);
+                    UnitFsm Unit = GameObject.Find(DeckData[0] + "(Clone)").GetComponent<UnitFsm>();
+                    if (Unit.CurHp < Unit.MaxHp)
+                    {
+                        Unit.CurHp += Unit.MaxHp * 0.1f; // 0번슬롯 전체체력의 10%만큼 회복
+                        if (Unit.CurHp > Unit.MaxHp)
+                        {
+                            Unit.CurHp = Unit.MaxHp;
+                        }
+                        Unit.HpSet(Unit.CurHp);
+                    }
+                    if (enemy != null)
+                    {
+                        enemy.Damage(atk, 0);
+                    }
                     yield return new WaitForSeconds(1);
                     TimeCount++;
                 }
                 Destroy(prefab);
+                SkillOn = false;
+                break;
+            case "성기사":
+                float atk1 = GameObject.Find("Unit12(Clone)").GetComponent<UnitFsm>().unit.Atk;
+                int TimeCount1 = 0;
+                while (TimeCount1 < 5)
+                {
+                    UnitFsm Unit = GameObject.Find(DeckData[0] + "(Clone)").GetComponent<UnitFsm>();
+                    if (Unit.CurHp < Unit.MaxHp)
+                    {
+                        Unit.CurHp += (Unit.MaxHp * 0.2f) + atk1; // 0번슬롯 전체체력의 20% + 성기사 공격력만큼 회복
+                        if (Unit.CurHp > Unit.MaxHp)
+                        {
+                            Unit.CurHp = Unit.MaxHp;
+                        }
+                        Unit.HpSet(Unit.CurHp);
+                    }
+                    if (enemy != null)
+                    {
+                        enemy.Damage(atk1 * 0.5f, 0);
+                    }
+                    yield return new WaitForSeconds(1);
+                    TimeCount1++;
+                }
+                Destroy(prefab);
+                SkillOn = false;
                 break;
         }
     }

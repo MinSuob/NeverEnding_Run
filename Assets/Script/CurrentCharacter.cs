@@ -189,7 +189,7 @@ public class CurrentCharacter: MonoBehaviour
         }
     }
 
-    IEnumerator ShowErrorText(string text)
+    public IEnumerator ShowErrorText(string text)
     {
         ErrorPanelOn = true;
         ErrorPanel.SetActive(true);

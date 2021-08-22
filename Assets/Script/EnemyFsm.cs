@@ -42,6 +42,7 @@ public class EnemyFsm : MonoBehaviour
 
     void Update()
     {
+        print(enemystate[0]);
         if (enemystate[0] == true)
             _prefabs.PlayAnimation(3);
         else
@@ -127,8 +128,9 @@ public class EnemyFsm : MonoBehaviour
         switch (state)
         {
             case "Stun":
+                print("sef");
+
                 enemystate[0] = true;
-                print(Box);
                 Box.DistanceSize.offset = new Vector2(1, 0);
                 yield return new WaitForSeconds(time);
                 enemystate[0] = false;

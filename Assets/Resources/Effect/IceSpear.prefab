@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 499116}
   - component: {fileID: 19821226}
   - component: {fileID: 19919744}
+  - component: {fileID: 2111231207177892042}
   m_Layer: 0
   m_Name: IceSpear
   m_TagString: Untagged
@@ -4738,6 +4739,19 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &2111231207177892042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18025c3d17741b64bbbf4f47d1220eaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 3
 --- !u!1 &125910
 GameObject:
   m_ObjectHideFlags: 0

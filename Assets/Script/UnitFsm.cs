@@ -21,7 +21,7 @@ public class UnitFsm : MonoBehaviour
 
     [HideInInspector] public float MaxHp;
     [HideInInspector] public float CurHp;
-    bool[] BuffOn = {false,false};
+
 
     AllAttackSkill allskill;
 
@@ -29,20 +29,21 @@ public class UnitFsm : MonoBehaviour
     {
         DeckData = DataManager.Instance.GetDeckData();
         _prefabs = gameObject.GetComponent<SPUM_Prefabs>();
-         unit = DataManager.Instance.GetUnitData(job);
+        unit = DataManager.Instance.GetUnitData(job);
         Box = gameObject.transform.GetChild(2).gameObject.GetComponent<UnitDistanceBox>();
         allskill = GameObject.Find("Full").GetComponent<AllAttackSkill>();
         sm = GameObject.Find("StageManager").GetComponent<StageManager>();
 
         MaxHp = unit.MaxHp;
         CurHp = unit.CurHp;
-        
+
         HpSet(CurHp);
+        BuffReSet();
     }
 
     private void Update()
     {
-
+        
     }
 
     public IEnumerator Attack(Collider2D Enemy)
@@ -119,23 +120,28 @@ public class UnitFsm : MonoBehaviour
                     }
                     break;
                 case "Skill":
-                    
+
 
                     if (enemyFsm != null)
                     {
                         switch (unit.Name)
                         {
                             case "칼병":
-                                if (BuffOn[0] == false)
+                                if (sm.BuffOn[0] == false)
                                 {
+                                    sm.addAtk = unit.Atk;
                                     SkillEfect(0, 0.8f);
-                                    unit.Atk += unit.Atk;
+                                    unit.Atk += sm.addAtk;
                                     if (CurHp < MaxHp)
                                     {
                                         CurHp += CurHp / 2;
+                                        if (CurHp > MaxHp)
+                                        {
+                                            CurHp = MaxHp;
+                                        }
                                         HpSet(CurHp);
                                     }
-                                    StartCoroutine(Buff(unit.Atk, 10, 0));
+                                    StartCoroutine(Buff(sm.addAtk, 10, 0));
                                 }
                                 unit.AtkType = atkType;
                                 break;
@@ -146,7 +152,7 @@ public class UnitFsm : MonoBehaviour
                                 SkillEfect(0, 2);
                                 break;
                             case "모험가":
-                                if (BuffOn[1] == false)
+                                if (sm.BuffOn[1] == false)
                                 {
                                     StartCoroutine(Buff(unit.Atk, 5, 1));
                                     allskill.skillon(unit.Skill_Name);
@@ -157,6 +163,15 @@ public class UnitFsm : MonoBehaviour
                                 break;
                             case "탱커":
                                 SkillEfect(0, 0.8f);
+                                if (CurHp < MaxHp)
+                                {
+                                    CurHp += unit.Atk * 2;
+                                    if (CurHp > MaxHp)
+                                    {
+                                        CurHp = MaxHp;
+                                    }
+                                    HpSet(CurHp);
+                                }
                                 break;
                             case "창병":
                                 SkillEfect(0.5f, 0.8f);
@@ -168,7 +183,11 @@ public class UnitFsm : MonoBehaviour
                                 SkillEfect(0.5f, 0.8f);
                                 break;
                             case "성기사":
-                                SkillEfect(0, 2);
+                                if (sm.BuffOn[2] == false)
+                                {
+                                    StartCoroutine(Buff(unit.Atk, 5, 2));
+                                    allskill.skillon(unit.Skill_Name);
+                                }
                                 break;
                             default:
                                 SkillEfect(enemyFsm.transform.position.x, enemyFsm.transform.position.y + 0.2f);
@@ -187,7 +206,7 @@ public class UnitFsm : MonoBehaviour
     void HitEffect(Transform pos)
     {
         var parent = GameObject.Find("Hit");
-        
+
         GameObject Effect = Resources.Load<GameObject>("Effect/Hit/" + unit.AtkName);
         GameObject Pos = Instantiate(Effect, parent.transform);
         if (pos != null)
@@ -201,7 +220,7 @@ public class UnitFsm : MonoBehaviour
     IEnumerator EffectDelay(Transform pos)
     {
         var parent = GameObject.Find("Hit");
-        
+
         yield return new WaitForSeconds(0.5f);
         GameObject Effect = Resources.Load<GameObject>("Effect/Hit/" + unit.AtkName);
         GameObject Pos = Instantiate(Effect, parent.transform);
@@ -220,11 +239,6 @@ public class UnitFsm : MonoBehaviour
             return;
         }
         MySlotNum = DeckData.FindIndex(num => num.Contains(job.ToString()));
-
-        //if (MySlotNum == 0 && sm.CurHp[0] != sm.MaxHp[0])
-        //{
-        //    CurHp = sm.CurHp[0];
-        //}
 
         sm.HpBarSet(MySlotNum, curHp, unit.MaxHp, DeckData.FindIndex(num => num.Contains("empty")));
     }
@@ -249,33 +263,54 @@ public class UnitFsm : MonoBehaviour
         Pos.transform.position = new Vector2(x, y);
     }
 
-    IEnumerator Buff(float atk, float time,int num)
+    IEnumerator Buff(float atk, float time, int num)
     {
         switch (num)
         {
             case 0: // 칼병
-                BuffOn[num] = true;
+                sm.BuffOn[num] = true;
                 yield return new WaitForSeconds(time);
                 unit.Atk -= atk;
-                BuffOn[num] = false;
+                sm.addAtk = 0;
+                sm.BuffOn[num] = false;
                 break;
             case 1: // 모험가
-                BuffOn[num] = true;
-                int timecount = 0;
-                UnitFsm Unit = GameObject.Find(DeckData[0] + "(Clone)").GetComponent<UnitFsm>();
-                while (BuffOn[num] == true && timecount < time)
-                {
-                    if (Unit.CurHp < Unit.MaxHp)
-                    {
-                        Unit.CurHp += atk;
-                        Unit.HpSet(Unit.CurHp);
-                    }
-                    yield return new WaitForSeconds(1);
-                    timecount++;
-                }
-                BuffOn[num] = false;
+                sm.BuffOn[num] = true;
+                yield return new WaitForSeconds(time);
+                sm.BuffOn[num] = false;
+                break;
+            case 2: // 성기사
+                sm.BuffOn[num] = true;
+                yield return new WaitForSeconds(time);
+                sm.BuffOn[num] = false;
                 break;
         }
-        
+    }
+
+    void BuffReSet()
+    {
+        // 칼병
+        if (gameObject.name == "Unit0(Clone)" && sm.addAtk != 0)
+        {
+            unit.Atk -= sm.addAtk;
+            sm.addAtk = 0;
+        }
+        if (!DeckData.Contains("Unit0") && sm.addAtk != 0)
+        {
+            Destroy(GameObject.Find("CFX4AuraBubbleC(Clone)"));
+            sm.BuffOn[0] = false;
+        }
+
+        // 모험가
+        if (!GameObject.Find("CFX2_Wandering_Spirits(Clone)"))
+        {
+            sm.BuffOn[1] = false;
+        }
+
+        //성기사
+        if (!GameObject.Find("CFX_Magical_Source(Clone)"))
+        {
+            sm.BuffOn[2] = false;
+        }
     }
 }

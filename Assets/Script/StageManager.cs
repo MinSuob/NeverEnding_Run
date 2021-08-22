@@ -26,9 +26,10 @@ public class StageManager : MonoBehaviour
 
     // Stage Num
     int CurStage;
+    int MaxStage;
 
     // Stage Max Enemy Count
-    int EnemyMaxCount = 15;
+    int EnemyMaxCount = 1;
     // Stage Cur Enemy Count
     [HideInInspector] public int EnemyCurCount;
     [HideInInspector] public bool StageProgress;
@@ -51,6 +52,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] private GameObject stagePanel;
     [SerializeField] private Text[] StageText;
     [SerializeField] private Slider LoadingBar;
+    public Text ShowStageText;
 
     int StageCheck = 0;
     int CoroutineCheck = 0;
@@ -58,11 +60,15 @@ public class StageManager : MonoBehaviour
 
     [HideInInspector] public bool StageClear;
 
+    public bool[] BuffOn;
+    [HideInInspector] public float addAtk = 0;
+
     private void Start()
     {
         DeckData = DataManager.Instance.GetDeckData();
         Cc = CurrentCharacter.Instance;
         CurStage = DataManager.Instance.GetCurStage();
+        MaxStage = DataManager.Instance.GetMaxStage();
 
         StageStart();
     }
@@ -73,16 +79,13 @@ public class StageManager : MonoBehaviour
         {
             StartCoroutine("EnemyRepawn");
         }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            //Cc.Unit_Info();
-        }
+        
     }
 
     void StageStart()
     {
         MaxCountUp();
-        
+        StartCoroutine("EnemyRepawn");
     }
 
     void MaxCountUp()
@@ -104,6 +107,8 @@ public class StageManager : MonoBehaviour
         {
             yield break;
         }
+
+        StartCoroutine(ShowStage());
 
         StageProgress = true;
 
@@ -173,8 +178,7 @@ public class StageManager : MonoBehaviour
                 {
                     if (unit.name == beforeUnit) // 교체 x 회복 o
                     {
-                        CurHp[0] = MaxHp[0];
-
+                        CurHp[0] = curHp;
                     }
                     else
                     {
@@ -226,27 +230,39 @@ public class StageManager : MonoBehaviour
 
     public void StagePanel(string Type)
     {
+        CoroutineCheck = 0;
         StageReset();
         stagePanel.SetActive(true);
-
+        if (CurStage == 1)
+            StageText[2].text = null;
+        else
+            StageText[2].text = "Stage\n" + (CurStage - 1);
+        
+        StageText[3].text = "Stage\n" + CurStage;
+        StageText[4].text = "Stage\n" + (CurStage + 1);
         switch (Type)
         {
             case "Fail":
                 StageText[0].text = "Stage Fail";
                 StageText[1].text = "Back Stage Loading..";
-                CurStage--;
-                StartCoroutine(Loading());
+                if (CurStage > 1)
+                    StartCoroutine(Loading("Back"));
+                else
+                    StartCoroutine(Loading("Current"));
 
                 break;
             case "Clear":
+                if (MaxStage < CurStage)
+                    MaxStage = CurStage;
+
                 StageText[0].text = "Stage Clear";
                 StageText[1].text = "Current Stage Loading..";
-                StartCoroutine(Loading());
+                StartCoroutine(Loading("Current"));
                 break;
         }
     }
 
-    IEnumerator Loading()
+    IEnumerator Loading(string stage)
     {
         LoadingBar.value = 0;
 
@@ -256,12 +272,15 @@ public class StageManager : MonoBehaviour
             yield return null;
         }
 
-        StageBtn("Current");
+        if (CoroutineCheck == 0)
+        {
+            StageBtn(stage);
+        }
     }
 
     void StageReset()
     {
-        Transform[] EnemyList = GetComponentsInChildren<Transform>(true);
+        Transform[] EnemyList = GetComponentsInChildren<Transform>(true);                       // 적 삭제
         if (EnemyList != null)
         {
             for (int i = 1; i < EnemyList.Length; i++)
@@ -274,7 +293,7 @@ public class StageManager : MonoBehaviour
 
         var UnitList = DeckData.FindAll(unit => unit != "empty");
         
-        foreach (string units in UnitList)
+        foreach (string units in UnitList)                                                      // 유닛 초기화
         {
             UnitFsm unit = GameObject.Find(units + "(Clone)").GetComponent<UnitFsm>();
             unit.CurHp = unit.MaxHp;
@@ -286,6 +305,15 @@ public class StageManager : MonoBehaviour
             unit.Box.ReSize();
         }
 
+        Transform[] skillList = GameObject.Find("Skill").GetComponentsInChildren<Transform>(true);
+        if (skillList != null)
+        {
+            for (int i = 1; i < skillList.Length; i++)
+            {
+                Destroy(skillList[i].gameObject);
+            }
+        }
+
         CurHp[0] = MaxHp[0];
         UnitsHpBar.value = MaxHpSum / MaxHpSum;
         HpText.text = MaxHpSum + " / " + MaxHpSum;
@@ -294,7 +322,6 @@ public class StageManager : MonoBehaviour
     public void StageBtn(string Type)
     {
         Die = false;
-        CoroutineCheck = 0;
 
         var UnitList = DeckData.FindAll(unit => unit != "empty");
         foreach (string units in UnitList)
@@ -306,15 +333,43 @@ public class StageManager : MonoBehaviour
         switch (Type)
         {
             case "Back":
+                if (CurStage > 1)
+                    CurStage--;
+                else
+                    Cc.StartCoroutine(Cc.ShowErrorText("첫 스테이지 입니다."));
 
+                stagePanel.SetActive(false);
+                StageStart();
                 break;
             case "Current":
                 stagePanel.SetActive(false);
-                StartCoroutine("EnemyRepawn");
+                StageStart();
                 break;
             case "Next":
+                if (MaxStage >= CurStage)
+                    CurStage++;
+                else
+                    Cc.StartCoroutine(Cc.ShowErrorText("이전 스테이지를 먼저 클리어 해야합니다."));
 
+                stagePanel.SetActive(false);
+                StageStart();
                 break;
         }
+    }
+
+    IEnumerator ShowStage()
+    {
+        float speed = 20;
+        ShowStageText.gameObject.SetActive(true);
+        ShowStageText.text = "Stage " + CurStage;
+        ShowStageText.transform.position = new Vector2(1400, 1735);
+
+        while (ShowStageText.transform.position.x >= 540)
+        {
+            ShowStageText.transform.Translate(Vector2.left * speed);
+            yield return null;
+        }
+        yield return new WaitForSeconds(1);
+        ShowStageText.gameObject.SetActive(false);
     }
 }
