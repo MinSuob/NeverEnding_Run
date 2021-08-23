@@ -22,6 +22,7 @@ public class StageManager : MonoBehaviour
     }
 
     CurrentCharacter Cc;
+    DataManager dm;
     private List<string> DeckData = new List<string>();
 
     // Stage Num
@@ -54,7 +55,6 @@ public class StageManager : MonoBehaviour
     [SerializeField] private Slider LoadingBar;
     public Text ShowStageText;
 
-    int StageCheck = 0;
     int CoroutineCheck = 0;
     [HideInInspector] public bool Die;
 
@@ -63,12 +63,16 @@ public class StageManager : MonoBehaviour
     public bool[] BuffOn;
     [HideInInspector] public float addAtk = 0;
 
+    [SerializeField] GameObject ClearRewardGold;
+    [SerializeField] GameObject ClearRewardDia;
+
     private void Start()
     {
-        DeckData = DataManager.Instance.GetDeckData();
+        dm = DataManager.Instance;
+        DeckData = dm.GetDeckData();
         Cc = CurrentCharacter.Instance;
-        CurStage = DataManager.Instance.GetCurStage();
-        MaxStage = DataManager.Instance.GetMaxStage();
+        CurStage = dm.GetCurStage();
+        MaxStage = dm.GetMaxStage();
 
         StageStart();
     }
@@ -84,20 +88,7 @@ public class StageManager : MonoBehaviour
 
     void StageStart()
     {
-        MaxCountUp();
         StartCoroutine("EnemyRepawn");
-    }
-
-    void MaxCountUp()
-    {
-        if (CurStage >= 100)
-        {
-            if (CurStage % 100 == 0 && StageCheck == CurStage - 100)
-            {
-                EnemyMaxCount++;
-                StageCheck += CurStage;
-            }
-        }
     }
 
     IEnumerator EnemyRepawn()
@@ -111,8 +102,6 @@ public class StageManager : MonoBehaviour
         StartCoroutine(ShowStage());
 
         StageProgress = true;
-
-        DataManager dm = DataManager.Instance;
 
         for (int i = 0; i < EnemyMaxCount; i++)
         {
@@ -233,30 +222,38 @@ public class StageManager : MonoBehaviour
         CoroutineCheck = 0;
         StageReset();
         stagePanel.SetActive(true);
-        if (CurStage == 1)
+        if (dm.GetCurStage() == 1)
             StageText[2].text = null;
         else
-            StageText[2].text = "Stage\n" + (CurStage - 1);
+            StageText[2].text = "Stage\n" + (dm.GetCurStage() - 1);
         
-        StageText[3].text = "Stage\n" + CurStage;
-        StageText[4].text = "Stage\n" + (CurStage + 1);
+        StageText[3].text = "Stage\n" + dm.GetCurStage();
+        StageText[4].text = "Stage\n" + (dm.GetCurStage() + 1);
         switch (Type)
         {
             case "Fail":
+                ClearRewardGold.SetActive(false);
+                ClearRewardDia.SetActive(false);
                 StageText[0].text = "Stage Fail";
                 StageText[1].text = "Back Stage Loading..";
-                if (CurStage > 1)
+                if (dm.GetCurStage() > 1)
                     StartCoroutine(Loading("Back"));
                 else
                     StartCoroutine(Loading("Current"));
 
                 break;
             case "Clear":
-                if (MaxStage < CurStage)
-                    MaxStage = CurStage;
+                if (dm.GetMaxStage() < dm.GetCurStage())
+                    dm.SetMaxStage(dm.GetCurStage());
 
-                StageText[0].text = "Stage Clear";
+                StageText[0].text = "Stage Clear\n";
                 StageText[1].text = "Current Stage Loading..";
+                ClearRewardGold.SetActive(true);
+                ClearRewardDia.SetActive(true);
+                StageText[5].text = ""; // 클리어보상 골드
+                StageText[6].text = ""; // 클리어보상 다이아 ( 현재 스테이지 첫클리어 100? 10? )
+
+
                 StartCoroutine(Loading("Current"));
                 break;
         }
@@ -333,8 +330,8 @@ public class StageManager : MonoBehaviour
         switch (Type)
         {
             case "Back":
-                if (CurStage > 1)
-                    CurStage--;
+                if (dm.GetCurStage() > 1)
+                    dm.SetCurStage(dm.GetCurStage() - 1);
                 else
                     Cc.StartCoroutine(Cc.ShowErrorText("첫 스테이지 입니다."));
 
@@ -346,8 +343,8 @@ public class StageManager : MonoBehaviour
                 StageStart();
                 break;
             case "Next":
-                if (MaxStage >= CurStage)
-                    CurStage++;
+                if (dm.GetMaxStage() >= dm.GetCurStage())
+                    dm.SetCurStage(dm.GetCurStage() + 1);
                 else
                     Cc.StartCoroutine(Cc.ShowErrorText("이전 스테이지를 먼저 클리어 해야합니다."));
 
@@ -361,7 +358,7 @@ public class StageManager : MonoBehaviour
     {
         float speed = 20;
         ShowStageText.gameObject.SetActive(true);
-        ShowStageText.text = "Stage " + CurStage;
+        ShowStageText.text = "Stage " + dm.GetCurStage();
         ShowStageText.transform.position = new Vector2(1400, 1735);
 
         while (ShowStageText.transform.position.x >= 540)

@@ -286,7 +286,7 @@ public class CurrentCharacter: MonoBehaviour
         UnitPiece.value = unit.Piece / unit.MaxPiece;
     }
 
-    public void UnitLevelUp()
+    public void UnitLevelUp() // 레벨업 스텟 상승
     {
         UnitData unit = Dm.GetUnitData(CurrentJob);
 
@@ -314,7 +314,7 @@ public class CurrentCharacter: MonoBehaviour
             StartCoroutine(GoldTextFlash());
     }
 
-    public void GradeUp()
+    public void GradeUp() // 승급
     {
         UnitData unit = Dm.GetUnitData(CurrentJob);
 
