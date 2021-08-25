@@ -22,8 +22,10 @@ public class EnemyFsm : MonoBehaviour
     StageManager sm;
     [HideInInspector] public EnemyDistanceBox Box;
 
-    [HideInInspector] public bool[] enemystate = { false };
-
+    bool[] enemystate = { false, false };
+    float moveSpeed;
+    float SlowSpeed;
+    [SerializeField] Transform Body;
 
     void Start()
     {
@@ -32,24 +34,25 @@ public class EnemyFsm : MonoBehaviour
         _prefabs.PlayAnimation(1);
         Box = gameObject.transform.GetChild(2).gameObject.GetComponent<EnemyDistanceBox>();
         enemy = DataManager.Instance.GetEnemyData(job);
-
+        moveSpeed = enemy.MoveSpeed;
+        SlowSpeed = moveSpeed / 2;
         MaxHp = enemy.MaxHp;
         CurHp = enemy.CurHp;
 
         HpBar.value = CurHp / MaxHp;
-
     }
 
     void Update()
     {
-        print(enemystate[0]);
+        //GetComponent<Monster>().Animator.speed = Param.AniSpd * coldSpd;
+
         if (enemystate[0] == true)
             _prefabs.PlayAnimation(3);
         else
         {
             if (!Fight)
             {
-                Move(enemy.MoveSpeed);
+                Move(moveSpeed);
             }
         }
     }
@@ -128,14 +131,35 @@ public class EnemyFsm : MonoBehaviour
         switch (state)
         {
             case "Stun":
-                print("sef");
-
                 enemystate[0] = true;
                 Box.DistanceSize.offset = new Vector2(1, 0);
                 yield return new WaitForSeconds(time);
                 enemystate[0] = false;
                 _prefabs.PlayAnimation(1);
                 Box.BoxSize();
+                break;
+            case "Ice":
+                enemystate[1] = true;
+                moveSpeed = enemy.MoveSpeed / 2;
+                SpriteRenderer[] srs = Body.GetComponentsInChildren<SpriteRenderer>();
+                for (int i = 0; i < srs.Length; i++)
+                {
+                    srs[i].color = new Color(50 / 255f, 50 / 255f, 255 / 255);
+                }
+                yield return new WaitForSeconds(time);
+                for (int i = 0; i < srs.Length; i++)
+                {
+                    if (srs[i].name != "Front")
+                    {
+                        srs[i].color = new Color(255 / 255f, 255 / 255f, 255 / 255);
+                    }
+                    if (srs[i].name == "Shadow")
+                    {
+                        srs[i].color = new Color(0 / 255f, 0 / 255f, 0 / 255, 143 / 255f);
+                    }
+                }
+                enemystate[1] = false;
+                moveSpeed = enemy.MoveSpeed;
                 break;
         }
     }

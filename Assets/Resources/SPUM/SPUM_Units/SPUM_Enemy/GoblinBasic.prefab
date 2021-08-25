@@ -1030,6 +1030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e234fdf4693f4554d96659e6bd5a5182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DistanceSize: {fileID: 0}
 --- !u!1 &2054545072694340051
 GameObject:
   m_ObjectHideFlags: 0
@@ -1831,7 +1832,8 @@ MonoBehaviour:
   Fight: 0
   HpBar: {fileID: 1865638757477726066}
   CurHp: 0
-  enemystate: 00
+  Box: {fileID: 0}
+  Body: {fileID: 8455796442886965666}
 --- !u!1 &3616581408021000076
 GameObject:
   m_ObjectHideFlags: 0
@@ -3707,7 +3709,7 @@ SpriteRenderer:
   m_SortingOrder: 6
   m_Sprite: {fileID: -227387616865308203, guid: 889103fb98eff4203a15de8886df9dd9,
     type: 3}
-  m_Color: {r: 0.023529412, g: 0.023529412, b: 0.023529412, a: 0.9098039}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.9098039}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

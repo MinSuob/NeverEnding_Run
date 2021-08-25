@@ -120,8 +120,6 @@ public class UnitFsm : MonoBehaviour
                     }
                     break;
                 case "Skill":
-
-
                     if (enemyFsm != null)
                     {
                         switch (unit.Name)
@@ -146,20 +144,24 @@ public class UnitFsm : MonoBehaviour
                                 unit.AtkType = atkType;
                                 break;
                             case "궁수":
-                                allskill.skillon(unit.Skill_Name);
+                                _prefabs.PlayAnimation(8);
+                                StartCoroutine(SkillDelay(2, 0.5f, 0, 0));
                                 break;
                             case "라이트닝 마법사":
-                                SkillEfect(0, 2);
+                                _prefabs.PlayAnimation(9);
+                                StartCoroutine(SkillDelay(1, 0.5f, 0, 2));
                                 break;
                             case "모험가":
                                 if (sm.BuffOn[1] == false)
                                 {
+                                    _prefabs.PlayAnimation(9);
                                     StartCoroutine(Buff(unit.Atk, 5, 1));
                                     allskill.skillon(unit.Skill_Name);
                                 }
                                 break;
                             case "도적":
-                                allskill.skillon(unit.Skill_Name);
+                                _prefabs.PlayAnimation(8);
+                                StartCoroutine(SkillDelay(2, 0.5f, 0, 0));
                                 break;
                             case "탱커":
                                 SkillEfect(0, 0.8f);
@@ -174,23 +176,28 @@ public class UnitFsm : MonoBehaviour
                                 }
                                 break;
                             case "창병":
-                                SkillEfect(0.5f, 0.8f);
+                                _prefabs.PlayAnimation(8);
+                                StartCoroutine(SkillDelay(1, 0.5f, 0.5f, 0.8f));
                                 break;
                             case "더블액스":
-                                SkillEfect(enemyFsm.transform.position.x, enemyFsm.transform.position.y + 0.2f);
+                                _prefabs.PlayAnimation(7);
+                                StartCoroutine(SkillDelay(1, 0.5f, enemyFsm.transform.position.x, enemyFsm.transform.position.y + 0.2f));
                                 break;
                             case "엘프":
-                                SkillEfect(0.5f, 0.8f);
+                                _prefabs.PlayAnimation(8);
+                                StartCoroutine(SkillDelay(1, 0.5f, 0.5f, 0.8f));
                                 break;
                             case "성기사":
                                 if (sm.BuffOn[2] == false)
                                 {
+                                    _prefabs.PlayAnimation(9);
                                     StartCoroutine(Buff(unit.Atk, 5, 2));
                                     allskill.skillon(unit.Skill_Name);
                                 }
                                 break;
                             default:
-                                SkillEfect(enemyFsm.transform.position.x, enemyFsm.transform.position.y + 0.2f);
+                                _prefabs.PlayAnimation(9);
+                                StartCoroutine(SkillDelay(1, 0.5f, enemyFsm.transform.position.x, enemyFsm.transform.position.y));
                                 break;
                         }
                         unit.AtkType = atkType;
@@ -230,6 +237,23 @@ public class UnitFsm : MonoBehaviour
         }
         else
             yield break;
+    }
+
+    IEnumerator SkillDelay(int type, float time, float x, float y)
+    {
+        switch (type)
+        {
+            case 1:
+                yield return new WaitForSeconds(time);
+                SkillEfect(x, y);
+                break;
+            case 2:
+                yield return new WaitForSeconds(time);
+                allskill.skillon(unit.Skill_Name);
+                break;
+            default:
+                break;
+        }
     }
 
     public void HpSet(float curHp)

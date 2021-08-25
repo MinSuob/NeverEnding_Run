@@ -95,7 +95,7 @@ public class UnitDataSet
         unit.CurHp = unit.MaxHp;
         unit.Atk = 5f;
         unit.AtkDist = RangeDistance;
-        unit.AtkDelay = 2f;
+        unit.AtkDelay = 2.1f;
         unit.AtkType = "Magic";
         unit.AtkName = "CFX4HitPaintC(Cyan)";
         unit.Skill_Name = "IceSpear";
