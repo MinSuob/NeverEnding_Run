@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 198572881580852744}
   - component: {fileID: 199998227980983536}
   - component: {fileID: 114324878773532104}
+  - component: {fileID: 5105808991658402054}
+  - component: {fileID: 669331702434104162}
+  - component: {fileID: 6042818964259540650}
   m_Layer: 0
   m_Name: CFX3_Fire_Explosion
   m_TagString: Untagged
@@ -4799,6 +4802,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OnlyDeactivate: 0
+--- !u!114 &5105808991658402054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134129239631916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a342fed8b2059f44380d1a9afa40f6f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Firewall: {fileID: 1777228334563182988, guid: b0bc1b6b391734647b9bb142bafc0819,
+    type: 3}
+--- !u!50 &669331702434104162
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134129239631916}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!70 &6042818964259540650
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134129239631916}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 5, y: 5}
+  m_Direction: 0
 --- !u!1 &1143295807935202
 GameObject:
   m_ObjectHideFlags: 0

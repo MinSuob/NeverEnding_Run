@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static CharacterState;
 
 public class IceSpear : MonoBehaviour
 {
@@ -8,10 +9,11 @@ public class IceSpear : MonoBehaviour
     {
         if (Enemy.tag == "Enemy")
         {
+            var damage = DataManager.Instance.GetUnitData(Job.Unit3);
             EnemyFsm enemy = Enemy.GetComponent<EnemyFsm>();
             if (enemy != null)
             {
-                enemy.Damage(GameObject.Find("Unit3(Clone)").GetComponent<UnitFsm>().unit.Atk, 0);
+                enemy.Damage(damage.Atk, 0);
                 enemy.StartCoroutine(enemy.State("Ice", 2));
             }
         }

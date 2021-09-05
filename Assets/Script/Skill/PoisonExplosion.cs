@@ -1,18 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static CharacterState;
 
 public class PoisonExplosion : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter2D(Collider2D Enemy)
     {
-        
+        if (Enemy.tag == "Enemy")
+        {
+            StartCoroutine(Damage(Enemy.GetComponent<EnemyFsm>()));
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator Damage(EnemyFsm enemy)
     {
-        
+        var damage = DataManager.Instance.GetUnitData(Job.Unit2);
+        enemy.StartCoroutine(enemy.State("Poison", 3));
+        int count = 0;
+        while (count < 3)
+        {
+            if (enemy != null)
+                enemy.Damage(damage.Atk, 0);
+            yield return new WaitForSeconds(1);
+            count++;
+        }
     }
 }

@@ -22,37 +22,79 @@ public class EnemyFsm : MonoBehaviour
     StageManager sm;
     [HideInInspector] public EnemyDistanceBox Box;
 
-    bool[] enemystate = { false, false };
+    bool[] enemystate = { false, false, false };
     float moveSpeed;
-    float SlowSpeed;
     [SerializeField] Transform Body;
+    SpriteRenderer[] srs;
+    float aniSpeed;
 
     void Start()
     {
         sm = GameObject.Find("StageManager").GetComponent<StageManager>();
         _prefabs = gameObject.GetComponent<SPUM_Prefabs>();
+        
         _prefabs.PlayAnimation(1);
         Box = gameObject.transform.GetChild(2).gameObject.GetComponent<EnemyDistanceBox>();
         enemy = DataManager.Instance.GetEnemyData(job);
         moveSpeed = enemy.MoveSpeed;
-        SlowSpeed = moveSpeed / 2;
         MaxHp = enemy.MaxHp;
         CurHp = enemy.CurHp;
 
         HpBar.value = CurHp / MaxHp;
+        aniSpeed = _prefabs._anim.speed;
+        srs = Body.GetComponentsInChildren<SpriteRenderer>();
     }
 
     void Update()
     {
         //GetComponent<Monster>().Animator.speed = Param.AniSpd * coldSpd;
+        print(CurHp);
+        
+        if (!Fight && enemystate[0] == false)
+        {
+            Move(moveSpeed);
+        }
 
         if (enemystate[0] == true)
-            _prefabs.PlayAnimation(3);
+            _prefabs.PlayAnimation(3); // 스턴
+        else if (enemystate[1] == true) // 빙결
+        {
+            moveSpeed = enemy.MoveSpeed / 3;
+            _prefabs._anim.speed = aniSpeed / 2;
+            for (int i = 0; i < srs.Length; i++)
+            {
+                srs[i].color = new Color(50 / 255f, 50 / 255f, 255 / 255f);
+            }
+        }
+        else if (enemystate[2] == true) // 중독
+        {
+            for (int i = 0; i < srs.Length; i++)
+            {
+                srs[i].color = new Color(255 / 255f, 30 / 255f, 150 / 255f);
+                if (srs[i].name == "Front")
+                {
+                    srs[i].color = new Color(0 / 255f, 0 / 255f, 0 / 255f, 232 / 255f);
+                }
+                if (srs[i].name == "Shadow")
+                {
+                    srs[i].color = new Color(0 / 255f, 0 / 255f, 0 / 255f, 143 / 255f);
+                }
+            }
+        }
         else
         {
-            if (!Fight)
+            moveSpeed = enemy.MoveSpeed;
+            _prefabs._anim.speed = aniSpeed;
+            for (int i = 0; i < srs.Length; i++)
             {
-                Move(moveSpeed);
+                if (srs[i].name != "Front")
+                {
+                    srs[i].color = new Color(255 / 255f, 255 / 255f, 255 / 255f);
+                }
+                if (srs[i].name == "Shadow")
+                {
+                    srs[i].color = new Color(0 / 255f, 0 / 255f, 0 / 255f, 143 / 255f);
+                }
             }
         }
     }
@@ -140,26 +182,13 @@ public class EnemyFsm : MonoBehaviour
                 break;
             case "Ice":
                 enemystate[1] = true;
-                moveSpeed = enemy.MoveSpeed / 2;
-                SpriteRenderer[] srs = Body.GetComponentsInChildren<SpriteRenderer>();
-                for (int i = 0; i < srs.Length; i++)
-                {
-                    srs[i].color = new Color(50 / 255f, 50 / 255f, 255 / 255);
-                }
                 yield return new WaitForSeconds(time);
-                for (int i = 0; i < srs.Length; i++)
-                {
-                    if (srs[i].name != "Front")
-                    {
-                        srs[i].color = new Color(255 / 255f, 255 / 255f, 255 / 255);
-                    }
-                    if (srs[i].name == "Shadow")
-                    {
-                        srs[i].color = new Color(0 / 255f, 0 / 255f, 0 / 255, 143 / 255f);
-                    }
-                }
                 enemystate[1] = false;
-                moveSpeed = enemy.MoveSpeed;
+                break;
+            case "Poison":
+                enemystate[2] = true;
+                yield return new WaitForSeconds(time);
+                enemystate[2] = false;
                 break;
         }
     }
