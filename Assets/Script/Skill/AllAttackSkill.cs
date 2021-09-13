@@ -7,6 +7,8 @@ public class AllAttackSkill : MonoBehaviour
 {
     bool SkillOn = false;
     bool SkillOn1 = false;
+    bool SkillOn2 = false;
+    bool SkillOn3 = false;
     string SkillName;
     private List<string> DeckData = new List<string>();
 
@@ -14,12 +16,12 @@ public class AllAttackSkill : MonoBehaviour
     {
         DeckData = DataManager.Instance.GetDeckData();
     }
+
     private void OnTriggerEnter2D(Collider2D Enemy)
     {
         if (Enemy.tag == "Enemy")
         {
             EnemyFsm enemy = Enemy.GetComponent<EnemyFsm>();
-
             switch (SkillName)
             {
                 case "CFX4MagicHit": // 궁수
@@ -32,7 +34,7 @@ public class AllAttackSkill : MonoBehaviour
                         transform.position = new Vector2(-5f, -1.12f);
                     }
                     break;
-                case "CFX2_Wandering_Spirits":
+                case "CFX2_Wandering_Spirits": // 모험가
                     if (enemy != null && SkillOn == false)
                     {
                         SkillOn = true;
@@ -56,11 +58,33 @@ public class AllAttackSkill : MonoBehaviour
                 case "CFX_Magical_Source": // 성기사
                     if (enemy != null && SkillOn1 == false)
                     {
-                        SkillOn = true;
+                        SkillOn1 = true;
                         GameObject Effect3 = Resources.Load<GameObject>("Effect/" + SkillName);
                         GameObject Pos3 = Instantiate(Effect3, transform.parent.GetChild(1).transform);
                         Pos3.transform.position = new Vector2(0, 2);
                         StartCoroutine(Damage(enemy, Pos3, "성기사", 0));
+                        transform.position = new Vector2(-5f, -1.12f);
+                    }
+                    break;
+                case "YellowFairyDust": // 성녀
+                    if (enemy != null && SkillOn2 == false)
+                    {
+                        SkillOn2 = true;
+                        GameObject Effect4 = Resources.Load<GameObject>("Effect/" + SkillName);
+                        GameObject Pos4 = Instantiate(Effect4, transform.parent.GetChild(1).transform);
+                        Pos4.transform.position = new Vector2(0, 2);
+                        StartCoroutine(Damage(enemy, Pos4, "성녀", 0));
+                        transform.position = new Vector2(-5f, -1.12f);
+                    }
+                    break;
+                case "Butterfly": // 탱커
+                    if (enemy != null && SkillOn3 == false)
+                    {
+                        SkillOn3 = true;
+                        GameObject Effect5 = Resources.Load<GameObject>("Effect/" + SkillName);
+                        GameObject Pos5 = Instantiate(Effect5, transform.parent.GetChild(1).transform);
+                        Pos5.transform.position = new Vector2(0, 1.2f);
+                        StartCoroutine(Damage(enemy, Pos5, "탱커", 0));
                         transform.position = new Vector2(-5f, -1.12f);
                     }
                     break;
@@ -117,15 +141,53 @@ public class AllAttackSkill : MonoBehaviour
                         }
                         Unit.HpSet(Unit.CurHp);
                     }
-                    if (enemy != null)
-                    {
-                        enemy.Damage(atk1 * 0.5f, 0);
-                    }
                     yield return new WaitForSeconds(1);
                     TimeCount1++;
                 }
                 Destroy(prefab);
-                SkillOn = false;
+                SkillOn1 = false;
+                break;
+            case "성녀":
+                float atk2 = GameObject.Find("Unit24(Clone)").GetComponent<UnitFsm>().unit.Atk;
+                int TimeCount2 = 0;
+                while (TimeCount2 < 5)
+                {
+                    UnitFsm Unit = GameObject.Find(DeckData[0] + "(Clone)").GetComponent<UnitFsm>();
+                    if (Unit.CurHp < Unit.MaxHp)
+                    {
+                        Unit.CurHp += atk2; //성녀 공격력 150% 만큼 회복
+                        if (Unit.CurHp > Unit.MaxHp)
+                        {
+                            Unit.CurHp = Unit.MaxHp;
+                        }
+                        Unit.HpSet(Unit.CurHp);
+                    }
+                    yield return new WaitForSeconds(1);
+                    TimeCount2++;
+                }
+                Destroy(prefab);
+                SkillOn2 = false;
+                break;
+            case "탱커":
+                int TimeCount3 = 0;
+                while (TimeCount3 < 5)
+                {
+                    UnitFsm Unit = GameObject.Find(DeckData[0] + "(Clone)").GetComponent<UnitFsm>();
+                    var TankerAtk = DataManager.Instance.GetUnitData(Job.Unit17).Atk;
+                    if (Unit.CurHp < Unit.MaxHp)
+                    {
+                        Unit.CurHp += TankerAtk * 1.5f; // 0번슬롯 공격력 150%
+                        if (Unit.CurHp > Unit.MaxHp)
+                        {
+                            Unit.CurHp = Unit.MaxHp;
+                        }
+                        Unit.HpSet(Unit.CurHp);
+                    }
+                    yield return new WaitForSeconds(1);
+                    TimeCount3++;
+                }
+                Destroy(prefab);
+                SkillOn3 = false;
                 break;
         }
     }

@@ -880,7 +880,8 @@ MonoBehaviour:
   Fight: 0
   HpBar: {fileID: 4388630463465594299}
   CurHp: 0
-  enemystate: 00
+  Box: {fileID: 0}
+  Body: {fileID: 4094027638595812883}
 --- !u!1 &2738391979192635963
 GameObject:
   m_ObjectHideFlags: 0
@@ -2413,6 +2414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e234fdf4693f4554d96659e6bd5a5182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DistanceSize: {fileID: 0}
 --- !u!1 &6236283674674823020
 GameObject:
   m_ObjectHideFlags: 0

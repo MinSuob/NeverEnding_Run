@@ -1,22 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Fireball : MonoBehaviour {
     public bool pushOnAwake = true;
     public Vector3 startDirection;
     public float startMagnitude;
-    public ForceMode forceMode;
+    public ForceMode2D forceMode;
 
     public GameObject fieryEffect;
     public GameObject smokeEffect;
     public GameObject explodeEffect;
 
-    protected Rigidbody rgbd;
+    protected Rigidbody2D rgbd;
 
     public void Awake()
     {
-        rgbd = GetComponent<Rigidbody>();
+        rgbd = GetComponent<Rigidbody2D>();
     }
 
     public void Start()
@@ -30,22 +30,34 @@ public class Fireball : MonoBehaviour {
     public void Push(Vector3 direction, float magnitude)
     {
         Vector3 dir = direction.normalized;
-        rgbd.AddForce(dir * magnitude, forceMode);
+        rgbd.AddForce(dir * magnitude,ForceMode2D.Force);
+    }
+    public void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.tag == "Enemy")
+        {
+            rgbd.Sleep();
+            if (fieryEffect != null)
+            {
+                StopParticleSystem(fieryEffect);
+            }
+            if (smokeEffect != null)
+            {
+                StopParticleSystem(smokeEffect);
+            }
+            if (explodeEffect != null)
+            {
+                explodeEffect.transform.position = col.transform.position;
+                explodeEffect.SetActive(true);
+            }
+            StartCoroutine(destroy());
+        }
     }
 
-    public void OnCollisionEnter(Collision col)
+    IEnumerator destroy()
     {
-        rgbd.Sleep();
-        if (fieryEffect != null)
-        {
-            StopParticleSystem(fieryEffect);
-        }
-        if (smokeEffect != null)
-        {
-            StopParticleSystem(smokeEffect);
-        }
-        if (explodeEffect != null)
-            explodeEffect.SetActive(true);
+        yield return new WaitForSeconds(1);
+        Destroy(gameObject);
     }
 
     public void StopParticleSystem(GameObject g)

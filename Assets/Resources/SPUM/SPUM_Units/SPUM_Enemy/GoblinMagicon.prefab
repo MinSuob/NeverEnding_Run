@@ -942,7 +942,8 @@ MonoBehaviour:
   Fight: 0
   HpBar: {fileID: 8165058261315058919}
   CurHp: 0
-  enemystate: 00
+  Box: {fileID: 0}
+  Body: {fileID: 651828746251091724}
 --- !u!70 &4188165282943328874
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2391,6 +2392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e234fdf4693f4554d96659e6bd5a5182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DistanceSize: {fileID: 0}
 --- !u!1 &4313040154812506418
 GameObject:
   m_ObjectHideFlags: 0

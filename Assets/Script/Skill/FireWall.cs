@@ -5,8 +5,6 @@ using static CharacterState;
 
 public class FireWall : MonoBehaviour
 {
-    public float damage;
-
     private void OnTriggerEnter2D(Collider2D Enemy)
     {
         if (Enemy.tag == "Enemy")

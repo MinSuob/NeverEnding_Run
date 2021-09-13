@@ -1899,6 +1899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e234fdf4693f4554d96659e6bd5a5182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DistanceSize: {fileID: 0}
 --- !u!1 &2626310623785462611
 GameObject:
   m_ObjectHideFlags: 0
@@ -3971,8 +3972,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   job: 15
+  _prefabs: {fileID: 0}
   Fight: 0
   HpBar: {fileID: 4999985584048560877}
+  CurHp: 0
+  Box: {fileID: 0}
+  Body: {fileID: 4114423385547236859}
 --- !u!70 &3275990821731358416
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

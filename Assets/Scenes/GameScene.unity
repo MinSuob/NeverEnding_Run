@@ -2974,8 +2974,9 @@ MonoBehaviour:
   ShowStageText: {fileID: 2072443006}
   Die: 0
   StageClear: 0
-  BuffOn: 000000
+  BuffOn: 000000000000
   addAtk: 0
+  addAtk2: 0
   ClearRewardGold: {fileID: 917969308}
   ClearRewardDia: {fileID: 477429211}
 --- !u!1 &764357803
@@ -5365,7 +5366,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 300}
+  m_AnchoredPosition: {x: -200, y: 366}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1432120055

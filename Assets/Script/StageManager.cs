@@ -25,12 +25,8 @@ public class StageManager : MonoBehaviour
     DataManager dm;
     private List<string> DeckData = new List<string>();
 
-    // Stage Num
-    int CurStage;
-    int MaxStage;
-
     // Stage Max Enemy Count
-    int EnemyMaxCount = 1;
+    int EnemyMaxCount = 15;
     // Stage Cur Enemy Count
     [HideInInspector] public int EnemyCurCount;
     [HideInInspector] public bool StageProgress;
@@ -62,6 +58,7 @@ public class StageManager : MonoBehaviour
 
     public bool[] BuffOn;
     [HideInInspector] public float addAtk = 0;
+    [HideInInspector] public float addAtk2 = 0;
 
     [SerializeField] GameObject ClearRewardGold;
     [SerializeField] GameObject ClearRewardDia;
@@ -71,8 +68,6 @@ public class StageManager : MonoBehaviour
         dm = DataManager.Instance;
         DeckData = dm.GetDeckData();
         Cc = CurrentCharacter.Instance;
-        CurStage = dm.GetCurStage();
-        MaxStage = dm.GetMaxStage();
 
         StageStart();
     }

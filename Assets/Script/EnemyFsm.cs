@@ -48,7 +48,6 @@ public class EnemyFsm : MonoBehaviour
     void Update()
     {
         //GetComponent<Monster>().Animator.speed = Param.AniSpd * coldSpd;
-        print(CurHp);
         
         if (!Fight && enemystate[0] == false)
         {

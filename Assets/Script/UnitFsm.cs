@@ -43,7 +43,6 @@ public class UnitFsm : MonoBehaviour
 
     private void Update()
     {
-        
     }
 
     public IEnumerator Attack(Collider2D Enemy)
@@ -52,6 +51,7 @@ public class UnitFsm : MonoBehaviour
         {
             yield break;
         }
+
         EnemyFsm enemyFsm = Enemy.GetComponent<EnemyFsm>();
         string atkType = unit.AtkType;
         while (Fight_On)
@@ -141,7 +141,6 @@ public class UnitFsm : MonoBehaviour
                                     }
                                     StartCoroutine(Buff(sm.addAtk, 10, 0));
                                 }
-                                unit.AtkType = atkType;
                                 break;
                             case "궁수":
                                 _prefabs.PlayAnimation(8);
@@ -163,7 +162,7 @@ public class UnitFsm : MonoBehaviour
                                 _prefabs.PlayAnimation(8);
                                 StartCoroutine(SkillDelay(2, 0.5f, 0, 0));
                                 break;
-                            case "탱커":
+                            case "방패병":
                                 SkillEfect(0, 0.8f);
                                 if (CurHp < MaxHp)
                                 {
@@ -175,13 +174,13 @@ public class UnitFsm : MonoBehaviour
                                     HpSet(CurHp);
                                 }
                                 break;
-                            case "창병":
+                            case "사냥꾼":
                                 _prefabs.PlayAnimation(8);
                                 StartCoroutine(SkillDelay(1, 0.5f, 0.5f, 0.8f));
                                 break;
                             case "더블액스":
                                 _prefabs.PlayAnimation(7);
-                                StartCoroutine(SkillDelay(1, 0.5f, enemyFsm.transform.position.x, enemyFsm.transform.position.y + 0.2f));
+                                StartCoroutine(SkillDelay(1, 0.3f, enemyFsm.transform.position.x, enemyFsm.transform.position.y + 0.2f));
                                 break;
                             case "엘프":
                                 _prefabs.PlayAnimation(8);
@@ -191,9 +190,84 @@ public class UnitFsm : MonoBehaviour
                                 if (sm.BuffOn[2] == false)
                                 {
                                     _prefabs.PlayAnimation(9);
-                                    StartCoroutine(Buff(unit.Atk, 5, 2));
+                                    StartCoroutine(Buff(unit.Atk, 5.1f, 2));
                                     allskill.skillon(unit.Skill_Name);
                                 }
+                                break;
+                            case "기사":
+                                _prefabs.PlayAnimation(9);
+                                SkillEfect(1.5f, 2);
+                                break;
+                            case "헌터":
+                                _prefabs.PlayAnimation(8);
+                                StartCoroutine(SkillDelay(1, 0.5f, 1.5f, 4));
+                                break;
+                            case "포이즌":
+                                _prefabs.PlayAnimation(9);
+                                StartCoroutine(SkillDelay(3, 0.5f, enemyFsm.transform.position.x, enemyFsm.transform.position.y + 0.5f));
+                                break;
+                            case "아이스":
+                                _prefabs.PlayAnimation(9);
+                                StartCoroutine(SkillDelay(1, 0.8f, -0.5f, 0.5f));
+                                break;
+                            case "파이어":
+                                _prefabs.PlayAnimation(9);
+                                SkillEfect(1.5f, 7);
+                                break;
+                            case "라이트닝":
+                                _prefabs.PlayAnimation(9);
+                                StartCoroutine(SkillDelay(3, 0.5f, enemyFsm.transform.position.x, enemyFsm.transform.position.y));
+                                break;
+                            case "시프":
+                                
+                                _prefabs.PlayAnimation(5);
+                                StartCoroutine(SkillDelay(1, 0.5f, 0, 0.7f));
+                                break;
+                            case "탱커":
+                                if (sm.BuffOn[4] == false)
+                                {
+                                    _prefabs.PlayAnimation(9);
+                                    StartCoroutine(Buff(unit.Atk, 5.1f, 4));
+                                    allskill.skillon(unit.Skill_Name);
+                                }
+                                break;
+                            case "창병":
+                                if (sm.BuffOn[5] == false)
+                                {
+                                    _prefabs.PlayAnimation(9);
+                                    sm.addAtk2 = unit.Atk * 2;
+                                    StartCoroutine(SkillDelay(1, 0.5f, 0, 0.2f));
+                                    unit.Atk += sm.addAtk2;
+                                    StartCoroutine(Buff(sm.addAtk2, 10, 5));  
+                                }
+                                break;
+                            case "도살자":
+                                _prefabs.PlayAnimation(7);
+                                StartCoroutine(SkillDelay(1, 0.3f, enemyFsm.transform.position.x, enemyFsm.transform.position.y + 0.2f));
+                                break;
+                            case "엘프(남)":
+                                _prefabs.PlayAnimation(8);
+                                SkillEfect(-1, -4.3f);
+                                break;
+                            case "성녀":
+                                if (sm.BuffOn[3] == false)
+                                {
+                                    _prefabs.PlayAnimation(9);
+                                    StartCoroutine(Buff(unit.Atk, 5.1f, 3));
+                                    allskill.skillon(unit.Skill_Name);
+                                }
+                                break;
+                            case "워리어":
+                                _prefabs.PlayAnimation(9);
+                                StartCoroutine(SkillDelay(1, 0.5f, 1.5f, 2));
+                                break;
+                            case "거인":
+                                _prefabs.PlayAnimation(7);
+                                StartCoroutine(SkillDelay(1, 0.3f, enemyFsm.transform.position.x, enemyFsm.transform.position.y + 0.2f));
+                                break;
+                            case "자이언트":
+                                _prefabs.PlayAnimation(7);
+                                StartCoroutine(SkillDelay(1, 0.3f, enemyFsm.transform.position.x, enemyFsm.transform.position.y - 0.5f));
                                 break;
                             default:
                                 _prefabs.PlayAnimation(9);
@@ -203,9 +277,14 @@ public class UnitFsm : MonoBehaviour
                         unit.AtkType = atkType;
                     }
                     else
-                        break;
+                    {
+                        unit.AtkType = atkType;
+                        Fight_On = false;
+                        Box.ReSize();
+                    }
                     break;
             }
+
             yield return new WaitForSeconds(unit.AtkDelay);
         }
     }
@@ -251,6 +330,11 @@ public class UnitFsm : MonoBehaviour
                 yield return new WaitForSeconds(time);
                 allskill.skillon(unit.Skill_Name);
                 break;
+            case 3:
+                yield return new WaitForSeconds(time);
+                SkillEfect(x, y);
+                SkillEfect2(x, y);
+                break;
             default:
                 break;
         }
@@ -286,6 +370,13 @@ public class UnitFsm : MonoBehaviour
         GameObject Pos = Instantiate(Effect, parent.transform);
         Pos.transform.position = new Vector2(x, y);
     }
+    void SkillEfect2(float x, float y)
+    {
+        var parent = GameObject.Find("Skill");
+        GameObject Effect = Resources.Load<GameObject>("Effect/" + unit.Skill_Name2);
+        GameObject Pos = Instantiate(Effect, parent.transform);
+        Pos.transform.position = new Vector2(x, y);
+    }
 
     IEnumerator Buff(float atk, float time, int num)
     {
@@ -306,6 +397,23 @@ public class UnitFsm : MonoBehaviour
             case 2: // 성기사
                 sm.BuffOn[num] = true;
                 yield return new WaitForSeconds(time);
+                sm.BuffOn[num] = false;
+                break;
+            case 3: // 성녀
+                sm.BuffOn[num] = true;
+                yield return new WaitForSeconds(time);
+                sm.BuffOn[num] = false;
+                break;
+            case 4: // 성기사
+                sm.BuffOn[num] = true;
+                yield return new WaitForSeconds(time);
+                sm.BuffOn[num] = false;
+                break;
+            case 5: // 창병
+                sm.BuffOn[num] = true;
+                yield return new WaitForSeconds(time);
+                unit.Atk -= atk;
+                sm.addAtk2 = 0;
                 sm.BuffOn[num] = false;
                 break;
         }
