@@ -30,7 +30,7 @@ public class UnitDataSet
         unit.AtkType = "Melee";
         unit.AtkName = "CFX_Poof";
         unit.Skill_Name = "CFX4AuraBubbleC";
-        unit.Skill_Tip = "공격 시 10%의 확률로 10초동안 공격력이 상승하고 체력이 50% 회복됩니다.";
+        unit.Skill_Tip = "전체 체력의 50% 즉시 회복, 10초간 공격력이 100% 상승";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -53,7 +53,7 @@ public class UnitDataSet
         unit.AtkType = "Bow";
         unit.AtkName = "CFX_Hit_CWhite";
         unit.Skill_Name = "CFX4MagicHit";
-        unit.Skill_Tip = "공격 시 10%의 확률로 범위안에 모든적들에게 공격력의 80%데미지 화살을 날린다.";
+        unit.Skill_Tip = "모든 적들에게 공격력의 80% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -76,7 +76,7 @@ public class UnitDataSet
         unit.AtkType = "Magic";
         unit.AtkName = "CFX_Virus";
         unit.Skill_Name = "CFX2_WWExplosion_C";
-        unit.Skill_Tip = "공격 시 20% 확률로 적을 중독시키는 독안개를 소환한다.\n( 중독된 대상은 공격력의 450% 데미지를 3회에 걸쳐 받습니다. )";
+        unit.Skill_Tip = "독가스에 중독시켜 3초동안 매 초 마다 공격력의 100% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 20;
         Unitdata.Add((int)unit.Job, unit);
@@ -99,7 +99,7 @@ public class UnitDataSet
         unit.AtkType = "Magic";
         unit.AtkName = "CFX4HitPaintC(Cyan)";
         unit.Skill_Name = "IceSpear";
-        unit.Skill_Tip = "공격 시 20% 확률로 적을 빙결시키는 얼음송곳을 소환한다.\n( 빙결된 대상은 공격력의 100% 데미지를 받고 3초간 느려집니다. )";
+        unit.Skill_Tip = "얼음 기둥을 소환해 공격력의 150% 데미지, 2초간 빙결";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 20;
         Unitdata.Add((int)unit.Job, unit);
@@ -123,7 +123,7 @@ public class UnitDataSet
         unit.AtkName = "CFX4HitB(Orange)";
         unit.Skill_Name = "CFX3_Fire_Shield";
         unit.Skill_Name2 = "CFX3_Fire_Explosion";
-        unit.Skill_Tip = "공격 시 10% 확률로 불의기둥을 소환한다.\n( 1초마다 공격력의 100%데미지로 공격합니다. ( 폭발 데미지 150% ))";
+        unit.Skill_Tip = "불 기둥을 소환해 3초동안 매 초 마다 50% 데미지 ( 폭발데미지 공격력의 100% 데미지 )";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -146,7 +146,7 @@ public class UnitDataSet
         unit.AtkType = "Magic";
         unit.AtkName = "CFX_ElectricityBall";
         unit.Skill_Name = "Spark";
-        unit.Skill_Tip = "공격 시 20% 확률로 기절시키는 스파크를 발사한다.\n( 200%의 데미지를 받고 2초간 기절합니다. )";
+        unit.Skill_Tip = "스파크를 날려 공격력의 100% 데미지, 2초간 기절";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 20;
         Unitdata.Add((int)unit.Job, unit);
@@ -169,7 +169,7 @@ public class UnitDataSet
         unit.AtkType = "Melee";
         unit.AtkName = "CFX_Poof";
         unit.Skill_Name = "CFX2_Wandering_Spirits";
-        unit.Skill_Tip = "공격 시 10%의 확률로 반딧불을 소환해 5초동안 공격력의 500%데미지를 줍니다.\n( 반딧불이 존재할 시 1초마다 공격력만큼의 체력을 회복합니다. )";
+        unit.Skill_Tip = "5초동안 매 초 마다 전체 체력의 10% 회복, 공격력의 50% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -188,11 +188,11 @@ public class UnitDataSet
         unit.CurHp = unit.MaxHp;
         unit.Atk = 6f;
         unit.AtkDist = MeleeDistance;
-        unit.AtkDelay = 0.5f;
+        unit.AtkDelay = 0.7f;
         unit.AtkType = "Melee";
         unit.AtkName = "CFX4HitPow";
         unit.Skill_Name = "CFX2_Blood";
-        unit.Skill_Tip = "공격 시 10%의 확률로 범위내 적들의 급소를 공격해 300%의 데미지를 입힌다.";
+        unit.Skill_Tip = "모든 적들에게 공격력의 50% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -215,7 +215,7 @@ public class UnitDataSet
         unit.AtkType = "Melee";
         unit.AtkName = "CFX_Poof";
         unit.Skill_Name = "VenomSpell";
-        unit.Skill_Tip = "공격 시 10%의 확률로 공격력의 200%만큼 체력을 회복한다.";
+        unit.Skill_Tip = "공격력의 200%만큼 즉시 회복";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -238,7 +238,7 @@ public class UnitDataSet
         unit.AtkType = "Melee";
         unit.AtkName = "CFX_Poof";
         unit.Skill_Name = "SpearShot";
-        unit.Skill_Tip = "공격 시 20%의 확률로 관통하는 창을 던진다. 관통당한 적은 120%의 데미지를 받습니다.";
+        unit.Skill_Tip = "관통하는 창을 던진다. 공격력의 100% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 20;
         Unitdata.Add((int)unit.Job, unit);
@@ -261,7 +261,7 @@ public class UnitDataSet
         unit.AtkType = "Melee";
         unit.AtkName = "CFX_Poof";
         unit.Skill_Name = "CFX4DrillAirHit(NOCOLLISION)";
-        unit.Skill_Tip = "공격시 10%의 확률로 땅을 내려쳐 공격력의 250%데미지를 주고 기절 시킨다.";
+        unit.Skill_Tip = "땅을 내려쳐 공격력의 150% 데미지, 2초간 기절";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -284,7 +284,7 @@ public class UnitDataSet
         unit.AtkType = "Bow";
         unit.AtkName = "CFX_Hit_CWhite";
         unit.Skill_Name = "ArrowRoll";
-        unit.Skill_Tip = "공격시 20%의 확률로 관퉁하는 화살로 공격한다. 관통당한 적은 150%의 데미지를 받습니다.";
+        unit.Skill_Tip = "관퉁하는 화살로 공격한다. 공격력의 120% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 20;
         Unitdata.Add((int)unit.Job, unit);
@@ -307,7 +307,7 @@ public class UnitDataSet
         unit.AtkType = "Melee";
         unit.AtkName = "CFX3_MagicAura_B_Runic";
         unit.Skill_Name = "CFX_Magical_Source";
-        unit.Skill_Tip = "공격시 20%의 확률로 빛의 구체를 소환해 5초동안 공격력의 80%만큼 회복한다. ( 성기사의 평타는 공격력만큼 체력을 회복합니다. )";
+        unit.Skill_Tip = "5초동안 매 초 마다 전체 체력의 20% + 공격력의 100%만큼 체력 회복";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 20;
         Unitdata.Add((int)unit.Job, unit);
@@ -330,7 +330,7 @@ public class UnitDataSet
         unit.AtkType = "Melee";
         unit.AtkName = "CFX_Poof";
         unit.Skill_Name = "BattleGear-Sword";
-        unit.Skill_Tip = "공격력의 500%의 빛의 검을 소환 합니다.";
+        unit.Skill_Tip = "빛의 검을 소환해 공격력의 500% 데미지, 2초간 기절";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -353,7 +353,7 @@ public class UnitDataSet
         unit.AtkType = "Bow";
         unit.AtkName = "CFX3_Hit_Misc_B_Gravity";
         unit.Skill_Name = "ArrowRain";
-        unit.Skill_Tip = "공격력의 500%의 화살들이 하늘에서 내리칩니다.";
+        unit.Skill_Tip = "화살들이 하늘에서 쏟아져 3초동안 매 초 마다 공격력의 150% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -377,7 +377,7 @@ public class UnitDataSet
         unit.AtkName = "CFX_Virus";
         unit.Skill_Name = "CFX2_EnemyDeathSkull";
         unit.Skill_Name2 = "CFX2_BatsCloud";
-        unit.Skill_Tip = "공격력의 600%의 박쥐를 소환합니다.";
+        unit.Skill_Tip = "중독시키는 박쥐를 소환 3초동안 매 초 마다 공격력의 200% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -400,7 +400,7 @@ public class UnitDataSet
         unit.AtkType = "Magic";
         unit.AtkName = "CFX2_Big_Splash(NoCollision)";
         unit.Skill_Name = "IceSpear2";
-        unit.Skill_Tip = "공격력의 200%의 데미지로 3초동안 공격합니다.";
+        unit.Skill_Tip = "전방으로 얼음송곳을 날린다. 3초동안 매 초 마다 공격력의 100% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -423,7 +423,7 @@ public class UnitDataSet
         unit.AtkType = "Magic";
         unit.AtkName = "CFX4HitB(Orange)";
         unit.Skill_Name = "Fireball";
-        unit.Skill_Tip = "공격력의 800%의 메테오를 소환합니다.";
+        unit.Skill_Tip = "메테오를 떨어트린다. 공격력의 400% 데미지, 2초간 기절";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -447,7 +447,7 @@ public class UnitDataSet
         unit.AtkName = "CFX2_SparksHit_BSphere";
         unit.Skill_Name = "CFX3_Hit_Electric_A_Ground";
         unit.Skill_Name2 = "CFX3_Hit_Electric_C_Air";
-        unit.Skill_Tip = "공격력의 400%의 스파크를 터트립니다.";
+        unit.Skill_Tip = "스파크를 터트린다. 공격력의 300% 데미지, 2초간 기절";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -470,7 +470,7 @@ public class UnitDataSet
         unit.AtkType = "Melee";
         unit.AtkName = "CFX3_Hit_Misc_D";
         unit.Skill_Name = "Shuriken";
-        unit.Skill_Tip = "공격력의 300%의 데미지를 3초동안 주는 표창을 던집니다.";
+        unit.Skill_Tip = "3초동안 지속되는 표창을 던진다. 매 초 마다 공격력의 150% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -493,7 +493,7 @@ public class UnitDataSet
         unit.AtkType = "Melee";
         unit.AtkName = "CFX3_Hit_SmokePuff";
         unit.Skill_Name = "Butterfly";
-        unit.Skill_Tip = "1초마다 공격력의 150%만큼 회복합니다.";
+        unit.Skill_Tip = "5초동안 매 초 마다 공격력의 150%만큼 체력 회복";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -516,7 +516,7 @@ public class UnitDataSet
         unit.AtkType = "Melee";
         unit.AtkName = "CFX_Poof";
         unit.Skill_Name = "CFX3_ResurrectionLight_Circle";
-        unit.Skill_Tip = "10초동안 공격력을 2배 올려줍니다.";
+        unit.Skill_Tip = "10초동안 공격력 300% 증가";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -539,7 +539,7 @@ public class UnitDataSet
         unit.AtkType = "Melee";
         unit.AtkName = "CFX3_Hit_SmokePuff";
         unit.Skill_Name = "CFX2_RockHit";
-        unit.Skill_Tip = "땅을 내려쳐 공격력의 500%데미지를 주고 2초동안 기절 시킨다."; ;
+        unit.Skill_Tip = "땅을 내려쳐 공격력의 300% 데미지, 2초간 기절";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -562,7 +562,7 @@ public class UnitDataSet
         unit.AtkType = "Bow";
         unit.AtkName = "CFX3_Hit_Misc_B_Gravity";
         unit.Skill_Name = "BattleGear-Arrow";
-        unit.Skill_Tip = "관퉁하는 빛의 화살로 공격한다. 관통당한 적은 300%의 데미지를 받습니다.";
+        unit.Skill_Tip = "관퉁하는 빛의 화살로 공격한다. 공격력의 250% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -585,7 +585,7 @@ public class UnitDataSet
         unit.AtkType = "Melee";
         unit.AtkName = "CFX3_Hit_Light_C_Air";
         unit.Skill_Name = "YellowFairyDust";
-        unit.Skill_Tip = "1초마다 공격력의 150%를 회복시켜주는 정령을 5초간 소환한다.";
+        unit.Skill_Tip = "5초동안 매 초 마다 공격력의 200%만큼 체력 회복";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -608,7 +608,7 @@ public class UnitDataSet
         unit.AtkType = "Melee";
         unit.AtkName = "CFX4SparksExplosionB";
         unit.Skill_Name = "BladeStorm";
-        unit.Skill_Tip = "빛의 검들을 소환하여 1500%의 데미지를 줍니다.";
+        unit.Skill_Tip = "빛의 검들을 소환해 공격력의 1500% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -631,7 +631,7 @@ public class UnitDataSet
         unit.AtkType = "Melee";
         unit.AtkName = "CFX_MagicPoof";
         unit.Skill_Name = "Explosion9";
-        unit.Skill_Tip = "바닥을 내리찍어 폭발을 일으킨다.";
+        unit.Skill_Tip = "바닥을 내리찍어 공격력의 1000% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);
@@ -654,7 +654,7 @@ public class UnitDataSet
         unit.AtkType = "Melee";
         unit.AtkName = "CFX3_Hit_SmokePuff";
         unit.Skill_Name = "Explosion8";
-        unit.Skill_Tip = "바닥을 내리찍어 폭발을 일으킨다.";
+        unit.Skill_Tip = "바닥을 내리찍어 공격력의 2000% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
         Unitdata.Add((int)unit.Job, unit);

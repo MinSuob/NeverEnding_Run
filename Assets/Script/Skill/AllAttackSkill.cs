@@ -118,7 +118,7 @@ public class AllAttackSkill : MonoBehaviour
                     }
                     if (enemy != null)
                     {
-                        enemy.Damage(atk, 0);
+                        enemy.Damage(atk / 2, 0);
                     }
                     yield return new WaitForSeconds(1);
                     TimeCount++;
@@ -155,7 +155,7 @@ public class AllAttackSkill : MonoBehaviour
                     UnitFsm Unit = GameObject.Find(DeckData[0] + "(Clone)").GetComponent<UnitFsm>();
                     if (Unit.CurHp < Unit.MaxHp)
                     {
-                        Unit.CurHp += atk2; //성녀 공격력 150% 만큼 회복
+                        Unit.CurHp += atk2 * 2; //성녀 공격력 200% 만큼 회복
                         if (Unit.CurHp > Unit.MaxHp)
                         {
                             Unit.CurHp = Unit.MaxHp;

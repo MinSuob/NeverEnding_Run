@@ -20,7 +20,7 @@ public class Shuriken : MonoBehaviour
         while (count < 3)
         {
             if (enemy != null)
-                enemy.Damage(damage.Atk, 0);
+                enemy.Damage(damage.Atk * 1.5f, 0);
             yield return new WaitForSeconds(1);
             count++;
         }

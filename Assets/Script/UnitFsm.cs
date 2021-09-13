@@ -57,7 +57,7 @@ public class UnitFsm : MonoBehaviour
         while (Fight_On)
         {
             int skillOdds = Random.Range(1, 101);
-            if (skillOdds <= 100)
+            if (skillOdds <= 50)
                 unit.AtkType = "Skill";
 
             switch (unit.AtkType)
@@ -132,7 +132,7 @@ public class UnitFsm : MonoBehaviour
                                     unit.Atk += sm.addAtk;
                                     if (CurHp < MaxHp)
                                     {
-                                        CurHp += CurHp / 2;
+                                        CurHp += MaxHp / 2;
                                         if (CurHp > MaxHp)
                                         {
                                             CurHp = MaxHp;
@@ -219,7 +219,6 @@ public class UnitFsm : MonoBehaviour
                                 StartCoroutine(SkillDelay(3, 0.5f, enemyFsm.transform.position.x, enemyFsm.transform.position.y));
                                 break;
                             case "시프":
-                                
                                 _prefabs.PlayAnimation(5);
                                 StartCoroutine(SkillDelay(1, 0.5f, 0, 0.7f));
                                 break;

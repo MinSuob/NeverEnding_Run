@@ -13,7 +13,7 @@ public class Spark : MonoBehaviour
             EnemyFsm enemy = Enemy.GetComponent<EnemyFsm>();
             if (enemy != null)
             {
-                enemy.Damage(damage.Atk * 4, 0);
+                enemy.Damage(damage.Atk * 3, 0);
                 enemy.StartCoroutine(enemy.State("Stun", 2));
             }
         }

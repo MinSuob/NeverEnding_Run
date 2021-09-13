@@ -13,7 +13,7 @@ public class ArrowRoll2 : MonoBehaviour
             EnemyFsm enemy = Enemy.GetComponent<EnemyFsm>();
             if (enemy != null)
             {
-                Enemy.GetComponent<EnemyFsm>().Damage(damage.Atk * 3, 0);
+                Enemy.GetComponent<EnemyFsm>().Damage(damage.Atk * 2.5f, 0);
             }
         }
     }

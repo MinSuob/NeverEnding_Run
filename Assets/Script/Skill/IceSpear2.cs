@@ -21,7 +21,7 @@ public class IceSpear2 : MonoBehaviour
         while (count < 3)
         {
             if (enemy != null)
-                enemy.Damage(damage.Atk * 2, 0);
+                enemy.Damage(damage.Atk, 0);
             yield return new WaitForSeconds(1);
             count++;
         }
