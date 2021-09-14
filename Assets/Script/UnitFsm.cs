@@ -57,7 +57,7 @@ public class UnitFsm : MonoBehaviour
         while (Fight_On)
         {
             int skillOdds = Random.Range(1, 101);
-            if (skillOdds <= 50)
+            if (skillOdds <= 100)
                 unit.AtkType = "Skill";
 
             switch (unit.AtkType)

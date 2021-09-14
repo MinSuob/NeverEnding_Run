@@ -4665,6 +4665,7 @@ GameObject:
   - component: {fileID: 7132477593076198829}
   - component: {fileID: 2979911558044566904}
   - component: {fileID: 4329575897912231554}
+  - component: {fileID: 4207379732846424867}
   m_Layer: 0
   m_Name: CFX4DrillAirHit(NOCOLLISION)
   m_TagString: FxTemporaire
@@ -9281,12 +9282,25 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.015436709, y: -0.0417325}
   serializedVersion: 2
   m_Radius: 1.5
+--- !u!114 &4207379732846424867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462327970484030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18025c3d17741b64bbbf4f47d1220eaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 0.5
 --- !u!1 &1894011419027366
 GameObject:
   m_ObjectHideFlags: 0

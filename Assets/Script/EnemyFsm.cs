@@ -159,6 +159,7 @@ public class EnemyFsm : MonoBehaviour
         if (CurHp <= 0)
         {
             sm.EnemyCurCount--;
+            sm.CurEnemyCountText.text = sm.EnemyCurCount.ToString();
             if (sm.StageProgress == false && sm.EnemyCurCount == 0)
             {
                 sm.StagePanel("Clear");

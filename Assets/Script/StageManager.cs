@@ -50,6 +50,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] private Text[] StageText;
     [SerializeField] private Slider LoadingBar;
     public Text ShowStageText;
+    [SerializeField] public Text CurEnemyCountText;
 
     int CoroutineCheck = 0;
     [HideInInspector] public bool Die;
@@ -88,6 +89,7 @@ public class StageManager : MonoBehaviour
 
     IEnumerator EnemyRepawn()
     {
+        CurEnemyCountText.text = EnemyCurCount.ToString();
         CoroutineCheck++;
         if (CoroutineCheck > 1)
         {
@@ -124,6 +126,7 @@ public class StageManager : MonoBehaviour
                 CurEnemy.transform.localPosition = new Vector3(0, Random.Range(-0.4f, 0.35f), 13);
             }
             EnemyCurCount++;
+            CurEnemyCountText.text = EnemyCurCount.ToString();
             yield return new WaitForSeconds(Random.Range(1, 1.5f));
         }
         StageProgress = false;
