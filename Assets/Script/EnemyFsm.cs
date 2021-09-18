@@ -28,6 +28,7 @@ public class EnemyFsm : MonoBehaviour
     SpriteRenderer[] srs;
     float aniSpeed;
 
+    [SerializeField] private GameObject goldimg;
     void Start()
     {
         sm = GameObject.Find("StageManager").GetComponent<StageManager>();
@@ -158,6 +159,13 @@ public class EnemyFsm : MonoBehaviour
         HpBar.value = CurHp / MaxHp;
         if (CurHp <= 0)
         {
+            _prefabs.PlayAnimation(2);
+            GameObject dropimg = null;
+            dropimg = Instantiate(goldimg, transform.parent.gameObject.transform);
+            dropimg.transform.localPosition = new Vector3(transform.position.x - 3.5f, transform.position.y - 0.4f, 1);
+            yield return new WaitForSeconds(0.5f);
+            
+
             sm.EnemyCurCount--;
             sm.CurEnemyCountText.text = sm.EnemyCurCount.ToString();
             if (sm.StageProgress == false && sm.EnemyCurCount == 0)

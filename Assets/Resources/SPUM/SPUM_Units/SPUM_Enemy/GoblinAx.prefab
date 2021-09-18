@@ -931,6 +931,7 @@ MonoBehaviour:
   CurHp: 0
   Box: {fileID: 0}
   Body: {fileID: 9070146541992722207}
+  goldimg: {fileID: 4088585369489995867, guid: b33f4f580c9140541a6ab9a6d7ea5698, type: 3}
 --- !u!1 &1778590460084679983
 GameObject:
   m_ObjectHideFlags: 0

@@ -3978,6 +3978,7 @@ MonoBehaviour:
   CurHp: 0
   Box: {fileID: 0}
   Body: {fileID: 4114423385547236859}
+  goldimg: {fileID: 4088585369489995867, guid: b33f4f580c9140541a6ab9a6d7ea5698, type: 3}
 --- !u!70 &3275990821731358416
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

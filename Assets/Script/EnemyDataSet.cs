@@ -29,6 +29,7 @@ public class EnemyDataSet : MonoBehaviour
         enemy.Skill_Tip = "전방에 있는 적 모두를 벤다.";
         enemy.SkillDist = enemy.AtkDist;
         enemy.Cool = 5f;
+        enemy.DropGold = 5;
         EnemyData.Add((int)enemy.Job, enemy);
         #endregion
 
@@ -48,6 +49,7 @@ public class EnemyDataSet : MonoBehaviour
         enemy.Skill_Tip = "전방에 있는 적 모두를 벤다.";
         enemy.SkillDist = enemy.AtkDist;
         enemy.Cool = 5f;
+        enemy.DropGold = 8;
         EnemyData.Add((int)enemy.Job, enemy);
         #endregion
 
@@ -67,6 +69,7 @@ public class EnemyDataSet : MonoBehaviour
         enemy.Skill_Tip = "전방에 있는 적 모두를 벤다.";
         enemy.SkillDist = enemy.AtkDist;
         enemy.Cool = 5f;
+        enemy.DropGold = 10;
         EnemyData.Add((int)enemy.Job, enemy);
         #endregion
 
@@ -86,6 +89,7 @@ public class EnemyDataSet : MonoBehaviour
         enemy.Skill_Tip = "전방에 있는 적 모두를 벤다.";
         enemy.SkillDist = enemy.AtkDist;
         enemy.Cool = 5f;
+        enemy.DropGold = 12;
         EnemyData.Add((int)enemy.Job, enemy);
         #endregion
 
@@ -105,6 +109,7 @@ public class EnemyDataSet : MonoBehaviour
         enemy.Skill_Tip = "전방에 있는 적 모두를 벤다.";
         enemy.SkillDist = enemy.AtkDist;
         enemy.Cool = 5f;
+        enemy.DropGold = 8;
         EnemyData.Add((int)enemy.Job, enemy);
         #endregion
 
@@ -124,6 +129,7 @@ public class EnemyDataSet : MonoBehaviour
         enemy.Skill_Tip = "전방에 있는 적 모두를 벤다.";
         enemy.SkillDist = enemy.AtkDist;
         enemy.Cool = 5f;
+        enemy.DropGold = 7;
         EnemyData.Add((int)enemy.Job, enemy);
         #endregion
 
@@ -143,6 +149,7 @@ public class EnemyDataSet : MonoBehaviour
         enemy.Skill_Tip = "전방에 있는 적 모두를 벤다.";
         enemy.SkillDist = enemy.AtkDist;
         enemy.Cool = 5f;
+        enemy.DropGold = 20;
         EnemyData.Add((int)enemy.Job, enemy);
         #endregion
 
@@ -162,6 +169,7 @@ public class EnemyDataSet : MonoBehaviour
         enemy.Skill_Tip = "전방에 있는 적 모두를 벤다.";
         enemy.SkillDist = enemy.AtkDist;
         enemy.Cool = 5f;
+        enemy.DropGold = 23;
         EnemyData.Add((int)enemy.Job, enemy);
         #endregion
 
@@ -181,6 +189,7 @@ public class EnemyDataSet : MonoBehaviour
         enemy.Skill_Tip = "전방에 있는 적 모두를 벤다.";
         enemy.SkillDist = enemy.AtkDist;
         enemy.Cool = 5f;
+        enemy.DropGold = 500;
         EnemyData.Add((int)enemy.Job, enemy);
         #endregion
 

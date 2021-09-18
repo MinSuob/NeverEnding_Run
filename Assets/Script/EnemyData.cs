@@ -37,4 +37,6 @@ public class EnemyData
     public string Skill_Tip { get; set; } // 스킬 설명    // 도감 안할거면 지우기
 
     public string Enemy_Tip { get; set; } // 캐릭터 설명    // 도감 안할거면 지우기
+
+    public int DropGold { get; set; } // 드랍 골드
 }

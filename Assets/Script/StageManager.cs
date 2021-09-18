@@ -129,6 +129,13 @@ public class StageManager : MonoBehaviour
             CurEnemyCountText.text = EnemyCurCount.ToString();
             yield return new WaitForSeconds(Random.Range(1, 1.5f));
         }
+        if (dm.GetCurStage() % 5 == 0)
+        {
+            GameObject EnemyPrefab = Resources.Load<GameObject>("SPUM/SPUM_Units/SPUM_Enemy/" + dm.GetEnemyData((CharacterState.EnemyJob)8).Job);
+            GameObject CurEnemy = null;
+            CurEnemy = Instantiate(EnemyPrefab, TrEnemy);
+            CurEnemy.transform.localPosition = new Vector2(0, 0);
+        }
         StageProgress = false;
     }
 
@@ -280,7 +287,10 @@ public class StageManager : MonoBehaviour
         {
             for (int i = 1; i < EnemyList.Length; i++)
             {
-                Destroy(EnemyList[i].gameObject);
+                if (EnemyList[i].name != "DropGold(Clone)")
+                {
+                    Destroy(EnemyList[i].gameObject);
+                }
             }
         }
 

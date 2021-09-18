@@ -23,7 +23,8 @@ public class BattleGear_Sword : MonoBehaviour
     IEnumerator StunDelay(EnemyFsm enemy)
     {
         yield return new WaitForSeconds(1);
-        enemy.StartCoroutine(enemy.State("Stun", 2));
+        if (enemy != null)
+            enemy.StartCoroutine(enemy.State("Stun", 2));
     }
 
     private void Start()
