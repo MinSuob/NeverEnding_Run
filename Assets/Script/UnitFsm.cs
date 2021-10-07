@@ -57,7 +57,7 @@ public class UnitFsm : MonoBehaviour
         while (Fight_On)
         {
             int skillOdds = Random.Range(1, 101);
-            if (skillOdds <= 100)
+            if (skillOdds <= unit.SkillOdds)
                 unit.AtkType = "Skill";
             switch (unit.AtkType)
             {
@@ -273,16 +273,17 @@ public class UnitFsm : MonoBehaviour
                                 break;
                         }
                         unit.AtkType = atkType;
-                        yield return new WaitForSeconds(unit.AtkDelay);
                     }
                     else
                     {
                         unit.AtkType = atkType;
                         Fight_On = false;
+                        yield return new WaitForSeconds(unit.AtkDelay);
                         Box.ReSize();
                     }
                     break;
             }
+            yield return new WaitForSeconds(unit.AtkDelay);
         }
     }
 

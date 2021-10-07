@@ -380,6 +380,10 @@ public class StageManager : MonoBehaviour
         float speed = 20;
         ShowStageText.gameObject.SetActive(true);
         ShowStageText.text = "Stage " + dm.GetCurStage();
+        if (dm.GetCurStage() % 5 == 0)
+        {
+            ShowStageText.text = "Boss Stage !!";
+        }
         ShowStageText.transform.position = new Vector2(1400, 1735);
 
         while (ShowStageText.transform.position.x >= 540)

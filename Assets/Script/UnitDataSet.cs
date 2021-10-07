@@ -283,7 +283,7 @@ public class UnitDataSet
         unit.Skill_Name = "CFX4DrillAirHit(NOCOLLISION)";
         unit.Skill_Tip = "땅을 내려쳐 공격력의 150% 데미지, 2초간 기절";
         unit.SkillDist = unit.AtkDist;
-        unit.SkillOdds = 10;
+        unit.SkillOdds = 20;
         unit.LevelUpGold = 5;
         unit.GradeUpDia = 100;
         Unitdata.Add((int)unit.Job, unit);

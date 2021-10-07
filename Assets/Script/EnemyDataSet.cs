@@ -18,7 +18,7 @@ public class EnemyDataSet : MonoBehaviour
         enemy.Name = "미니 고블린";
         enemy.Job = EnemyJob.GoblinBasic;
         enemy.Grade = 1;
-        enemy.MaxHp = 100;
+        enemy.MaxHp = 50;
         enemy.CurHp = enemy.MaxHp;
         enemy.Atk = 8;
         enemy.AtkDist = MeleeDistance;
