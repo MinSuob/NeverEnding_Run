@@ -378,6 +378,8 @@ MonoBehaviour:
   CharImage: {fileID: 1669501412353773310}
   CharIcon: {fileID: 0}
   GradeText: {fileID: 9038641292397079305}
+  PieceSlider: {fileID: 1854083734490731238}
+  PieceText: {fileID: 4025399497794368207}
 --- !u!1 &3805342781957765995
 GameObject:
   m_ObjectHideFlags: 0

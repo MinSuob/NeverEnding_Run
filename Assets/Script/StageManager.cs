@@ -64,6 +64,11 @@ public class StageManager : MonoBehaviour
     [SerializeField] GameObject ClearRewardGold;
     [SerializeField] GameObject ClearRewardDia;
 
+    bool StageGettingReady = false;
+
+    [SerializeField] private Text GoldText;
+    [SerializeField] private Text DiamondText;
+
     private void Start()
     {
         dm = DataManager.Instance;
@@ -75,15 +80,18 @@ public class StageManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        GoldText.text = dm.GetGold().ToString();
+        DiamondText.text = dm.GetDiamond().ToString();
+        CurEnemyCountText.text = EnemyCurCount.ToString();
+        if (StageProgress == false && EnemyCurCount <= 0 && StageGettingReady == false)
         {
-            StartCoroutine("EnemyRepawn");
+            StagePanel("Clear");
         }
-        
     }
 
     void StageStart()
     {
+        StageGettingReady = false;
         StartCoroutine("EnemyRepawn");
     }
 
@@ -134,7 +142,9 @@ public class StageManager : MonoBehaviour
             GameObject EnemyPrefab = Resources.Load<GameObject>("SPUM/SPUM_Units/SPUM_Enemy/" + dm.GetEnemyData((CharacterState.EnemyJob)8).Job);
             GameObject CurEnemy = null;
             CurEnemy = Instantiate(EnemyPrefab, TrEnemy);
-            CurEnemy.transform.localPosition = new Vector2(0, 0);
+            CurEnemy.transform.localPosition = new Vector3(0, 0, 14);
+            EnemyCurCount++;
+            CurEnemyCountText.text = EnemyCurCount.ToString();
         }
         StageProgress = false;
     }
@@ -224,6 +234,7 @@ public class StageManager : MonoBehaviour
 
     public void StagePanel(string Type)
     {
+        StageGettingReady = true;
         CoroutineCheck = 0;
         StageReset();
         stagePanel.SetActive(true);
@@ -255,9 +266,11 @@ public class StageManager : MonoBehaviour
                 StageText[1].text = "Current Stage Loading..";
                 ClearRewardGold.SetActive(true);
                 ClearRewardDia.SetActive(true);
-                StageText[5].text = ""; // 클리어보상 골드
-                StageText[6].text = ""; // 클리어보상 다이아 ( 현재 스테이지 첫클리어 100? 10? )
-
+                int clearGold = Random.Range(dm.GetCurStage() * 50, dm.GetCurStage() * 60);
+                StageText[5].text = clearGold.ToString(); // 클리어보상 골드
+                StageText[6].text = "1"; // 클리어보상 다이아 ( 현재 스테이지 첫클리어 100? 10? )
+                dm.SetGold(dm.GetGold() + clearGold);
+                dm.SetDiamond(dm.GetDiamond() + 1);
 
                 StartCoroutine(Loading("Current"));
                 break;
@@ -376,5 +389,11 @@ public class StageManager : MonoBehaviour
         }
         yield return new WaitForSeconds(1);
         ShowStageText.gameObject.SetActive(false);
+    }
+
+    public IEnumerator TakeGold(int money)
+    {
+        yield return new WaitForSeconds(1.5f);
+        dm.SetGold(dm.GetGold() + money);
     }
 }

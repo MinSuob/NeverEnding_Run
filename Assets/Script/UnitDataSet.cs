@@ -33,6 +33,8 @@ public class UnitDataSet
         unit.Skill_Tip = "전체 체력의 50% 즉시 회복, 10초간 공격력이 100% 상승";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 5;
+        unit.GradeUpDia = 100;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -56,6 +58,8 @@ public class UnitDataSet
         unit.Skill_Tip = "모든 적들에게 공격력의 80% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 5;
+        unit.GradeUpDia = 100;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -79,6 +83,8 @@ public class UnitDataSet
         unit.Skill_Tip = "독가스에 중독시켜 3초동안 매 초 마다 공격력의 100% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 20;
+        unit.LevelUpGold = 5;
+        unit.GradeUpDia = 100;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -102,6 +108,8 @@ public class UnitDataSet
         unit.Skill_Tip = "얼음 기둥을 소환해 공격력의 150% 데미지, 2초간 빙결";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 20;
+        unit.LevelUpGold = 5;
+        unit.GradeUpDia = 100;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -126,6 +134,8 @@ public class UnitDataSet
         unit.Skill_Tip = "불 기둥을 소환해 3초동안 매 초 마다 50% 데미지 ( 폭발데미지 공격력의 100% 데미지 )";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 5;
+        unit.GradeUpDia = 100;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -149,6 +159,8 @@ public class UnitDataSet
         unit.Skill_Tip = "스파크를 날려 공격력의 100% 데미지, 2초간 기절";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 20;
+        unit.LevelUpGold = 5;
+        unit.GradeUpDia = 100;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -172,6 +184,8 @@ public class UnitDataSet
         unit.Skill_Tip = "5초동안 매 초 마다 전체 체력의 10% 회복, 공격력의 50% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 5;
+        unit.GradeUpDia = 100;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -195,6 +209,8 @@ public class UnitDataSet
         unit.Skill_Tip = "모든 적들에게 공격력의 50% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 5;
+        unit.GradeUpDia = 100;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -218,6 +234,8 @@ public class UnitDataSet
         unit.Skill_Tip = "공격력의 200%만큼 즉시 회복";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 5;
+        unit.GradeUpDia = 100;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -241,6 +259,8 @@ public class UnitDataSet
         unit.Skill_Tip = "관통하는 창을 던진다. 공격력의 100% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 20;
+        unit.LevelUpGold = 5;
+        unit.GradeUpDia = 100;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -264,6 +284,8 @@ public class UnitDataSet
         unit.Skill_Tip = "땅을 내려쳐 공격력의 150% 데미지, 2초간 기절";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 5;
+        unit.GradeUpDia = 100;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -287,6 +309,8 @@ public class UnitDataSet
         unit.Skill_Tip = "관퉁하는 화살로 공격한다. 공격력의 120% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 20;
+        unit.LevelUpGold = 5;
+        unit.GradeUpDia = 100;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -310,6 +334,8 @@ public class UnitDataSet
         unit.Skill_Tip = "5초동안 매 초 마다 전체 체력의 20% + 공격력의 100%만큼 체력 회복";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 20;
+        unit.LevelUpGold = 5;
+        unit.GradeUpDia = 100;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -333,6 +359,8 @@ public class UnitDataSet
         unit.Skill_Tip = "빛의 검을 소환해 공격력의 500% 데미지, 2초간 기절";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 500;
+        unit.GradeUpDia = 300;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -356,6 +384,8 @@ public class UnitDataSet
         unit.Skill_Tip = "화살들이 하늘에서 쏟아져 3초동안 매 초 마다 공격력의 150% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 500;
+        unit.GradeUpDia = 300;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -380,6 +410,8 @@ public class UnitDataSet
         unit.Skill_Tip = "중독시키는 박쥐를 소환 3초동안 매 초 마다 공격력의 200% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 500;
+        unit.GradeUpDia = 300;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -403,6 +435,8 @@ public class UnitDataSet
         unit.Skill_Tip = "전방으로 얼음송곳을 날린다. 3초동안 매 초 마다 공격력의 100% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 500;
+        unit.GradeUpDia = 300;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -426,6 +460,8 @@ public class UnitDataSet
         unit.Skill_Tip = "메테오를 떨어트린다. 공격력의 400% 데미지, 2초간 기절";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 500;
+        unit.GradeUpDia = 300;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -450,6 +486,8 @@ public class UnitDataSet
         unit.Skill_Tip = "스파크를 터트린다. 공격력의 300% 데미지, 2초간 기절";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 500;
+        unit.GradeUpDia = 300;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -473,6 +511,8 @@ public class UnitDataSet
         unit.Skill_Tip = "3초동안 지속되는 표창을 던진다. 매 초 마다 공격력의 150% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 500;
+        unit.GradeUpDia = 300;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -496,6 +536,8 @@ public class UnitDataSet
         unit.Skill_Tip = "5초동안 매 초 마다 공격력의 150%만큼 체력 회복";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 500;
+        unit.GradeUpDia = 300;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -519,6 +561,8 @@ public class UnitDataSet
         unit.Skill_Tip = "10초동안 공격력 300% 증가";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 500;
+        unit.GradeUpDia = 300;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -542,6 +586,8 @@ public class UnitDataSet
         unit.Skill_Tip = "땅을 내려쳐 공격력의 300% 데미지, 2초간 기절";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 500;
+        unit.GradeUpDia = 300;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -565,6 +611,8 @@ public class UnitDataSet
         unit.Skill_Tip = "관퉁하는 빛의 화살로 공격한다. 공격력의 250% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 500;
+        unit.GradeUpDia = 300;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -588,6 +636,8 @@ public class UnitDataSet
         unit.Skill_Tip = "5초동안 매 초 마다 공격력의 200%만큼 체력 회복";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 500;
+        unit.GradeUpDia = 300;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -611,6 +661,8 @@ public class UnitDataSet
         unit.Skill_Tip = "빛의 검들을 소환해 공격력의 1500% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 50000;
+        unit.GradeUpDia = 1000;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -634,6 +686,8 @@ public class UnitDataSet
         unit.Skill_Tip = "바닥을 내리찍어 공격력의 1000% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 50000;
+        unit.GradeUpDia = 1000;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 
@@ -657,6 +711,8 @@ public class UnitDataSet
         unit.Skill_Tip = "바닥을 내리찍어 공격력의 2000% 데미지";
         unit.SkillDist = unit.AtkDist;
         unit.SkillOdds = 10;
+        unit.LevelUpGold = 50000;
+        unit.GradeUpDia = 1000;
         Unitdata.Add((int)unit.Job, unit);
         #endregion
 

@@ -11,6 +11,7 @@ public class EnemyFsm : MonoBehaviour
     [HideInInspector] public SPUM_Prefabs _prefabs;
 
     EnemyData enemy;
+    int curStage;
 
     public bool Fight = false;
 
@@ -18,6 +19,8 @@ public class EnemyFsm : MonoBehaviour
 
     float MaxHp;
     [HideInInspector] public float CurHp;
+    float atk;
+    int dropGold;
 
     StageManager sm;
     [HideInInspector] public EnemyDistanceBox Box;
@@ -29,6 +32,8 @@ public class EnemyFsm : MonoBehaviour
     float aniSpeed;
 
     [SerializeField] private GameObject goldimg;
+    float stagIncrease = 0;
+
     void Start()
     {
         sm = GameObject.Find("StageManager").GetComponent<StageManager>();
@@ -37,13 +42,35 @@ public class EnemyFsm : MonoBehaviour
         _prefabs.PlayAnimation(1);
         Box = gameObject.transform.GetChild(2).gameObject.GetComponent<EnemyDistanceBox>();
         enemy = DataManager.Instance.GetEnemyData(job);
-        moveSpeed = enemy.MoveSpeed;
-        MaxHp = enemy.MaxHp;
-        CurHp = enemy.CurHp;
-
-        HpBar.value = CurHp / MaxHp;
-        aniSpeed = _prefabs._anim.speed;
+        curStage = DataManager.Instance.GetCurStage();
         srs = Body.GetComponentsInChildren<SpriteRenderer>();
+
+        aniSpeed = _prefabs._anim.speed;
+        moveSpeed = enemy.MoveSpeed;
+
+        if (curStage > 1)
+        {
+            SetStat();
+        }
+        else
+        {
+            MaxHp = enemy.MaxHp;
+            CurHp = MaxHp;
+            atk = enemy.Atk;
+            dropGold = enemy.DropGold;
+        }
+        HpBar.value = CurHp / MaxHp;
+    }
+
+    void SetStat()
+    {
+        for (float i = 1; i <= curStage; i++)
+        {
+            MaxHp = enemy.MaxHp * (1 + (i / 10));
+            atk = enemy.Atk * 1 + ((i / 10));
+            dropGold = enemy.DropGold * (1 + ((int)i / 5));
+        }
+        CurHp = MaxHp;
     }
 
     void Update()
@@ -163,15 +190,9 @@ public class EnemyFsm : MonoBehaviour
             GameObject dropimg = null;
             dropimg = Instantiate(goldimg, transform.parent.gameObject.transform);
             dropimg.transform.localPosition = new Vector3(transform.position.x - 3.5f, transform.position.y - 0.4f, 1);
+            sm.StartCoroutine(sm.TakeGold(dropGold));
             yield return new WaitForSeconds(0.5f);
-            
-
             sm.EnemyCurCount--;
-            sm.CurEnemyCountText.text = sm.EnemyCurCount.ToString();
-            if (sm.StageProgress == false && sm.EnemyCurCount == 0)
-            {
-                sm.StagePanel("Clear");
-            }
             Destroy(gameObject);
         }
     }

@@ -14,11 +14,15 @@ public class UnitData
 
     public int Grade { get; set; } // 유닛 등급
 
+    public int GradeUpDia { get; set; } // 등급업 다이아
+
     public int Piece { get; set; } // 카드 갯수
 
     public int MaxPiece { get; set; } // 최대 카드 갯수
 
     public int Level { get; set; } // 레벨
+
+    public int LevelUpGold { get; set; } // 레벨업 골드
 
     public float MaxHp { get; set; } // 최대 체력
 

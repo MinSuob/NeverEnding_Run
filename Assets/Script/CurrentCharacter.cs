@@ -50,7 +50,7 @@ public class CurrentCharacter: MonoBehaviour
     [SerializeField] private Slider UnitPiece;
 
     [SerializeField] private Text NeedGoldText;
-    float NeedGold;
+    int NeedGold;
     Color FlashColor = new Color(214 / 255f, 214 / 255f, 214 / 255f, 255);
 
     public Job CurrentJob;
@@ -169,8 +169,13 @@ public class CurrentCharacter: MonoBehaviour
             {
                 StartCoroutine(ShowErrorText("이미 영웅이 존재합니다."));
             }
+            if (((int)(Dm.GetUnitData(job).Job)) > 12 && Dm.GetUnitData(job).Piece == 0)
+            {
+                StartCoroutine(ShowErrorText("보유하고 있지 않은 카드입니다."));
+            }
             else
             {
+
                 if (CurSlot != 0)
                 {
                     if (Dm.GetUnitData(job).AtkType == "Melee")
@@ -180,7 +185,6 @@ public class CurrentCharacter: MonoBehaviour
                         return;
                     }
                 }
-
                 Destroy(GameObject.Find(DeckData[CurSlot] + "(Clone)"));
                 DeckData[CurSlot] = job.ToString();
                 CurPlaySet(false);
@@ -283,6 +287,9 @@ public class CurrentCharacter: MonoBehaviour
         UnitInfoText[2].text = unit.Skill_Tip;
         UnitInfoText[3].text = unit.Piece + " / " + unit.MaxPiece;
         UnitInfoText[4].text = unit.Grade + " -> " + (unit.Grade + 1) + "\nUpgrade";
+        if (unit.Grade == 3)
+            UnitInfoText[4].text = unit.Grade + "\nMax";
+        UnitInfoText[5].text = unit.LevelUpGold.ToString();
         UnitPiece.value = unit.Piece / unit.MaxPiece;
     }
 
@@ -290,9 +297,10 @@ public class CurrentCharacter: MonoBehaviour
     {
         UnitData unit = Dm.GetUnitData(CurrentJob);
 
-        if (Dm.GetGold() > NeedGold)
+        if (Dm.GetGold() > unit.LevelUpGold)
         {
             unit.Level++;
+            Dm.SetGold(Dm.GetGold() - unit.LevelUpGold);
             switch (unit.Grade)
             {
                 case 1:
@@ -308,6 +316,7 @@ public class CurrentCharacter: MonoBehaviour
                     unit.MaxHp += 10;
                     break;
             }
+            unit.LevelUpGold = unit.LevelUpGold + unit.LevelUpGold / 5;
             Unit_Info(CurrentJob);
         }
         else
@@ -318,13 +327,18 @@ public class CurrentCharacter: MonoBehaviour
     {
         UnitData unit = Dm.GetUnitData(CurrentJob);
 
-        if (unit.Piece == unit.MaxPiece && unit.Grade <= 3)
+        if (unit.Piece >= unit.MaxPiece && unit.Grade < 3)
         {
-            unit.Grade++;
-            Unit_Info(CurrentJob);
+            //if (Dm.GetDiamond() > unit.GradeUpDia)
+            //{
+                unit.Grade++;
+                unit.Piece -= 20;
+                //Dm.SetDiamond(Dm.GetDiamond() - unit.GradeUpDia);
+                Unit_Info(CurrentJob);
+            //}
+            //else
+                //StartCoroutine(CardTextFlash());
         }
-        else
-            StartCoroutine(CardTextFlash());
     }
 
     IEnumerator GoldTextFlash()

@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using static CharacterState;
 
 
@@ -39,7 +38,7 @@ public class UnitManager : MonoBehaviour
         {
             GameObject ShowChar = null;
             ShowChar = Instantiate(CurCharPrefab, CurCharSlot);
-            ShowChar.GetComponent<ShowCharImage>().ShowIcon(job);
+            ShowChar.GetComponent<ShowCharIcon>().ShowIcon(job);
         }
     }
 }

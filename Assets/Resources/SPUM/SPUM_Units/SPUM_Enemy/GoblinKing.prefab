@@ -3912,7 +3912,7 @@ GameObject:
   - component: {fileID: 3275990821731358416}
   m_Layer: 5
   m_Name: GoblinKing
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3971,7 +3971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f33727da7e76a4042993d60bca8cebb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  job: 15
+  job: 8
   _prefabs: {fileID: 0}
   Fight: 0
   HpBar: {fileID: 4999985584048560877}
@@ -3992,8 +3992,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.06689605, y: 0.35300672}
-  m_Size: {x: 0.35134423, y: 0.6655724}
+  m_Offset: {x: -0.08625581, y: 0.3530067}
+  m_Size: {x: 0.78474677, y: 0.7846273}
   m_Direction: 0
 --- !u!1 &5403569319108639570
 GameObject:

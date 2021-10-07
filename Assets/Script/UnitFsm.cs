@@ -59,7 +59,6 @@ public class UnitFsm : MonoBehaviour
             int skillOdds = Random.Range(1, 101);
             if (skillOdds <= 100)
                 unit.AtkType = "Skill";
-
             switch (unit.AtkType)
             {
                 case "Melee":
@@ -274,6 +273,7 @@ public class UnitFsm : MonoBehaviour
                                 break;
                         }
                         unit.AtkType = atkType;
+                        yield return new WaitForSeconds(unit.AtkDelay);
                     }
                     else
                     {
@@ -283,8 +283,6 @@ public class UnitFsm : MonoBehaviour
                     }
                     break;
             }
-
-            yield return new WaitForSeconds(unit.AtkDelay);
         }
     }
 
@@ -369,6 +367,7 @@ public class UnitFsm : MonoBehaviour
         GameObject Pos = Instantiate(Effect, parent.transform);
         Pos.transform.position = new Vector2(x, y);
     }
+
     void SkillEfect2(float x, float y)
     {
         var parent = GameObject.Find("Skill");
