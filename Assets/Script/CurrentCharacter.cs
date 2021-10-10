@@ -63,9 +63,9 @@ public class CurrentCharacter: MonoBehaviour
         CurPlaySet(false);
     }
 
-    public void CurPlaySet(bool Remove)
+    public void CurPlaySet(bool Remove) // 유닛 소환
     {
-        if (Remove)
+        if (Remove) // 소환 된 유닛들의 중간 유닛을 삭제했을때, 한칸 씩 땡겼을때 마지막 자리의 유닛을 삭제
         {
             CurIcon[4].gameObject.SetActive(false);
             DeckData[4] = "empty";
@@ -76,13 +76,13 @@ public class CurrentCharacter: MonoBehaviour
         IconNum = 0;
         IconDel = 0;
 
-        foreach (string Char in DeckData)
+        foreach (string Char in DeckData) // 재소환을 하기 위해 모든 유닛 삭제
         {
             Destroy(GameObject.Find(Char + "(Clone)"));
             CurIcon[IconDel].gameObject.SetActive(false);
         }
 
-        foreach (string Char in DeckData)
+        foreach (string Char in DeckData) // 덱 데이터에 있는 유닛들을 소환
         {
             if (Char != "empty")
             {
@@ -91,9 +91,9 @@ public class CurrentCharacter: MonoBehaviour
                 CurChar = Instantiate(CurCharList, CurChars);
                 CurChar.transform.localPosition = new Vector2(xPos, 0.45f);
                 CurChar.transform.localScale = new Vector2(1, 1);
-                xPos -= 0.6f;
+                xPos -= 0.6f; // 소환 후 거리를 0.6씩 거리를 벌린다.
 
-                CurIcon[IconNum].gameObject.SetActive(true);
+                CurIcon[IconNum].gameObject.SetActive(true); // 소환된 유닛이 있을 때 소환된 아이콘 슬롯에 유닛 이미지를 넣어준다.
                 CurIcon[IconNum].sprite = Resources.Load<Sprite>("CharIcon/" + Char);
                 IconNum++;
             }
@@ -165,28 +165,27 @@ public class CurrentCharacter: MonoBehaviour
     {
         if (ErrorPanelOn == false)
         {
-            if (DeckData.Contains(job.ToString()))
+            if (DeckData.Contains(job.ToString()))  // 현재 자리에 소환된 유닛을 다시 선택했을 때 에러메세지
             {
                 StartCoroutine(ShowErrorText("이미 영웅이 존재합니다."));
             }
-            if (((int)(Dm.GetUnitData(job).Job)) > 12 && Dm.GetUnitData(job).Piece == 0)
+            if (((int)(Dm.GetUnitData(job).Job)) > 12 && Dm.GetUnitData(job).Piece == 0) // 유닛 enum 13번 부터는 2성, 카드 미보유시 소환불가 에러메세지
             {
                 StartCoroutine(ShowErrorText("보유하고 있지 않은 카드입니다."));
             }
             else
             {
-
-                if (CurSlot != 0)
+                if (CurSlot != 0) // 첫번째 슬롯을 제외한 나머지 슬롯에
                 {
-                    if (Dm.GetUnitData(job).AtkType == "Melee")
+                    if (Dm.GetUnitData(job).AtkType == "Melee") // 공격타입이 근접인 유닛을 소환 하려고 하면 에러메세지
                     {
                         StartCoroutine(ShowErrorText("근접 유닛은 1번 슬롯에만 장착할 수 있습니다."));
                         ChoicePanel.SetActive(false);
                         return;
                     }
                 }
-                Destroy(GameObject.Find(DeckData[CurSlot] + "(Clone)"));
-                DeckData[CurSlot] = job.ToString();
+                Destroy(GameObject.Find(DeckData[CurSlot] + "(Clone)")); // 소환 성공시 이전에 있던 유닛을 삭제
+                DeckData[CurSlot] = job.ToString();                      // 덱 데이터에 현재 선택한 슬롯에 새롭게 선택한 유닛을 넣어줌
                 CurPlaySet(false);
             }
             ChoicePanel.SetActive(false);

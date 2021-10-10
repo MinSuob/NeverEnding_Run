@@ -25,15 +25,9 @@ public class StageManager : MonoBehaviour
     DataManager dm;
     private List<string> DeckData = new List<string>();
 
-    // Stage Max Enemy Count
     int EnemyMaxCount = 15;
-    // Stage Cur Enemy Count
     [HideInInspector] public int EnemyCurCount;
     [HideInInspector] public bool StageProgress;
-
-    // Stage Enemy 스텟 상승률 함수
-
-    // Stage Reward
 
     [SerializeField] private Transform TrEnemy;
     [SerializeField] private Slider UnitsHpBar;
@@ -83,6 +77,7 @@ public class StageManager : MonoBehaviour
         GoldText.text = dm.GetGold().ToString();
         DiamondText.text = dm.GetDiamond().ToString();
         CurEnemyCountText.text = EnemyCurCount.ToString();
+
         if (StageProgress == false && EnemyCurCount <= 0 && StageGettingReady == false)
         {
             StagePanel("Clear");
@@ -95,24 +90,25 @@ public class StageManager : MonoBehaviour
         StartCoroutine("EnemyRepawn");
     }
 
-    IEnumerator EnemyRepawn()
+    IEnumerator EnemyRepawn() // 몬스터 소환
     {
         CurEnemyCountText.text = EnemyCurCount.ToString();
+
         CoroutineCheck++;
-        if (CoroutineCheck > 1)
+        if (CoroutineCheck > 1) // 한번만 실행이 되는지 확인 이미 실행중일때 코루틴 종료
         {
             yield break;
         }
 
         StartCoroutine(ShowStage());
 
-        StageProgress = true;
+        StageProgress = true; // 소환이 시작됨을 체크
 
-        for (int i = 0; i < EnemyMaxCount; i++)
-        {
+        for (int i = 0; i < EnemyMaxCount; i++) // 스테이지당 몬스터 최대카운트 만큼 소환, 66% Enemy0번소환, 20% Enemy1~5번소환, 14% Enemy6~7번 소환
+        {                                       // 약한 순으로 소환 될 확률을 높인다.
             int RandomRepawn = Random.Range(0, EnemyMaxCount);
 
-            if (RandomRepawn >= 0 && RandomRepawn <= EnemyMaxCount / 1.5)
+            if (RandomRepawn >= 0 && RandomRepawn <= EnemyMaxCount / 1.5f)
             {
                 GameObject EnemyPrefab = Resources.Load<GameObject>("SPUM/SPUM_Units/SPUM_Enemy/" + dm.GetEnemyData(0).Job);
                 GameObject CurEnemy = null;
@@ -134,10 +130,10 @@ public class StageManager : MonoBehaviour
                 CurEnemy.transform.localPosition = new Vector3(0, Random.Range(-0.4f, 0.35f), 13);
             }
             EnemyCurCount++;
-            CurEnemyCountText.text = EnemyCurCount.ToString();
+            CurEnemyCountText.text = EnemyCurCount.ToString(); // 소환시 현재 카운트가 상승 화면에 표시 남은 몬스터 수 를 확인
             yield return new WaitForSeconds(Random.Range(1, 1.5f));
         }
-        if (dm.GetCurStage() % 5 == 0)
+        if (dm.GetCurStage() % 5 == 0) // 5라운드마다 보스라운드, 모든 몬스터가 소환된 후 보스 생성
         {
             GameObject EnemyPrefab = Resources.Load<GameObject>("SPUM/SPUM_Units/SPUM_Enemy/" + dm.GetEnemyData((CharacterState.EnemyJob)8).Job);
             GameObject CurEnemy = null;
@@ -146,11 +142,11 @@ public class StageManager : MonoBehaviour
             EnemyCurCount++;
             CurEnemyCountText.text = EnemyCurCount.ToString();
         }
-        StageProgress = false;
+        StageProgress = false; // 소환 종료 체크
     }
 
-    public void HpBarSet(int SlotNum, float curHp, float maxHp, int emptyIndex)
-    {
+    public void HpBarSet(int SlotNum, float curHp, float maxHp, int emptyIndex) // 소환된 유닛의 체력에 변화가 있을 때 값을 받아와 화면에 표시
+    {                                                                           // 소환, 소환취소, 피격, 회복 등
         if (emptyIndex != -1)
         {
             //if (CurHp[0] != MaxHp[0])
@@ -223,8 +219,8 @@ public class StageManager : MonoBehaviour
         UnitsHpBar.value = CurHpSum / MaxHpSum;
         HpText.text = CurHpSum + " / " + MaxHpSum;
 
-        if (CurHpSum <= 0)
-        {
+        if (CurHpSum <= 0) // 전체 체력을 모두 잃었을때 실행
+        {                  // 몬스터소환 코루틴 정지, 체력 리셋, 스테이지 클리어실패 패널 함수 실행
             Die = true;
             StopCoroutine("EnemyRepawn");
             CurHpSum = MaxHpSum;
@@ -232,34 +228,34 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    public void StagePanel(string Type)
+    public void StagePanel(string Type) // 호출 시 들어온 인자를 확인 해 스테이지 클리어, 실패를 확인
     {
         StageGettingReady = true;
         CoroutineCheck = 0;
         StageReset();
         stagePanel.SetActive(true);
-        if (dm.GetCurStage() == 1)
-            StageText[2].text = null;
+        if (dm.GetCurStage() == 1)      // 현재 스테이지가 1스테이지 일 경우 
+            StageText[2].text = null;   // 이전 스테이지 텍스트 null
         else
-            StageText[2].text = "Stage\n" + (dm.GetCurStage() - 1);
+            StageText[2].text = "Stage\n" + (dm.GetCurStage() - 1); // 이전 스테이지
         
-        StageText[3].text = "Stage\n" + dm.GetCurStage();
-        StageText[4].text = "Stage\n" + (dm.GetCurStage() + 1);
+        StageText[3].text = "Stage\n" + dm.GetCurStage();           // 현재 스테이지
+        StageText[4].text = "Stage\n" + (dm.GetCurStage() + 1);     // 다음 스테이지
         switch (Type)
         {
-            case "Fail":
-                ClearRewardGold.SetActive(false);
+            case "Fail":                                        // 스테이지 실패 시
+                ClearRewardGold.SetActive(false);               // 클리어 보상이 없음
                 ClearRewardDia.SetActive(false);
                 StageText[0].text = "Stage Fail";
                 StageText[1].text = "Back Stage Loading..";
-                if (dm.GetCurStage() > 1)
+                if (dm.GetCurStage() > 1)                       // 2스테이지 이상부터는 실패 시 이전 스테이지로 돌아감 ( 방치플레이중 계속 실패 방지 )
                     StartCoroutine(Loading("Back"));
                 else
                     StartCoroutine(Loading("Current"));
 
                 break;
-            case "Clear":
-                if (dm.GetMaxStage() < dm.GetCurStage())
+            case "Clear":                                       // 스테이지 클리어 시
+                if (dm.GetMaxStage() < dm.GetCurStage())        // 최대클리어 스테이지를 클리어한 현재 스테이지로 변경
                     dm.SetMaxStage(dm.GetCurStage());
 
                 StageText[0].text = "Stage Clear\n";
@@ -267,17 +263,17 @@ public class StageManager : MonoBehaviour
                 ClearRewardGold.SetActive(true);
                 ClearRewardDia.SetActive(true);
                 int clearGold = Random.Range(dm.GetCurStage() * 50, dm.GetCurStage() * 60);
-                StageText[5].text = clearGold.ToString(); // 클리어보상 골드
-                StageText[6].text = "1"; // 클리어보상 다이아 ( 현재 스테이지 첫클리어 100? 10? )
+                StageText[5].text = clearGold.ToString();
+                StageText[6].text = "1";
                 dm.SetGold(dm.GetGold() + clearGold);
                 dm.SetDiamond(dm.GetDiamond() + 1);
 
-                StartCoroutine(Loading("Current"));
+                StartCoroutine(Loading("Current"));             // 클리어 시 기본적으로 현재 스테이지를 무한반복 ( 원하는 스테이지 노가다 )
                 break;
         }
     }
 
-    IEnumerator Loading(string stage)
+    IEnumerator Loading(string stage) // 스테이지 클리어,실패 후 다음 스테이지를 선택하기 전 남은 시간을 보여줄 로딩바
     {
         LoadingBar.value = 0;
 
@@ -293,9 +289,9 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    void StageReset()
+    void StageReset() // 클리어 실패 시 남은 몬스터, 필드에 남아있는 스킬등 스테이지 시작 전 모두 리셋
     {
-        Transform[] EnemyList = GetComponentsInChildren<Transform>(true);                       // 적 삭제
+        Transform[] EnemyList = GetComponentsInChildren<Transform>(true);                       // 남아있는 몬스터 체크 후 모두 삭제
         if (EnemyList != null)
         {
             for (int i = 1; i < EnemyList.Length; i++)
@@ -311,7 +307,7 @@ public class StageManager : MonoBehaviour
 
         var UnitList = DeckData.FindAll(unit => unit != "empty");
         
-        foreach (string units in UnitList)                                                      // 유닛 초기화
+        foreach (string units in UnitList)                                                      // 소환된 유닛들의 체력을 모두 리셋
         {
             UnitFsm unit = GameObject.Find(units + "(Clone)").GetComponent<UnitFsm>();
             unit.CurHp = unit.MaxHp;
@@ -323,7 +319,7 @@ public class StageManager : MonoBehaviour
             unit.Box.ReSize();
         }
 
-        Transform[] skillList = GameObject.Find("Skill").GetComponentsInChildren<Transform>(true);
+        Transform[] skillList = GameObject.Find("Skill").GetComponentsInChildren<Transform>(true); // 필드에 남아있는 스킬 체크, 삭제
         if (skillList != null)
         {
             for (int i = 1; i < skillList.Length; i++)
@@ -337,18 +333,18 @@ public class StageManager : MonoBehaviour
         HpText.text = MaxHpSum + " / " + MaxHpSum;
     }
 
-    public void StageBtn(string Type)
+    public void StageBtn(string Type) // 이전, 현재, 다음 스테이지 선택
     {
         Die = false;
 
-        var UnitList = DeckData.FindAll(unit => unit != "empty");
+        var UnitList = DeckData.FindAll(unit => unit != "empty"); // 덱 데이터에서 소환되어있는 유닛정보를 가져와 사망(애니메이션)중인 유닛들을 리셋
         foreach (string units in UnitList)
         {
             UnitFsm unit = GameObject.Find(units + "(Clone)").GetComponent<UnitFsm>();
             unit._prefabs._anim.SetBool("EditChk", true);
             unit._prefabs.PlayAnimation(1);
         }
-        switch (Type)
+        switch (Type) // 별다른 선택이 없을 시 현재 스테이지 반복, 현재 스테이지를 클리어 하지 못했을 때 다음 스테이지 선택불가
         {
             case "Back":
                 if (dm.GetCurStage() > 1)
@@ -375,7 +371,7 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    IEnumerator ShowStage()
+    IEnumerator ShowStage() // 스테이지 시작 시 현재 스테이지 확인용 텍스트
     {
         float speed = 20;
         ShowStageText.gameObject.SetActive(true);
